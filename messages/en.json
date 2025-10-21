@@ -1,0 +1,242 @@
+{
+  "nav": {
+    "dashboard": "Dashboard",
+    "myAlerts": "My Alerts",
+    "newAlert": "New Alert",
+    "settings": "Settings",
+    "signIn": "Sign In",
+    "getStarted": "Get Started",
+    "logout": "Logout"
+  },
+  "home": {
+    "subtitle": "Intelligent monitoring that never sleeps",
+    "aiPowered": "AI-Powered",
+    "realtime": "Real-time",
+    "secure": "Secure",
+    "services": "Services",
+    "servicesTitle": "Monitor Everything That Matters",
+    "uptime": "Uptime",
+    "responseTime": "Response Time",
+    "activeAlerts": "Active Alerts",
+    "monitoring": "Monitoring"
+  },
+  "auth": {
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "name": "Name",
+    "phone": "Phone",
+    "rememberMe": "Remember me",
+    "forgotPassword": "Forgot password?",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "createAccount": "Create account",
+    "signInWithGoogle": "Sign in with Google",
+    "signInWithFacebook": "Sign in with Facebook",
+    "or": "or",
+    "agreeToTerms": "I agree to the terms and conditions",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service"
+  },
+  "dashboard": {
+    "welcome": "Welcome back, {name}!",
+    "subtitle": "Manage your alerts and stay informed",
+    "createFirstAlert": "Create Your First Alert",
+    "activeAlerts": "Active Alerts",
+    "notificationsSent": "Notifications Sent",
+    "systemStatus": "System Status",
+    "ready": "Ready",
+    "yourAlerts": "Your Alerts",
+    "noAlertsYet": "No alerts yet",
+    "noAlertsDescription": "Create your first alert to start monitoring what matters to you",
+    "allAlerts": "All Alerts",
+    "viewManageAlerts": "View and manage all your alerts"
+  },
+  "alerts": {
+    "createNew": "Create New Alert",
+    "quickSetup": "Quick Setup",
+    "title": "Title",
+    "type": "Type",
+    "status": "Status",
+    "active": "Active",
+    "paused": "Paused",
+    "edit": "Edit",
+    "delete": "Delete",
+    "notificationChannels": "Notification Channels",
+    "types": {
+      "crypto": "Crypto",
+      "weather": "Weather",
+      "stock": "Stock",
+      "news": "News",
+      "custom": "Custom"
+    },
+    "quickSetup": {
+      "title": "Create Your Alert",
+      "subtitle": "Set up monitoring in just 2 simple steps",
+      "selectService": "Select Service Type",
+      "selectServiceDesc": "What kind of alert would you like to create?",
+      "step1": "Configure",
+      "step2": "Channels",
+      "alertName": "Alert Name",
+      "alertNamePlaceholder": {
+        "crypto": "e.g., Bitcoin reaches $100k",
+        "stocks": "e.g., Apple stock hits $200",
+        "website": "e.g., My website goes down",
+        "weather": "e.g., Severe weather in Baku",
+        "currency": "e.g., USD/AZN reaches 1.70",
+        "flight": "e.g., J2 123 flight delayed"
+      },
+      "selectCrypto": "Select Cryptocurrency",
+      "threshold": "Threshold Value",
+      "thresholdPlaceholder": "e.g., $100,000",
+      "checkInterval": "Check Interval",
+      "interval": {
+        "5min": "5 minutes",
+        "15min": "15 minutes",
+        "30min": "30 minutes",
+        "1hour": "1 hour",
+        "6hours": "6 hours",
+        "24hours": "24 hours"
+      },
+      "aiTip": "AI Tip",
+      "aiTipDesc": "We can automatically set the best parameters for you",
+      "selectChannels": "Select Notification Channels",
+      "selectChannelsDesc": "Where would you like to receive notifications? You can select multiple.",
+      "channels": {
+        "email": "Email",
+        "emailDesc": "Send notifications to email",
+        "telegram": "Telegram",
+        "telegramDesc": "Instant notifications on Telegram",
+        "whatsapp": "WhatsApp",
+        "whatsappDesc": "Notifications via WhatsApp",
+        "sms": "SMS",
+        "smsDesc": "Send SMS to your phone",
+        "push": "Push Notification",
+        "pushDesc": "Browser push notification"
+      },
+      "channelsSelected": "{count} channels selected",
+      "createAlert": "Create Alert",
+      "creating": "Creating..."
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "account": "Account",
+    "notifications": "Notifications",
+    "privacy": "Privacy",
+    "manageAccount": "Manage your account and preferences"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Try again",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "back": "Back",
+    "next": "Next",
+    "finish": "Finish",
+    "close": "Close",
+    "search": "Search",
+    "all": "All",
+    "confirmDelete": "Are you sure you want to delete this alert?"
+  },
+  "search": {
+    "placeholder1": "Bitcoin reaches $100,000",
+    "placeholder2": "Website goes down",
+    "placeholder3": "Stock price drops 5%",
+    "placeholder4": "Weather alert in my area",
+    "placeholder5": "Currency rate changes",
+    "monitorWhen": "Monitor when",
+    "createAlert": "Create Alert",
+    "suggestion1": "Bitcoin $100k",
+    "suggestion2": "Website Monitor",
+    "suggestion3": "Stock Alerts",
+    "suggestion4": "Weather Updates"
+  },
+  "services": {
+    "crypto": {
+      "name": "Cryptocurrency",
+      "description": "Track Bitcoin, Ethereum & 50+ coins with real-time price alerts"
+    },
+    "stocks": {
+      "name": "Stock Market",
+      "description": "Monitor global stocks & indices"
+    },
+    "website": {
+      "name": "Website Uptime",
+      "description": "Instant downtime alerts"
+    },
+    "weather": {
+      "name": "Weather Alerts",
+      "description": "Severe weather notifications for your area"
+    },
+    "currency": {
+      "name": "Exchange Rates",
+      "description": "Currency fluctuation tracking"
+    },
+    "flight": {
+      "name": "Flight Tracker",
+      "description": "Gate changes & delays",
+      "stats": "On Time"
+    },
+    "popular": "Popular"
+  },
+  "footer": {
+    "allRightsReserved": "All rights reserved.",
+    "help": "Help",
+    "apiDocs": "API Docs",
+    "privacy": "Privacy",
+    "terms": "Terms"
+  },
+  "metadata": {
+    "title": "Task.az - Unified Notification Platform",
+    "description": "Monitor everything that matters. Get instant alerts for crypto, stocks, weather, and more."
+  },
+  "login": {
+    "welcomeBack": "Welcome Back",
+    "signInToManage": "Sign in to manage your alerts",
+    "emailAddress": "Email Address",
+    "password": "Password",
+    "forgotPassword": "Forgot password?",
+    "signIn": "Sign In",
+    "signingIn": "Signing in...",
+    "orContinueWith": "or continue with",
+    "google": "Google",
+    "github": "GitHub",
+    "noAccount": "Don't have an account?",
+    "signUp": "Sign up",
+    "invalidCredentials": "Invalid email or password",
+    "emailPlaceholder": "you@example.com",
+    "passwordPlaceholder": "••••••••"
+  },
+  "register": {
+    "createAccount": "Create Account",
+    "startMonitoring": "Start monitoring what matters to you",
+    "fullName": "Full Name",
+    "emailAddress": "Email Address",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "mustBe8Chars": "Must be at least 8 characters",
+    "agreeToTerms": "I agree to the",
+    "termsOfService": "Terms of Service",
+    "and": "and",
+    "privacyPolicy": "Privacy Policy",
+    "creatingAccount": "Creating account...",
+    "orContinueWith": "or continue with",
+    "google": "Google",
+    "github": "GitHub",
+    "alreadyHaveAccount": "Already have an account?",
+    "signIn": "Sign in",
+    "passwordsDoNotMatch": "Passwords do not match",
+    "passwordMin8": "Password must be at least 8 characters",
+    "registrationFailed": "Registration failed. Please try again.",
+    "namePlaceholder": "John Doe",
+    "emailPlaceholder": "you@example.com",
+    "passwordPlaceholder": "••••••••"
+  }
+}

@@ -1,0 +1,242 @@
+{
+  "nav": {
+    "dashboard": "Панель управления",
+    "myAlerts": "Мои уведомления",
+    "newAlert": "Новое уведомление",
+    "settings": "Настройки",
+    "signIn": "Войти",
+    "getStarted": "Начать",
+    "logout": "Выход"
+  },
+  "home": {
+    "subtitle": "Интеллектуальный мониторинг, который никогда не спит",
+    "aiPowered": "С ИИ",
+    "realtime": "Реальное время",
+    "secure": "Безопасно",
+    "services": "Сервисы",
+    "servicesTitle": "Мониторинг всего, что важно",
+    "uptime": "Время работы",
+    "responseTime": "Время отклика",
+    "activeAlerts": "Активные уведомления",
+    "monitoring": "Мониторинг"
+  },
+  "auth": {
+    "signIn": "Войти",
+    "signUp": "Регистрация",
+    "email": "Электронная почта",
+    "password": "Пароль",
+    "confirmPassword": "Подтвердите пароль",
+    "name": "Имя",
+    "phone": "Телефон",
+    "rememberMe": "Запомнить меня",
+    "forgotPassword": "Забыли пароль?",
+    "noAccount": "Нет учетной записи?",
+    "hasAccount": "Уже есть учетная запись?",
+    "createAccount": "Создать учетную запись",
+    "signInWithGoogle": "Войти через Google",
+    "signInWithFacebook": "Войти через Facebook",
+    "or": "или",
+    "agreeToTerms": "Я согласен с условиями использования",
+    "privacyPolicy": "Политика конфиденциальности",
+    "termsOfService": "Условия использования"
+  },
+  "dashboard": {
+    "welcome": "Добро пожаловать, {name}!",
+    "subtitle": "Управляйте своими уведомлениями и оставайтесь в курсе",
+    "createFirstAlert": "Создайте свое первое уведомление",
+    "activeAlerts": "Активные уведомления",
+    "notificationsSent": "Отправлено уведомлений",
+    "systemStatus": "Статус системы",
+    "ready": "Готов",
+    "yourAlerts": "Ваши уведомления",
+    "noAlertsYet": "Пока нет уведомлений",
+    "noAlertsDescription": "Создайте свое первое уведомление, чтобы начать отслеживать то, что важно для вас",
+    "allAlerts": "Все уведомления",
+    "viewManageAlerts": "Просмотр и управление всеми уведомлениями"
+  },
+  "alerts": {
+    "createNew": "Создать новое уведомление",
+    "quickSetup": "Быстрая настройка",
+    "title": "Заголовок",
+    "type": "Тип",
+    "status": "Статус",
+    "active": "Активно",
+    "paused": "Приостановлено",
+    "edit": "Редактировать",
+    "delete": "Удалить",
+    "notificationChannels": "Каналы уведомлений",
+    "types": {
+      "crypto": "Криптовалюта",
+      "weather": "Погода",
+      "stock": "Акции",
+      "news": "Новости",
+      "custom": "Пользовательский"
+    },
+    "quickSetup": {
+      "title": "Создать уведомление",
+      "subtitle": "Настройте мониторинг всего за 2 простых шага",
+      "selectService": "Выберите тип сервиса",
+      "selectServiceDesc": "Какой тип оповещения вы хотите создать?",
+      "step1": "Настройка",
+      "step2": "Каналы",
+      "alertName": "Название уведомления",
+      "alertNamePlaceholder": {
+        "crypto": "например, Bitcoin достигает $100k",
+        "stocks": "например, Акции Apple достигают $200",
+        "website": "например, Мой сайт не работает",
+        "weather": "например, Суровая погода в Баку",
+        "currency": "например, USD/AZN достигает 1.70",
+        "flight": "например, Рейс J2 123 задерживается"
+      },
+      "selectCrypto": "Выберите криптовалюту",
+      "threshold": "Пороговое значение",
+      "thresholdPlaceholder": "например, $100,000",
+      "checkInterval": "Интервал проверки",
+      "interval": {
+        "5min": "5 минут",
+        "15min": "15 минут",
+        "30min": "30 минут",
+        "1hour": "1 час",
+        "6hours": "6 часов",
+        "24hours": "24 часа"
+      },
+      "aiTip": "Совет ИИ",
+      "aiTipDesc": "Мы можем автоматически установить лучшие параметры для вас",
+      "selectChannels": "Выберите каналы уведомлений",
+      "selectChannelsDesc": "Где вы хотите получать уведомления? Можно выбрать несколько.",
+      "channels": {
+        "email": "Email",
+        "emailDesc": "Отправлять уведомления на email",
+        "telegram": "Telegram",
+        "telegramDesc": "Мгновенные уведомления в Telegram",
+        "whatsapp": "WhatsApp",
+        "whatsappDesc": "Уведомления через WhatsApp",
+        "sms": "SMS",
+        "smsDesc": "Отправить SMS на телефон",
+        "push": "Push-уведомление",
+        "pushDesc": "Push-уведомление браузера"
+      },
+      "channelsSelected": "Выбрано каналов: {count}",
+      "createAlert": "Создать уведомление",
+      "creating": "Создание..."
+    }
+  },
+  "settings": {
+    "title": "Настройки",
+    "account": "Учетная запись",
+    "notifications": "Уведомления",
+    "privacy": "Конфиденциальность",
+    "manageAccount": "Управление учетной записью и настройками"
+  },
+  "common": {
+    "loading": "Загрузка...",
+    "error": "Произошла ошибка",
+    "retry": "Попробовать снова",
+    "save": "Сохранить",
+    "cancel": "Отмена",
+    "delete": "Удалить",
+    "edit": "Редактировать",
+    "create": "Создать",
+    "back": "Назад",
+    "next": "Следующий",
+    "finish": "Завершить",
+    "close": "Закрыть",
+    "search": "Поиск",
+    "all": "Все",
+    "confirmDelete": "Вы уверены, что хотите удалить это оповещение?"
+  },
+  "search": {
+    "placeholder1": "Биткоин достигает $100,000",
+    "placeholder2": "Сайт не работает",
+    "placeholder3": "Цена акций падает на 5%",
+    "placeholder4": "Погодное предупреждение в моем районе",
+    "placeholder5": "Изменение курса валют",
+    "monitorWhen": "Отслеживать когда",
+    "createAlert": "Создать уведомление",
+    "suggestion1": "Bitcoin $100k",
+    "suggestion2": "Мониторинг сайта",
+    "suggestion3": "Уведомления об акциях",
+    "suggestion4": "Обновления погоды"
+  },
+  "services": {
+    "crypto": {
+      "name": "Криптовалюта",
+      "description": "Отслеживайте Bitcoin, Ethereum и более 50 монет с уведомлениями о ценах в реальном времени"
+    },
+    "stocks": {
+      "name": "Фондовый рынок",
+      "description": "Мониторинг мировых акций и индексов"
+    },
+    "website": {
+      "name": "Время работы сайта",
+      "description": "Мгновенные уведомления о простое"
+    },
+    "weather": {
+      "name": "Погодные уведомления",
+      "description": "Уведомления о суровой погоде в вашем районе"
+    },
+    "currency": {
+      "name": "Обменные курсы",
+      "description": "Отслеживание колебаний валют"
+    },
+    "flight": {
+      "name": "Отслеживание рейсов",
+      "description": "Изменения выхода и задержки",
+      "stats": "Вовремя"
+    },
+    "popular": "Популярно"
+  },
+  "footer": {
+    "allRightsReserved": "Все права защищены.",
+    "help": "Помощь",
+    "apiDocs": "Документация API",
+    "privacy": "Конфиденциальность",
+    "terms": "Условия"
+  },
+  "metadata": {
+    "title": "Task.az - Единая платформа уведомлений",
+    "description": "Отслеживайте все, что важно. Получайте мгновенные уведомления о криптовалютах, акциях, погоде и многом другом."
+  },
+  "login": {
+    "welcomeBack": "Добро пожаловать",
+    "signInToManage": "Войдите, чтобы управлять уведомлениями",
+    "emailAddress": "Электронная почта",
+    "password": "Пароль",
+    "forgotPassword": "Забыли пароль?",
+    "signIn": "Войти",
+    "signingIn": "Вход...",
+    "orContinueWith": "или продолжить с",
+    "google": "Google",
+    "github": "GitHub",
+    "noAccount": "Нет учетной записи?",
+    "signUp": "Регистрация",
+    "invalidCredentials": "Неверный email или пароль",
+    "emailPlaceholder": "you@example.com",
+    "passwordPlaceholder": "••••••••"
+  },
+  "register": {
+    "createAccount": "Создать учетную запись",
+    "startMonitoring": "Начните отслеживать то, что важно для вас",
+    "fullName": "Полное имя",
+    "emailAddress": "Электронная почта",
+    "password": "Пароль",
+    "confirmPassword": "Подтвердите пароль",
+    "mustBe8Chars": "Минимум 8 символов",
+    "agreeToTerms": "Я согласен с",
+    "termsOfService": "Условиями использования",
+    "and": "и",
+    "privacyPolicy": "Политикой конфиденциальности",
+    "creatingAccount": "Создание учетной записи...",
+    "orContinueWith": "или продолжить с",
+    "google": "Google",
+    "github": "GitHub",
+    "alreadyHaveAccount": "Уже есть учетная запись?",
+    "signIn": "Войти",
+    "passwordsDoNotMatch": "Пароли не совпадают",
+    "passwordMin8": "Пароль должен содержать не менее 8 символов",
+    "registrationFailed": "Регистрация не удалась. Попробуйте еще раз.",
+    "namePlaceholder": "Иван Иванов",
+    "emailPlaceholder": "you@example.com",
+    "passwordPlaceholder": "••••••••"
+  }
+}

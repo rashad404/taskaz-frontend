@@ -1,0 +1,242 @@
+{
+  "nav": {
+    "dashboard": "İdarə Paneli",
+    "myAlerts": "Mənim Bildirişlərim",
+    "newAlert": "Yeni Bildiriş",
+    "settings": "Parametrlər",
+    "signIn": "Daxil ol",
+    "getStarted": "Başla",
+    "logout": "Çıxış"
+  },
+  "home": {
+    "subtitle": "Heç vaxt yatmayan ağıllı monitorinq",
+    "aiPowered": "Süni İntellekt",
+    "realtime": "Real-vaxt",
+    "secure": "Təhlükəsiz",
+    "services": "Xidmətlər",
+    "servicesTitle": "Əhəmiyyətli hər şeyi izləyin",
+    "uptime": "İşləmə müddəti",
+    "responseTime": "Cavab müddəti",
+    "activeAlerts": "Aktiv Bildirişlər",
+    "monitoring": "Monitorinq"
+  },
+  "auth": {
+    "signIn": "Daxil ol",
+    "signUp": "Qeydiyyat",
+    "email": "E-poçt",
+    "password": "Şifrə",
+    "confirmPassword": "Şifrəni təsdiq edin",
+    "name": "Ad",
+    "phone": "Telefon",
+    "rememberMe": "Məni xatırla",
+    "forgotPassword": "Şifrəni unutdunuz?",
+    "noAccount": "Hesabınız yoxdur?",
+    "hasAccount": "Artıq hesabınız var?",
+    "createAccount": "Hesab yaradın",
+    "signInWithGoogle": "Google ilə daxil ol",
+    "signInWithFacebook": "Facebook ilə daxil ol",
+    "or": "və ya",
+    "agreeToTerms": "Mən istifadə şərtlərini qəbul edirəm",
+    "privacyPolicy": "Məxfilik Siyasəti",
+    "termsOfService": "İstifadə Şərtləri"
+  },
+  "dashboard": {
+    "welcome": "Xoş gəldiniz, {name}!",
+    "subtitle": "Bildirişlərinizi idarə edin və məlumatlandırılın",
+    "createFirstAlert": "İlk bildirişinizi yaradın",
+    "activeAlerts": "Aktiv Bildirişlər",
+    "notificationsSent": "Göndərilmiş Bildirişlər",
+    "systemStatus": "Sistem Statusu",
+    "ready": "Hazır",
+    "yourAlerts": "Sizin Bildirişlər",
+    "noAlertsYet": "Hələ bildiriş yoxdur",
+    "noAlertsDescription": "Sizə maraqlı olan şeyləri izləməyə başlamaq üçün ilk bildirişinizi yaradın",
+    "allAlerts": "Bütün Bildirişlər",
+    "viewManageAlerts": "Bütün bildirişlərinizi baxın və idarə edin"
+  },
+  "alerts": {
+    "createNew": "Yeni Bildiriş Yarat",
+    "quickSetup": "Sürətli Quraşdırma",
+    "title": "Başlıq",
+    "type": "Növ",
+    "status": "Status",
+    "active": "Aktiv",
+    "paused": "Dayandırılıb",
+    "edit": "Redaktə et",
+    "delete": "Sil",
+    "notificationChannels": "Bildiriş Kanalları",
+    "types": {
+      "crypto": "Kripto",
+      "weather": "Hava",
+      "stock": "Səhm",
+      "news": "Xəbərlər",
+      "custom": "Xüsusi"
+    },
+    "quickSetup": {
+      "title": "Bildirişinizi Yaradın",
+      "subtitle": "Cəmi 2 sadə addımda monitorinqi quraşdırın",
+      "selectService": "Xidmət Növünü Seçin",
+      "selectServiceDesc": "Hansı növ bildiriş yaratmaq istəyirsiniz?",
+      "step1": "Quraşdırma",
+      "step2": "Kanallar",
+      "alertName": "Bildiriş Adı",
+      "alertNamePlaceholder": {
+        "crypto": "Məsələn: Bitcoin 100k dollarına çatır",
+        "stocks": "Məsələn: Apple səhmi 200$ olur",
+        "website": "Məsələn: Saytım işləmir",
+        "weather": "Məsələn: Bakıda hava qəfil dəyişir",
+        "currency": "Məsələn: USD/AZN 1.70 olur",
+        "flight": "Məsələn: J2 123 uçuşu gecikirr"
+      },
+      "selectCrypto": "Kriptovalyuta seçin",
+      "threshold": "Hədd Dəyər",
+      "thresholdPlaceholder": "Məsələn: $100,000",
+      "checkInterval": "Yoxlama İntervalı",
+      "interval": {
+        "5min": "5 dəqiqə",
+        "15min": "15 dəqiqə",
+        "30min": "30 dəqiqə",
+        "1hour": "1 saat",
+        "6hours": "6 saat",
+        "24hours": "24 saat"
+      },
+      "aiTip": "Süni İntellekt Məsləhəti",
+      "aiTipDesc": "Avtomatik olaraq ən yaxşı parametrləri təyin edə bilərik",
+      "selectChannels": "Bildiriş Kanallarını Seçin",
+      "selectChannelsDesc": "Bildirişləri haradan almaq istəyirsiniz? Bir neçəsini seçə bilərsiniz.",
+      "channels": {
+        "email": "E-poçt",
+        "emailDesc": "Elektron poçta bildiriş göndər",
+        "telegram": "Telegram",
+        "telegramDesc": "Telegram-da ani bildiriş",
+        "whatsapp": "WhatsApp",
+        "whatsappDesc": "WhatsApp vasitəsilə bildiriş",
+        "sms": "SMS",
+        "smsDesc": "Telefon nömrənizə SMS göndər",
+        "push": "Push Bildiriş",
+        "pushDesc": "Brauzer push bildirişi"
+      },
+      "channelsSelected": "{count} kanal seçildi",
+      "createAlert": "Bildiriş Yarat",
+      "creating": "Yaradılır..."
+    }
+  },
+  "settings": {
+    "title": "Parametrlər",
+    "account": "Hesab",
+    "notifications": "Bildirişlər",
+    "privacy": "Məxfilik",
+    "manageAccount": "Hesabınızı və parametrlərinizi idarə edin"
+  },
+  "common": {
+    "loading": "Yüklənir...",
+    "error": "Xəta baş verdi",
+    "retry": "Yenidən cəhd et",
+    "save": "Yadda saxla",
+    "cancel": "Ləğv et",
+    "delete": "Sil",
+    "edit": "Redaktə et",
+    "create": "Yarat",
+    "back": "Geri",
+    "next": "Növbəti",
+    "finish": "Bitir",
+    "close": "Bağla",
+    "search": "Axtar",
+    "all": "Hamısı",
+    "confirmDelete": "Bu bildirişi silmək istədiyinizə əminsiniz?"
+  },
+  "search": {
+    "placeholder1": "Bitcoin 100,000 dollara çatır",
+    "placeholder2": "Veb-sayt işləmir",
+    "placeholder3": "Səhm qiyməti 5% düşür",
+    "placeholder4": "Mənim ərazimdə hava xəbərdarlığı",
+    "placeholder5": "Valyuta məzənnəsi dəyişir",
+    "monitorWhen": "İzləyin nə zaman",
+    "createAlert": "Bildiriş Yarat",
+    "suggestion1": "Bitcoin $100k",
+    "suggestion2": "Veb-sayt Monitoru",
+    "suggestion3": "Səhm Bildirişləri",
+    "suggestion4": "Hava Yenilikləri"
+  },
+  "services": {
+    "crypto": {
+      "name": "Kriptovalyuta",
+      "description": "Bitcoin, Ethereum və 50+ koinləri real-vaxt qiymət bildirişləri ilə izləyin"
+    },
+    "stocks": {
+      "name": "Səhm Bazarı",
+      "description": "Qlobal səhmlər və indeksləri izləyin"
+    },
+    "website": {
+      "name": "Veb-sayt İşləmə Vaxtı",
+      "description": "Dərhal işləməmə bildirişləri"
+    },
+    "weather": {
+      "name": "Hava Bildirişləri",
+      "description": "Ərazinizdə ciddi hava bildirişləri"
+    },
+    "currency": {
+      "name": "Valyuta Məzənnələri",
+      "description": "Valyuta dəyişikliklərinin izlənməsi"
+    },
+    "flight": {
+      "name": "Uçuş İzləyicisi",
+      "description": "Dəhliz dəyişiklikləri və gecikmələr",
+      "stats": "Vaxtında"
+    },
+    "popular": "Populyar"
+  },
+  "footer": {
+    "allRightsReserved": "Bütün hüquqlar qorunur.",
+    "help": "Kömək",
+    "apiDocs": "API Sənədləri",
+    "privacy": "Məxfilik",
+    "terms": "Şərtlər"
+  },
+  "metadata": {
+    "title": "Task.az - Vahid Bildiriş Platforması",
+    "description": "Əhəmiyyətli hər şeyi izləyin. Kripto, səhmlər, hava və daha çoxu üçün ani bildirişlər alın."
+  },
+  "login": {
+    "welcomeBack": "Xoş gəlmisiniz",
+    "signInToManage": "Bildirişlərinizi idarə etmək üçün daxil olun",
+    "emailAddress": "E-poçt ünvanı",
+    "password": "Şifrə",
+    "forgotPassword": "Şifrəni unutdunuz?",
+    "signIn": "Daxil ol",
+    "signingIn": "Daxil olunur...",
+    "orContinueWith": "və ya davam edin",
+    "google": "Google",
+    "github": "GitHub",
+    "noAccount": "Hesabınız yoxdur?",
+    "signUp": "Qeydiyyat",
+    "invalidCredentials": "Yanlış e-poçt və ya şifrə",
+    "emailPlaceholder": "siz@sayt.az",
+    "passwordPlaceholder": "••••••••"
+  },
+  "register": {
+    "createAccount": "Hesab Yaradın",
+    "startMonitoring": "Sizə maraqlı olan şeyləri izləməyə başlayın",
+    "fullName": "Tam Ad",
+    "emailAddress": "E-poçt ünvanı",
+    "password": "Şifrə",
+    "confirmPassword": "Şifrəni təsdiq edin",
+    "mustBe8Chars": "Ən azı 8 simvol olmalıdır",
+    "agreeToTerms": "Mən razıyam",
+    "termsOfService": "İstifadə Şərtləri",
+    "and": "və",
+    "privacyPolicy": "Məxfilik Siyasəti",
+    "creatingAccount": "Hesab yaradılır...",
+    "orContinueWith": "və ya davam edin",
+    "google": "Google",
+    "github": "GitHub",
+    "alreadyHaveAccount": "Artıq hesabınız var?",
+    "signIn": "Daxil ol",
+    "passwordsDoNotMatch": "Şifrələr uyğun gəlmir",
+    "passwordMin8": "Şifrə ən azı 8 simvol olmalıdır",
+    "registrationFailed": "Qeydiyyat uğursuz oldu. Yenidən cəhd edin.",
+    "namePlaceholder": "Əli Əliyev",
+    "emailPlaceholder": "siz@sayt.az",
+    "passwordPlaceholder": "••••••••"
+  }
+}
