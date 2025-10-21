@@ -23,6 +23,7 @@ export default function ProfileSettingsPage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState({ type: '', text: '' });
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -67,6 +68,7 @@ export default function ProfileSettingsPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setMessage({ type: '', text: '' });
+    setErrors({});
     setSaving(true);
 
     try {
@@ -86,8 +88,26 @@ export default function ProfileSettingsPage() {
       if (response.ok) {
         setMessage({ type: 'success', text: 'Profil uğurla yeniləndi' });
         setUser(data.data);
+        setErrors({});
       } else {
-        setMessage({ type: 'error', text: data.message || 'Xəta baş verdi' });
+        // Handle validation errors
+        if (data.errors && typeof data.errors === 'object') {
+          // Laravel validation errors format
+          const fieldErrors: Record<string, string> = {};
+          Object.keys(data.errors).forEach(field => {
+            // Get first error message for each field
+            fieldErrors[field] = Array.isArray(data.errors[field])
+              ? data.errors[field][0]
+              : data.errors[field];
+          });
+          setErrors(fieldErrors);
+          setMessage({
+            type: 'error',
+            text: 'Xahiş edirik, formdakı xətaları düzəldin'
+          });
+        } else {
+          setMessage({ type: 'error', text: data.message || 'Xəta baş verdi' });
+        }
       }
     } catch (err) {
       setMessage({ type: 'error', text: 'Serverlə əlaqə xətası' });
@@ -163,9 +183,16 @@ export default function ProfileSettingsPage() {
                 required
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className="w-full px-4 py-3 rounded-2xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+                className={`w-full px-4 py-3 rounded-2xl border ${
+                  errors.name
+                    ? 'border-red-500 dark:border-red-500'
+                    : 'border-gray-300 dark:border-gray-700'
+                } bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all`}
                 placeholder="Adınızı daxil edin"
               />
+              {errors.name && (
+                <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.name}</p>
+              )}
             </div>
 
             {/* Email */}
@@ -181,9 +208,16 @@ export default function ProfileSettingsPage() {
                 required
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="w-full px-4 py-3 rounded-2xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+                className={`w-full px-4 py-3 rounded-2xl border ${
+                  errors.email
+                    ? 'border-red-500 dark:border-red-500'
+                    : 'border-gray-300 dark:border-gray-700'
+                } bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all`}
                 placeholder="email@example.com"
               />
+              {errors.email && (
+                <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.email}</p>
+              )}
             </div>
 
             {/* Phone */}
@@ -198,9 +232,16 @@ export default function ProfileSettingsPage() {
                 type="tel"
                 value={formData.phone}
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                className="w-full px-4 py-3 rounded-2xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+                className={`w-full px-4 py-3 rounded-2xl border ${
+                  errors.phone
+                    ? 'border-red-500 dark:border-red-500'
+                    : 'border-gray-300 dark:border-gray-700'
+                } bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all`}
                 placeholder="+994 XX XXX XX XX"
               />
+              {errors.phone && (
+                <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.phone}</p>
+              )}
             </div>
 
             {/* Location */}
@@ -215,9 +256,16 @@ export default function ProfileSettingsPage() {
                 type="text"
                 value={formData.location}
                 onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                className="w-full px-4 py-3 rounded-2xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+                className={`w-full px-4 py-3 rounded-2xl border ${
+                  errors.location
+                    ? 'border-red-500 dark:border-red-500'
+                    : 'border-gray-300 dark:border-gray-700'
+                } bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all`}
                 placeholder="Şəhər, Ölkə"
               />
+              {errors.location && (
+                <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.location}</p>
+              )}
             </div>
 
             {/* Bio */}
@@ -232,12 +280,20 @@ export default function ProfileSettingsPage() {
                 rows={6}
                 value={formData.bio}
                 onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
-                className="w-full px-4 py-3 rounded-2xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all resize-none"
+                className={`w-full px-4 py-3 rounded-2xl border ${
+                  errors.bio
+                    ? 'border-red-500 dark:border-red-500'
+                    : 'border-gray-300 dark:border-gray-700'
+                } bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all resize-none`}
                 placeholder="Özünüz haqqında qısa məlumat yazın..."
               />
-              <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
-                Bu məlumat profil səhifənizdə göstəriləcək
-              </p>
+              {errors.bio ? (
+                <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.bio}</p>
+              ) : (
+                <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                  Bu məlumat profil səhifənizdə göstəriləcək
+                </p>
+              )}
             </div>
           </div>
 

@@ -99,19 +99,50 @@ export default function TaskCreateForm({ locale }: TaskCreateFormProps) {
 
     try {
       // Create FormData for file upload
-      const submitData = {
-        title: formData.title!,
-        description: formData.description!,
-        category_id: formData.category_id!,
-        budget_type: formData.budget_type!,
-        budget_amount: formData.budget_amount,
-        is_remote: formData.is_remote!,
-        location: formData.is_remote ? null : formData.location,
-        deadline: formData.deadline,
-        skills: formData.skills,
-      };
+      const formDataToSend = new FormData();
 
-      const task = await tasksApi.create(submitData);
+      formDataToSend.append('title', formData.title!);
+      formDataToSend.append('description', formData.description!);
+      formDataToSend.append('category_id', formData.category_id!.toString());
+      formDataToSend.append('budget_type', formData.budget_type!);
+
+      if (formData.budget_amount) {
+        formDataToSend.append('budget_amount', formData.budget_amount.toString());
+      }
+
+      formDataToSend.append('is_remote', formData.is_remote ? '1' : '0');
+
+      if (!formData.is_remote && formData.location) {
+        formDataToSend.append('location', formData.location);
+      }
+
+      if (formData.deadline) {
+        formDataToSend.append('deadline', formData.deadline);
+      }
+
+      // Add files if any
+      if (formData.attachments && formData.attachments.length > 0) {
+        formData.attachments.forEach((file) => {
+          formDataToSend.append('attachments[]', file);
+        });
+      }
+
+      // Send multipart form data
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tasks`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+        body: formDataToSend,
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to create task');
+      }
+
+      const result = await response.json();
+      const task = result.data;
 
       // Clear draft
       clearDraft();
@@ -126,18 +157,10 @@ export default function TaskCreateForm({ locale }: TaskCreateFormProps) {
       }, 2000);
     } catch (error: any) {
       console.error('Failed to create task:', error);
-      const isUnauthorized = error.response?.status === 401;
 
-      if (isUnauthorized) {
-        // Save draft before showing auth modal
-        saveDraft();
-        setShowAuthModal(true);
-        setShowPreview(false);
-      } else {
-        // Show API error
-        setApiError(error.response?.data?.message || t('error.generic'));
-        setShowPreview(false);
-      }
+      // Show API error
+      setApiError(error.message || t('error.generic'));
+      setShowPreview(false);
     } finally {
       setSubmitting(false);
     }

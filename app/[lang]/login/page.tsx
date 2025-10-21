@@ -212,7 +212,7 @@ export default function LoginPage() {
         {/* Sign Up Link */}
         <p className="mt-6 text-center text-sm text-gray-600 dark:text-gray-400">
           {t('login.noAccount')}{' '}
-          <Link href="/register" className="font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors">
+          <Link href="/az/register" className="font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors">
             {t('login.signUp')}
           </Link>
         </p>

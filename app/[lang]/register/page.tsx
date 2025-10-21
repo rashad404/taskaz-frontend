@@ -296,7 +296,7 @@ export default function RegisterPage() {
         {/* Sign In Link */}
         <p className="mt-6 text-center text-sm text-gray-600 dark:text-gray-400">
           {t('register.alreadyHaveAccount')}{' '}
-          <Link href="/login" className="font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors">
+          <Link href="/az/login" className="font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors">
             {t('register.signIn')}
           </Link>
         </p>

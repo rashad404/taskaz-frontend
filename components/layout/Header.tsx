@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useRouter, usePathname } from 'next/navigation';
+import { useRouter, usePathname, useParams } from 'next/navigation';
 import { Menu, X, CheckSquare, User, LogOut } from 'lucide-react';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { useTranslations } from 'next-intl';
@@ -15,9 +15,10 @@ export default function Header() {
   const [isMounted, setIsMounted] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
+  const params = useParams();
 
-  // Extract locale from pathname
-  const locale = pathname?.split('/')[1] || 'az';
+  // Get locale from params (proper way for next-intl)
+  const locale = (params?.lang as string) || 'az';
 
   // Check authentication status
   const checkAuth = () => {
@@ -87,7 +88,7 @@ export default function Header() {
           <div className={`hidden md:flex items-center gap-6 transition-opacity duration-300 ${isMounted ? 'opacity-100' : 'opacity-0'}`}>
             {isAuthenticated && (
               <Link
-                href="/dashboard"
+                href={`/${locale}/dashboard`}
                 className={`text-sm font-medium transition-colors ${
                   pathname === '/dashboard'
                     ? 'text-[rgb(81,91,195)]'
@@ -156,14 +157,14 @@ export default function Header() {
             {isAuthenticated ? (
               <div className="space-y-1">
                 <Link
-                  href="/dashboard"
+                  href={`/${locale}/dashboard`}
                   className="block px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {t('nav.dashboard')}
                 </Link>
                 <Link
-                  href="/settings"
+                  href={`/${locale}/settings`}
                   className="block px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg"
                   onClick={() => setIsMenuOpen(false)}
                 >
