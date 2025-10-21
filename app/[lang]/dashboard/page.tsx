@@ -1,251 +1,293 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useParams } from 'next/navigation';
 import Link from 'next/link';
-import { Bell, Plus, TrendingUp, Activity, Settings, Bitcoin, Globe, BarChart3, Play, Pause } from 'lucide-react';
-import { useTranslations } from 'next-intl';
-
-type AlertService = 'crypto' | 'stocks' | 'website' | 'weather' | 'currency' | 'flight';
-type AlertStatus = 'active' | 'paused';
-
-interface Alert {
-  id: string;
-  name: string;
-  service: AlertService;
-  threshold: string;
-  interval: string;
-  channels: string[];
-  status: AlertStatus;
-  lastTriggered?: Date;
-  createdAt: Date;
-}
-
-const serviceIcons = {
-  crypto: Bitcoin,
-  stocks: BarChart3,
-  website: Globe,
-  weather: Bell,
-  currency: TrendingUp,
-  flight: Activity,
-};
-
-const serviceGradients = {
-  crypto: 'from-orange-500 to-yellow-500',
-  stocks: 'from-blue-500 to-cyan-500',
-  website: 'from-green-500 to-emerald-500',
-  weather: 'from-purple-500 to-pink-500',
-  currency: 'from-indigo-500 to-purple-500',
-  flight: 'from-sky-500 to-blue-500',
-};
-
-// Helper function to normalize old interval formats to new ones
-const normalizeInterval = (interval: string): string => {
-  const intervalMap: { [key: string]: string } = {
-    '5m': '5min',
-    '15m': '15min',
-    '30m': '30min',
-    '1h': '1hour',
-    '6h': '6hours',
-    '24h': '24hours',
-  };
-  return intervalMap[interval] || interval;
-};
+import {
+  Briefcase,
+  Plus,
+  Users,
+  MessageSquare,
+  TrendingUp,
+  Clock,
+  CheckCircle,
+  FileText,
+  Search,
+  Loader2
+} from 'lucide-react';
 
 export default function DashboardPage() {
-  const t = useTranslations();
   const router = useRouter();
+  const params = useParams();
+  const locale = (params?.lang as string) || 'az';
+
   const [user, setUser] = useState<any>(null);
-  const [alerts, setAlerts] = useState<Alert[]>([]);
+  const [stats, setStats] = useState({
+    myTasks: 0,
+    applications: 0,
+    activeContracts: 0,
+    unreadMessages: 0
+  });
+  const [recentTasks, setRecentTasks] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const activeAlertsCount = alerts.filter(a => a.status === 'active').length;
-  const triggeredCount = alerts.filter(a => a.lastTriggered).length;
-
   useEffect(() => {
-    // Check authentication
     const token = localStorage.getItem('token');
+
     if (!token) {
-      router.push('/login');
+      router.push(`/${locale}/login`);
       return;
     }
 
-    // Mock user data - replace with actual API call
-    setUser({ name: 'User', email: 'user@example.com' });
-
-    // Load alerts from localStorage
-    const stored = localStorage.getItem('alerts');
-    if (stored) {
+    // Fetch user data
+    const fetchData = async () => {
       try {
-        const parsed = JSON.parse(stored);
-        const loadedAlerts = parsed.map((alert: any) => ({
-          ...alert,
-          lastTriggered: alert.lastTriggered ? new Date(alert.lastTriggered) : undefined,
-          createdAt: new Date(alert.createdAt),
-        }));
-        setAlerts(loadedAlerts);
-      } catch (e) {
-        console.error('Failed to load alerts:', e);
-      }
-    }
-    setIsLoading(false);
-  }, [router]);
+        const userRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
 
-  if (!user) {
+        if (userRes.ok) {
+          const userData = await userRes.json();
+          setUser(userData.data);
+        }
+
+        // Fetch my tasks
+        const tasksRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/my-tasks`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+
+        if (tasksRes.ok) {
+          const tasksData = await tasksRes.json();
+          setRecentTasks(tasksData.data?.data?.slice(0, 3) || []);
+          setStats(prev => ({ ...prev, myTasks: tasksData.data?.total || 0 }));
+        }
+
+        // Fetch my applications
+        const appsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/my-applications`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+
+        if (appsRes.ok) {
+          const appsData = await appsRes.json();
+          setStats(prev => ({ ...prev, applications: appsData.data?.total || 0 }));
+        }
+
+        // Fetch contracts
+        const contractsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/contracts`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+
+        if (contractsRes.ok) {
+          const contractsData = await contractsRes.json();
+          // Handle both paginated and direct array responses
+          const contracts = Array.isArray(contractsData.data)
+            ? contractsData.data
+            : (contractsData.data?.data || []);
+          const activeContracts = contracts.filter((c: any) => c.status === 'active').length || 0;
+          setStats(prev => ({ ...prev, activeContracts }));
+        }
+
+        // Fetch unread messages count
+        const messagesRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/messages/unread-count`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+
+        if (messagesRes.ok) {
+          const messagesData = await messagesRes.json();
+          setStats(prev => ({ ...prev, unreadMessages: messagesData.data?.unread_count || 0 }));
+        }
+      } catch (err) {
+        console.error('Failed to fetch dashboard data:', err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [router, locale]);
+
+  if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-pulse text-indigo-600 dark:text-indigo-400">Loading...</div>
-        </div>
+        <Loader2 className="w-8 h-8 animate-spin text-indigo-600" />
       </div>
     );
   }
 
-  return (
-    <div className="relative min-h-screen overflow-hidden">
-      {/* Background Effects */}
-      <div className="fixed inset-0 z-[-10]">
-        <div className="absolute inset-0 mesh-gradient opacity-30" />
-      </div>
+  if (!user) {
+    return null;
+  }
 
-      <div className="max-w-7xl mx-auto px-6 py-12">
+  return (
+    <div className="min-h-screen py-8 px-4 sm:px-6">
+      <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-12">
           <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2">
-            {t('dashboard.welcome', { name: user.name })}
+            Xoş gəldiniz, {user.name}!
           </h1>
           <p className="text-gray-600 dark:text-gray-400">
-            {t('dashboard.subtitle')}
+            İşlərinizi və freelancerlərinizi burada idarə edin
           </p>
         </div>
 
         {/* Quick Actions */}
-        <div className="mb-12">
+        <div className="mb-12 flex flex-wrap gap-4">
           <Link
-            href="/alerts/quick-setup"
+            href={`/${locale}/tasks/create`}
             className="inline-flex items-center gap-2 btn-primary group"
           >
             <Plus className="w-5 h-5" />
-            <span>{t('alerts.createNew')}</span>
+            <span>Tapşırıq Yarat</span>
+          </Link>
+
+          <Link
+            href={`/${locale}/freelancers`}
+            className="inline-flex items-center gap-2 btn-secondary group"
+          >
+            <Search className="w-5 h-5" />
+            <span>Freelancer Tap</span>
           </Link>
         </div>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          {/* Active Alerts */}
-          <div className="card-glass rounded-3xl p-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+          {/* My Tasks */}
+          <div className="rounded-3xl p-6 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-white/30 dark:border-gray-700/30">
             <div className="flex items-center justify-between mb-4">
               <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center">
-                <Bell className="w-6 h-6 text-white" />
+                <Briefcase className="w-6 h-6 text-white" />
               </div>
-              <TrendingUp className="w-5 h-5 text-green-500" />
+              <TrendingUp className="w-5 h-5 text-blue-500" />
             </div>
-            <div className="text-3xl font-bold text-gray-900 dark:text-white mb-1">{activeAlertsCount}</div>
-            <div className="text-sm text-gray-600 dark:text-gray-400">{t('dashboard.activeAlerts')}</div>
+            <div className="text-3xl font-bold text-gray-900 dark:text-white mb-1">
+              {stats.myTasks}
+            </div>
+            <div className="text-sm text-gray-600 dark:text-gray-400">Mənim Tapşırıqlarım</div>
           </div>
 
-          {/* Notifications Sent */}
-          <div className="card-glass rounded-3xl p-6">
+          {/* Applications */}
+          <div className="rounded-3xl p-6 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-white/30 dark:border-gray-700/30">
             <div className="flex items-center justify-between mb-4">
               <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
-                <Activity className="w-6 h-6 text-white" />
+                <FileText className="w-6 h-6 text-white" />
               </div>
             </div>
-            <div className="text-3xl font-bold text-gray-900 dark:text-white mb-1">{triggeredCount}</div>
-            <div className="text-sm text-gray-600 dark:text-gray-400">{t('dashboard.notificationsSent')}</div>
+            <div className="text-3xl font-bold text-gray-900 dark:text-white mb-1">
+              {stats.applications}
+            </div>
+            <div className="text-sm text-gray-600 dark:text-gray-400">Müraciətlərim</div>
           </div>
 
-          {/* System Status */}
-          <div className="card-glass rounded-3xl p-6">
+          {/* Active Contracts */}
+          <div className="rounded-3xl p-6 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-white/30 dark:border-gray-700/30">
             <div className="flex items-center justify-between mb-4">
               <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center">
-                <Settings className="w-6 h-6 text-white" />
+                <CheckCircle className="w-6 h-6 text-white" />
               </div>
             </div>
-            <div className="text-3xl font-bold text-gray-900 dark:text-white mb-1">{t('dashboard.ready')}</div>
-            <div className="text-sm text-gray-600 dark:text-gray-400">{t('dashboard.systemStatus')}</div>
+            <div className="text-3xl font-bold text-gray-900 dark:text-white mb-1">
+              {stats.activeContracts}
+            </div>
+            <div className="text-sm text-gray-600 dark:text-gray-400">Aktiv İşlər</div>
+          </div>
+
+          {/* Messages */}
+          <div className="rounded-3xl p-6 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-white/30 dark:border-gray-700/30">
+            <div className="flex items-center justify-between mb-4">
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center relative">
+                <MessageSquare className="w-6 h-6 text-white" />
+                {stats.unreadMessages > 0 && (
+                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs font-bold rounded-full flex items-center justify-center">
+                    {stats.unreadMessages > 9 ? '9+' : stats.unreadMessages}
+                  </span>
+                )}
+              </div>
+            </div>
+            <div className="text-3xl font-bold text-gray-900 dark:text-white mb-1">
+              {stats.unreadMessages}
+            </div>
+            <div className="text-sm text-gray-600 dark:text-gray-400">Oxunmamış Mesajlar</div>
           </div>
         </div>
 
-        {/* Recent Alerts */}
-        <div className="card-glass rounded-3xl p-8 mb-12">
+        {/* Recent Tasks */}
+        <div className="rounded-3xl p-8 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-white/30 dark:border-gray-700/30 mb-12">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-              {t('dashboard.yourAlerts')}
+              Son Tapşırıqlar
             </h2>
             <Link
-              href="/alerts"
+              href={`/${locale}/my-tasks`}
               className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 text-sm font-medium"
             >
-              {t('dashboard.allAlerts')} →
+              Hamısına bax →
             </Link>
           </div>
 
           <div className="space-y-4">
-            {alerts.length === 0 ? (
+            {recentTasks.length === 0 ? (
               <div className="text-center py-12">
                 <div className="inline-flex items-center justify-center w-16 h-16 mb-4 relative">
                   <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-indigo-500 to-purple-500 opacity-20 blur-xl" />
                   <div className="relative w-16 h-16 rounded-3xl bg-gradient-to-br from-indigo-500 to-purple-500 p-[1px]">
                     <div className="w-full h-full rounded-3xl bg-white dark:bg-gray-900 flex items-center justify-center">
-                      <Bell className="w-8 h-8 text-gray-900 dark:text-white" />
+                      <Briefcase className="w-8 h-8 text-gray-900 dark:text-white" />
                     </div>
                   </div>
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
-                  {t('dashboard.noAlertsYet')}
+                  Hələ tapşırıq yoxdur
                 </h3>
                 <p className="text-gray-600 dark:text-gray-400 mb-6">
-                  {t('dashboard.noAlertsDescription')}
+                  İlk tapşırığınızı yaradın və ən yaxşı freelancerləri tapın
                 </p>
                 <Link
-                  href="/alerts/quick-setup"
+                  href={`/${locale}/tasks/create`}
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl font-medium text-white bg-gradient-to-r from-indigo-500 to-purple-500 hover:shadow-lg hover:scale-105 transition-all duration-300"
                 >
                   <Plus className="w-5 h-5" />
-                  {t('dashboard.createFirstAlert')}
+                  İlk Tapşırığı Yarat
                 </Link>
               </div>
             ) : (
-              alerts.slice(0, 3).map((alert) => {
-                const ServiceIcon = serviceIcons[alert.service];
-                const gradient = serviceGradients[alert.service];
-
-                return (
-                  <div
-                    key={alert.id}
-                    className="flex items-center gap-4 p-4 rounded-2xl bg-white/50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 hover:bg-white dark:hover:bg-gray-800 transition-all"
-                  >
-                    {/* Icon */}
-                    <div className="relative flex-shrink-0">
-                      <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${gradient} p-[1px]`}>
-                        <div className="w-full h-full rounded-xl bg-white dark:bg-gray-900 flex items-center justify-center">
-                          <ServiceIcon className="w-6 h-6 text-gray-900 dark:text-white" />
-                        </div>
+              recentTasks.map((task) => (
+                <Link
+                  key={task.id}
+                  href={`/${locale}/tasks/${task.slug}`}
+                  className="flex items-center gap-4 p-4 rounded-2xl bg-white/50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 hover:bg-white dark:hover:bg-gray-800 transition-all"
+                >
+                  {/* Icon */}
+                  <div className="relative flex-shrink-0">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-500 p-[1px]">
+                      <div className="w-full h-full rounded-xl bg-white dark:bg-gray-900 flex items-center justify-center">
+                        <Briefcase className="w-6 h-6 text-gray-900 dark:text-white" />
                       </div>
                     </div>
-
-                    {/* Content */}
-                    <div className="flex-1 min-w-0">
-                      <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
-                        {alert.name}
-                      </h3>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
-                        {alert.threshold} • {t(`alerts.quickSetup.interval.${normalizeInterval(alert.interval)}`)}
-                      </p>
-                    </div>
-
-                    {/* Status */}
-                    <span className={`px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap ${
-                      alert.status === 'active'
-                        ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300'
-                        : 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300'
-                    }`}>
-                      {t(`alerts.${alert.status}`)}
-                    </span>
                   </div>
-                );
-              })
+
+                  {/* Content */}
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-semibold text-gray-900 dark:text-white mb-1 truncate">
+                      {task.title}
+                    </h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                      {task.budget_amount} AZN • {task.applications_count || 0} müraciət
+                    </p>
+                  </div>
+
+                  {/* Status */}
+                  <span className={`px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap ${
+                    task.status === 'open'
+                      ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300'
+                      : task.status === 'assigned'
+                      ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300'
+                      : 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300'
+                  }`}>
+                    {task.status === 'open' ? 'Açıq' : task.status === 'assigned' ? 'Təyin edilib' : 'Tamamlandı'}
+                  </span>
+                </Link>
+              ))
             )}
           </div>
         </div>
@@ -253,38 +295,43 @@ export default function DashboardPage() {
         {/* Quick Links */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Link
-            href="/settings"
-            className="card-glass rounded-3xl p-6 hover:scale-105 transition-transform duration-300"
+            href={`/${locale}/my-tasks`}
+            className="rounded-3xl p-6 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-white/30 dark:border-gray-700/30 hover:scale-105 transition-transform duration-300"
           >
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center">
-                <Settings className="w-6 h-6 text-white" />
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-500 flex items-center justify-center">
+                <Briefcase className="w-6 h-6 text-white" />
               </div>
               <div>
                 <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1">
-                  {t('nav.settings')}
+                  Tapşırıqlarım
                 </h3>
                 <p className="text-sm text-gray-600 dark:text-gray-400">
-                  {t('settings.manageAccount')}
+                  Bütün tapşırıqlarınızı görün
                 </p>
               </div>
             </div>
           </Link>
 
           <Link
-            href="/alerts"
-            className="card-glass rounded-3xl p-6 hover:scale-105 transition-transform duration-300"
+            href={`/${locale}/conversations`}
+            className="rounded-3xl p-6 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-white/30 dark:border-gray-700/30 hover:scale-105 transition-transform duration-300"
           >
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-500 flex items-center justify-center">
-                <Bell className="w-6 h-6 text-white" />
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center relative">
+                <MessageSquare className="w-6 h-6 text-white" />
+                {stats.unreadMessages > 0 && (
+                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs font-bold rounded-full flex items-center justify-center">
+                    {stats.unreadMessages > 9 ? '9+' : stats.unreadMessages}
+                  </span>
+                )}
               </div>
               <div>
                 <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1">
-                  {t('dashboard.allAlerts')}
+                  Mesajlar
                 </h3>
                 <p className="text-sm text-gray-600 dark:text-gray-400">
-                  {t('dashboard.viewManageAlerts')}
+                  Danışıqlarınız
                 </p>
               </div>
             </div>

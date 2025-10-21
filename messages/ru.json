@@ -194,8 +194,8 @@
     "terms": "Условия"
   },
   "metadata": {
-    "title": "Task.az - Единая платформа уведомлений",
-    "description": "Отслеживайте все, что важно. Получайте мгновенные уведомления о криптовалютах, акциях, погоде и многом другом."
+    "title": "Task.az - Фриланс платформа",
+    "description": "Платформа для задач и талантов в Азербайджане. Размещайте задачи, находите фрилансеров и сотрудничайте."
   },
   "login": {
     "welcomeBack": "Добро пожаловать",
@@ -238,5 +238,61 @@
     "namePlaceholder": "Иван Иванов",
     "emailPlaceholder": "you@example.com",
     "passwordPlaceholder": "••••••••"
+  },
+  "freelancers": {
+    "title": "Найти Фрилансеров",
+    "freelancersAvailable": "фрилансеров доступно",
+    "completedJobs": "Выполненных работ",
+    "searchPlaceholder": "Поиск фрилансеров...",
+    "filters": "Фильтры",
+    "clearAll": "Очистить все",
+    "location": "Местоположение",
+    "locationPlaceholder": "напр.: Баку",
+    "minRating": "Минимальный рейтинг",
+    "allRatings": "Все рейтинги",
+    "sortBy": "Сортировать",
+    "defaultSort": "По умолчанию",
+    "topRated": "Топ рейтинг",
+    "mostExperienced": "Самые опытные",
+    "newest": "Новейшие",
+    "noFreelancersFound": "Фрилансеры не найдены. Попробуйте изменить фильтры.",
+    "tryAgain": "Попробовать снова",
+    "previous": "Предыдущий",
+    "next": "Следующий",
+    "page": "Страница",
+    "of": "из"
+  },
+  "taskDetail": {
+    "breadcrumb": {
+      "home": "Главная",
+      "tasks": "Задачи"
+    },
+    "postedOn": "Опубликовано",
+    "views": "Просмотры",
+    "apply": "Подать заявку",
+    "contact": "Связаться с клиентом",
+    "share": "Поделиться",
+    "copyLink": "Копировать ссылку",
+    "linkCopied": "Ссылка скопирована",
+    "about": "О задаче",
+    "description": "Описание",
+    "skills": "Требуемые навыки",
+    "budget": "Бюджет",
+    "budgetType": "Тип бюджета",
+    "deadline": "Срок",
+    "location": "Местоположение",
+    "remote": "Удаленно",
+    "status": "Статус",
+    "category": "Категория",
+    "clientInfo": "Информация о клиенте",
+    "memberSince": "Участник с",
+    "jobsPosted": "Опубликованных задач",
+    "similarTasks": "Похожие задачи",
+    "noSimilarTasks": "Похожих задач не найдено",
+    "viewAllInCategory": "Посмотреть все задачи в этой категории",
+    "fixedPrice": "Фиксированная цена",
+    "hourlyRate": "Почасовая ставка",
+    "daysLeft": "дней осталось",
+    "expired": "Истек"
   }
 }

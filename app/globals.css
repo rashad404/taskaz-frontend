@@ -121,6 +121,19 @@
     z-index: 0;
   }
 
+  /* Cursor pointer for interactive elements */
+  button,
+  a,
+  [role="button"],
+  [type="button"],
+  [type="submit"],
+  [type="reset"],
+  label[for],
+  select,
+  .cursor-pointer {
+    cursor: pointer;
+  }
+
   /* Headings */
   h1, h2, h3, h4, h5, h6 {
     @apply font-bold tracking-tight;
@@ -359,4 +372,62 @@
 ::-moz-selection {
   background-color: rgb(81, 91, 195);
   color: white;
+}
+
+/* Tiptap Editor Styles */
+.ProseMirror {
+  @apply text-gray-900 dark:text-white;
+}
+
+.ProseMirror p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  color: rgb(156, 163, 175);
+  pointer-events: none;
+  height: 0;
+}
+
+.ProseMirror:focus {
+  outline: none;
+}
+
+.ProseMirror h2 {
+  @apply text-2xl font-bold mt-6 mb-4;
+}
+
+.ProseMirror h3 {
+  @apply text-xl font-bold mt-4 mb-3;
+}
+
+.ProseMirror ul,
+.ProseMirror ol {
+  @apply pl-6 my-4;
+}
+
+.ProseMirror ul {
+  @apply list-disc;
+}
+
+.ProseMirror ol {
+  @apply list-decimal;
+}
+
+.ProseMirror li {
+  @apply my-1;
+}
+
+.ProseMirror p {
+  @apply my-2;
+}
+
+.ProseMirror strong {
+  @apply font-bold;
+}
+
+.ProseMirror em {
+  @apply italic;
+}
+
+.ProseMirror a {
+  @apply text-indigo-600 dark:text-indigo-400 hover:underline;
 }

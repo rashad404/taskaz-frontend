@@ -9,16 +9,92 @@
     "logout": "Logout"
   },
   "home": {
-    "subtitle": "Intelligent monitoring that never sleeps",
-    "aiPowered": "AI-Powered",
-    "realtime": "Real-time",
-    "secure": "Secure",
-    "services": "Services",
-    "servicesTitle": "Monitor Everything That Matters",
-    "uptime": "Uptime",
-    "responseTime": "Response Time",
-    "activeAlerts": "Active Alerts",
-    "monitoring": "Monitoring"
+    "welcome": "Welcome to Task.az",
+    "hero": {
+      "title": "Find Talent. Get Work Done.",
+      "subtitle": "Connect with skilled freelancers in Azerbaijan",
+      "description": "Post your project and receive proposals from talented professionals",
+      "searchPlaceholder": "What service are you looking for?",
+      "search": "Search",
+      "postTask": "Post a Task",
+      "browseTasks": "Browse Tasks"
+    },
+    "recentTasks": {
+      "title": "Recent Tasks",
+      "subtitle": "Fresh opportunities posted by clients",
+      "viewAll": "View All Tasks",
+      "noTasks": "No tasks available yet"
+    },
+    "howItWorks": {
+      "title": "How It Works",
+      "subtitle": "Simple steps to success",
+      "forClients": "For Clients",
+      "forFreelancers": "For Freelancers",
+      "client": {
+        "step1Title": "Post Your Task",
+        "step1Desc": "Describe your project, set budget and deadline",
+        "step2Title": "Review Proposals",
+        "step2Desc": "Get applications from skilled freelancers",
+        "step3Title": "Hire & Collaborate",
+        "step3Desc": "Choose the best match for your project",
+        "step4Title": "Pay Securely",
+        "step4Desc": "Dual confirmation payment protection"
+      },
+      "freelancer": {
+        "step1Title": "Browse Tasks",
+        "step1Desc": "Find projects matching your skills",
+        "step2Title": "Submit Proposal",
+        "step2Desc": "Pitch your expertise and pricing",
+        "step3Title": "Complete Work",
+        "step3Desc": "Deliver quality results on time",
+        "step4Title": "Get Paid",
+        "step4Desc": "Receive secure payment after confirmation"
+      }
+    },
+    "topFreelancers": {
+      "title": "Top Freelancers",
+      "subtitle": "Hire verified professionals",
+      "completedJobs": "Completed Jobs",
+      "noFreelancers": "No freelancers available yet"
+    },
+    "whyTaskaz": {
+      "title": "Why Choose Task.az",
+      "subtitle": "Your trusted freelance marketplace",
+      "securePayments": {
+        "title": "Secure Payments",
+        "description": "Dual confirmation system protects both parties"
+      },
+      "qualityTalent": {
+        "title": "Quality Talent",
+        "description": "Verified freelancers with ratings and reviews"
+      },
+      "localPlatform": {
+        "title": "Local Platform",
+        "description": "Azerbaijan-focused with local support"
+      },
+      "messaging": {
+        "title": "Built-in Messaging",
+        "description": "Communicate directly within the platform"
+      }
+    },
+    "finalCTA": {
+      "clients": {
+        "title": "Need Work Done?",
+        "description": "Post your task and get proposals from talented freelancers",
+        "button": "Post a Task"
+      },
+      "freelancers": {
+        "title": "Ready to Earn?",
+        "description": "Browse tasks and start working on exciting projects",
+        "button": "Browse Tasks"
+      }
+    },
+    "stats": {
+      "users": "Users",
+      "activeTasks": "Active Tasks",
+      "completed": "Completed",
+      "rating": "Rating"
+    }
   },
   "auth": {
     "signIn": "Sign In",
@@ -194,8 +270,8 @@
     "terms": "Terms"
   },
   "metadata": {
-    "title": "Task.az - Unified Notification Platform",
-    "description": "Monitor everything that matters. Get instant alerts for crypto, stocks, weather, and more."
+    "title": "Task.az - Freelance Marketplace",
+    "description": "Platform for tasks and talent in Azerbaijan. Post jobs, find freelancers, and collaborate."
   },
   "login": {
     "welcomeBack": "Welcome Back",
@@ -238,5 +314,61 @@
     "namePlaceholder": "John Doe",
     "emailPlaceholder": "you@example.com",
     "passwordPlaceholder": "••••••••"
+  },
+  "freelancers": {
+    "title": "Find Freelancers",
+    "freelancersAvailable": "freelancers available",
+    "completedJobs": "Completed Jobs",
+    "searchPlaceholder": "Search freelancers...",
+    "filters": "Filters",
+    "clearAll": "Clear all",
+    "location": "Location",
+    "locationPlaceholder": "e.g: Baku",
+    "minRating": "Minimum Rating",
+    "allRatings": "All Ratings",
+    "sortBy": "Sort By",
+    "defaultSort": "Default",
+    "topRated": "Top Rated",
+    "mostExperienced": "Most Experienced",
+    "newest": "Newest",
+    "noFreelancersFound": "No freelancers found. Try adjusting your filters.",
+    "tryAgain": "Try Again",
+    "previous": "Previous",
+    "next": "Next",
+    "page": "Page",
+    "of": "of"
+  },
+  "taskDetail": {
+    "breadcrumb": {
+      "home": "Home",
+      "tasks": "Tasks"
+    },
+    "postedOn": "Posted on",
+    "views": "Views",
+    "apply": "Apply Now",
+    "contact": "Contact Client",
+    "share": "Share",
+    "copyLink": "Copy Link",
+    "linkCopied": "Link copied",
+    "about": "About this Task",
+    "description": "Description",
+    "skills": "Required Skills",
+    "budget": "Budget",
+    "budgetType": "Budget Type",
+    "deadline": "Deadline",
+    "location": "Location",
+    "remote": "Remote",
+    "status": "Status",
+    "category": "Category",
+    "clientInfo": "Client Information",
+    "memberSince": "Member since",
+    "jobsPosted": "Jobs Posted",
+    "similarTasks": "Similar Tasks",
+    "noSimilarTasks": "No similar tasks found",
+    "viewAllInCategory": "View all tasks in this category",
+    "fixedPrice": "Fixed Price",
+    "hourlyRate": "Hourly Rate",
+    "daysLeft": "days left",
+    "expired": "Expired"
   }
 }

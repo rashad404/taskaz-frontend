@@ -16,8 +16,11 @@ export default function Header() {
   const router = useRouter();
   const pathname = usePathname();
 
-  useEffect(() => {
-    // Check authentication status on mount and route changes
+  // Extract locale from pathname
+  const locale = pathname?.split('/')[1] || 'az';
+
+  // Check authentication status
+  const checkAuth = () => {
     const token = localStorage.getItem('token');
     if (token) {
       setIsAuthenticated(true);
@@ -27,13 +30,35 @@ export default function Header() {
       setIsAuthenticated(false);
       setUser(null);
     }
+  };
+
+  useEffect(() => {
+    // Check on mount and route changes
+    checkAuth();
     setIsMounted(true);
+
+    // Listen for auth state changes (from modal login/register)
+    const handleAuthChange = () => {
+      checkAuth();
+    };
+
+    window.addEventListener('authStateChanged', handleAuthChange);
+
+    return () => {
+      window.removeEventListener('authStateChanged', handleAuthChange);
+    };
   }, [pathname]);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
     setIsAuthenticated(false);
     setUser(null);
+
+    // Dispatch event to notify other components
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new Event('authStateChanged'));
+    }
+
     router.push('/');
   };
 
@@ -78,7 +103,7 @@ export default function Header() {
             {isAuthenticated ? (
               <div className="flex items-center gap-3">
                 <Link
-                  href="/settings"
+                  href={`/${locale}/settings`}
                   className="w-8 h-8 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
                 >
                   <User className="w-4 h-4 text-gray-600 dark:text-gray-400" />
@@ -94,13 +119,13 @@ export default function Header() {
             ) : (
               <div className="flex items-center gap-3">
                 <Link
-                  href="/login"
+                  href={`/${locale}/login`}
                   className="text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
                 >
                   {t('nav.signIn')}
                 </Link>
                 <Link
-                  href="/register"
+                  href={`/${locale}/register`}
                   className="px-4 py-1.5 bg-[rgb(81,91,195)] text-white text-sm font-medium rounded-lg hover:bg-[rgb(61,71,175)] transition-colors"
                 >
                   {t('nav.getStarted')}
@@ -157,14 +182,14 @@ export default function Header() {
             ) : (
               <div className="space-y-1">
                 <Link
-                  href="/login"
+                  href={`/${locale}/login`}
                   className="block px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {t('nav.signIn')}
                 </Link>
                 <Link
-                  href="/register"
+                  href={`/${locale}/register`}
                   className="block px-3 py-2 text-sm font-medium text-white bg-[rgb(81,91,195)] hover:bg-[rgb(61,71,175)] rounded-lg"
                   onClick={() => setIsMenuOpen(false)}
                 >

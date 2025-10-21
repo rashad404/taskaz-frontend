@@ -10,8 +10,8 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Task.az - Unified Notification Platform",
-  description: "Monitor everything that matters. Get instant alerts for crypto, stocks, weather, and more.",
+  title: "Task.az - Freelance Marketplace",
+  description: "Platform for tasks and talent in Azerbaijan. Post jobs, find freelancers, and collaborate.",
   icons: {
     icon: [
       { url: '/favicon.svg', type: 'image/svg+xml' },

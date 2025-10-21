@@ -9,16 +9,96 @@
     "logout": "Çıxış"
   },
   "home": {
-    "subtitle": "Heç vaxt yatmayan ağıllı monitorinq",
-    "aiPowered": "Süni İntellekt",
-    "realtime": "Real-vaxt",
-    "secure": "Təhlükəsiz",
-    "services": "Xidmətlər",
-    "servicesTitle": "Əhəmiyyətli hər şeyi izləyin",
-    "uptime": "İşləmə müddəti",
-    "responseTime": "Cavab müddəti",
-    "activeAlerts": "Aktiv Bildirişlər",
-    "monitoring": "Monitorinq"
+    "welcome": "Task.az-a xoş gəlmisiniz",
+    "categories": {
+      "title": "Kateqoriyalar",
+      "subtitle": "Layihəniz üçün mükəmməl mütəxəssis tapın"
+    },
+    "hero": {
+      "title": "İstedadları Tapın. İşləri Həll Edin.",
+      "subtitle": "Azərbaycanda bacarıqlı freelancerlərlə əlaqə qurun",
+      "description": "Layihənizi yerləşdirin və istedadlı peşəkarlardan təkliflər alın",
+      "searchPlaceholder": "Hansı xidməti axtarırsınız?",
+      "search": "Axtar",
+      "postTask": "Tapşırıq Yerləşdir",
+      "browseTasks": "Tapşırıqlara Bax"
+    },
+    "recentTasks": {
+      "title": "Son Tapşırıqlar",
+      "subtitle": "Müştərilər tərəfindən yerləşdirilən yeni imkanlar",
+      "viewAll": "Hamısına Bax",
+      "noTasks": "Hələ tapşırıq yoxdur"
+    },
+    "howItWorks": {
+      "title": "Necə İşləyir",
+      "subtitle": "Uğura doğru sadə addımlar",
+      "forClients": "Müştərilər Üçün",
+      "forFreelancers": "Freelancerlər Üçün",
+      "client": {
+        "step1Title": "Tapşırığınızı Yerləşdirin",
+        "step1Desc": "Layihənizi təsvir edin, büdcə və son tarix təyin edin",
+        "step2Title": "Təklifləri Nəzərdən Keçirin",
+        "step2Desc": "Bacarıqlı freelancerlərdən müraciətlər alın",
+        "step3Title": "İşə Götürün və Əməkdaşlıq Edin",
+        "step3Desc": "Layihəniz üçün ən uyğun olanı seçin",
+        "step4Title": "Təhlükəsiz Ödəniş",
+        "step4Desc": "İkitərəfli təsdiq ödəniş qoruması"
+      },
+      "freelancer": {
+        "step1Title": "Tapşırıqlara Baxın",
+        "step1Desc": "Bacarıqlarınıza uyğun layihələr tapın",
+        "step2Title": "Təklif Göndərin",
+        "step2Desc": "Təcrübənizi və qiymətinizi təqdim edin",
+        "step3Title": "İşi Tamamlayın",
+        "step3Desc": "Vaxtında keyfiyyətli nəticələr təqdim edin",
+        "step4Title": "Ödəniş Alın",
+        "step4Desc": "Təsdiqdən sonra təhlükəsiz ödəniş alın"
+      }
+    },
+    "topFreelancers": {
+      "title": "Top Freelancerlər",
+      "subtitle": "Təsdiqlənmiş peşəkarları işə götürün",
+      "completedJobs": "Tamamlanmış İşlər",
+      "noFreelancers": "Hələ freelancer yoxdur"
+    },
+    "whyTaskaz": {
+      "title": "Niyə Task.az",
+      "subtitle": "Etibarlı freelance platformanız",
+      "securePayments": {
+        "title": "Təhlükəsiz Ödənişlər",
+        "description": "İkitərəfli təsdiq sistemi hər iki tərəfi qoruyur"
+      },
+      "qualityTalent": {
+        "title": "Keyfiyyətli İstedadlar",
+        "description": "Reytinq və rəyləri olan təsdiqlənmiş freelancerlər"
+      },
+      "localPlatform": {
+        "title": "Yerli Platforma",
+        "description": "Azərbaycana fokuslanmış, yerli dəstək"
+      },
+      "messaging": {
+        "title": "Daxili Mesajlaşma",
+        "description": "Birbaşa platforma daxilində ünsiyyət qurun"
+      }
+    },
+    "finalCTA": {
+      "clients": {
+        "title": "İş Lazımdır?",
+        "description": "Tapşırığınızı yerləşdirin və istedadlı freelancerlərdən təkliflər alın",
+        "button": "Tapşırıq Yerləşdir"
+      },
+      "freelancers": {
+        "title": "Qazanmağa Hazırsınız?",
+        "description": "Tapşırıqlara baxın və maraqlı layihələrdə işləməyə başlayın",
+        "button": "Tapşırıqlara Bax"
+      }
+    },
+    "stats": {
+      "users": "İstifadəçilər",
+      "activeTasks": "Aktiv Tapşırıqlar",
+      "completed": "Tamamlanmış",
+      "rating": "Reytinq"
+    }
   },
   "auth": {
     "signIn": "Daxil ol",
@@ -146,17 +226,18 @@
     "confirmDelete": "Bu bildirişi silmək istədiyinizə əminsiniz?"
   },
   "search": {
-    "placeholder1": "Bitcoin 100,000 dollara çatır",
-    "placeholder2": "Veb-sayt işləmir",
-    "placeholder3": "Səhm qiyməti 5% düşür",
-    "placeholder4": "Mənim ərazimdə hava xəbərdarlığı",
-    "placeholder5": "Valyuta məzənnəsi dəyişir",
-    "monitorWhen": "İzləyin nə zaman",
-    "createAlert": "Bildiriş Yarat",
-    "suggestion1": "Bitcoin $100k",
-    "suggestion2": "Veb-sayt Monitoru",
-    "suggestion3": "Səhm Bildirişləri",
-    "suggestion4": "Hava Yenilikləri"
+    "placeholder": "Tapşırıq, freelancer və ya kateqoriya axtarın...",
+    "searching": "Axtarılır...",
+    "noResults": "Nəticə tapılmadı",
+    "noResultsDesc": "Başqa açar sözlərlə yenidən cəhd edin",
+    "recentSearches": "Son Axtarışlar",
+    "viewAll": "Bütün nəticələrə bax",
+    "tasks": "Tapşırıqlar",
+    "freelancers": "Freelancerlər",
+    "categories": "Kateqoriyalar",
+    "remote": "Remote",
+    "from": "dan",
+    "clearRecent": "Təmizlə"
   },
   "services": {
     "crypto": {
@@ -194,8 +275,8 @@
     "terms": "Şərtlər"
   },
   "metadata": {
-    "title": "Task.az - Vahid Bildiriş Platforması",
-    "description": "Əhəmiyyətli hər şeyi izləyin. Kripto, səhmlər, hava və daha çoxu üçün ani bildirişlər alın."
+    "title": "Task.az - Freelance Platforma",
+    "description": "Azərbaycanda tapşırıqlar və istedadlar üçün platforma. İşləri yerləşdirin, freelancerləri tapın və əməkdaşlıq edin."
   },
   "login": {
     "welcomeBack": "Xoş gəlmisiniz",
@@ -211,11 +292,13 @@
     "noAccount": "Hesabınız yoxdur?",
     "signUp": "Qeydiyyat",
     "invalidCredentials": "Yanlış e-poçt və ya şifrə",
+    "loginFailed": "Daxil olma uğursuz oldu. Zəhmət olmasa yenidən cəhd edin.",
     "emailPlaceholder": "siz@sayt.az",
     "passwordPlaceholder": "••••••••"
   },
   "register": {
     "createAccount": "Hesab Yaradın",
+    "joinAndStart": "Task.az-a qoşulun və tapşırıqlarınızı idarə edin",
     "startMonitoring": "Sizə maraqlı olan şeyləri izləməyə başlayın",
     "fullName": "Tam Ad",
     "emailAddress": "E-poçt ünvanı",
@@ -238,5 +321,169 @@
     "namePlaceholder": "Əli Əliyev",
     "emailPlaceholder": "siz@sayt.az",
     "passwordPlaceholder": "••••••••"
+  },
+  "tasks": {
+    "title": "Tapşırıqlara Bax",
+    "tasksAvailable": "tapşırıq mövcuddur",
+    "tryAgain": "Yenidən Cəhd Et",
+    "noTasksFound": "Tapşırıq tapılmadı. Filtrləri dəyişdirməyi cəhd edin.",
+    "previous": "Əvvəlki",
+    "next": "Növbəti",
+    "page": "Səhifə",
+    "of": "/",
+    "searchPlaceholder": "Tapşırıq axtarın...",
+    "filters": "Filtrlər",
+    "clearAll": "Hamısını təmizlə",
+    "category": "Kateqoriya",
+    "allCategories": "Bütün Kateqoriyalar",
+    "budgetType": "Büdcə Növü",
+    "allTypes": "Bütün Növlər",
+    "fixedPrice": "Sabit Qiymət",
+    "hourlyRate": "Saatlıq Tarif",
+    "location": "Yer",
+    "allLocations": "Bütün Yerlər",
+    "remoteOnly": "Yalnız Remote",
+    "onsiteOnly": "Yalnız Ofisdə",
+    "budgetNotSpecified": "Büdcə göstərilməyib",
+    "aznPerHour": "AZN/saat",
+    "azn": "AZN",
+    "recently": "Bu yaxınlarda",
+    "remote": "Remote",
+    "due": "Müddət",
+    "status": {
+      "open": "Açıq",
+      "assigned": "Təyin Edilib",
+      "completed": "Tamamlanıb",
+      "closed": "Bağlı"
+    }
+  },
+  "taskCreate": {
+    "pageTitle": "Tapşırıq Yarat",
+    "pageSubtitle": "Tapşırığınızı yerləşdirin və bacarıqlı freelancerlərdən təkliflər alın",
+    "basicInfo": "Əsas Məlumat",
+    "title": "Tapşırıq Başlığı",
+    "titlePlaceholder": "Məsələn: Veb-sayt dizaynı lazımdır",
+    "category": "Kateqoriya",
+    "categoryPlaceholder": "Kateqoriya seçin",
+    "description": "Təsvir",
+    "descriptionPlaceholder": "Tapşırığınızı ətraflı təsvir edin...",
+    "budgetTimeline": "Büdcə və Müddət",
+    "budgetType": "Büdcə Növü",
+    "fixedPrice": "Sabit Qiymət",
+    "hourlyRate": "Saatlıq Tarif",
+    "budgetAmount": "Büdcə Məbləği",
+    "budgetAmountPlaceholder": "Məbləğ daxil edin",
+    "deadline": "Son Tarix",
+    "deadlinePlaceholder": "Tarix seçin",
+    "optional": "(İstəyə görə)",
+    "locationWorkStyle": "Yer və İş Üslubu",
+    "remote": "Remote iş",
+    "location": "Yer",
+    "locationPlaceholder": "Şəhər və ya ünvan",
+    "additionalDetails": "Əlavə Məlumat",
+    "skills": "Tələb olunan Bacarıqlar",
+    "skillsPlaceholder": "Bacarıq əlavə edin və Enter basın...",
+    "attachments": "Əlavələr",
+    "attachmentsDragDrop": "Faylları bura sürükləyin və ya klikləyin",
+    "attachmentsLimit": "Maksimum 5 fayl, hər biri 10MB-a qədər",
+    "removeFile": "Faylı sil",
+    "preview": "Önizləmə",
+    "saveDraft": "Layihə kimi Saxla",
+    "publish": "Dərc Et",
+    "publishing": "Dərc edilir...",
+    "draftSaved": "Layihə saxlanıldı",
+    "draftLoaded": "Layihə yükləndi",
+    "lastSaved": "Son saxlanma",
+    "validation": {
+      "titleRequired": "Başlıq tələb olunur",
+      "titleMin": "Başlıq ən azı 3 simvol olmalıdır",
+      "titleMax": "Başlıq maksimum 200 simvol ola bilər",
+      "categoryRequired": "Kateqoriya seçin",
+      "descriptionRequired": "Təsvir tələb olunur",
+      "descriptionMin": "Təsvir ən azı 50 simvol olmalıdır",
+      "budgetTypeRequired": "Büdcə növü seçin",
+      "budgetPositive": "Büdcə müsbət ədəd olmalıdır",
+      "deadlineFuture": "Son tarix gələcəkdə olmalıdır",
+      "locationRequired": "Remote deyilsə, yer daxil edin",
+      "fileTooLarge": "Fayl 10MB-dan böyükdür",
+      "tooManyFiles": "Maksimum 5 fayl yükləyə bilərsiniz",
+      "invalidFileType": "Fayl növü dəstəklənmir"
+    },
+    "success": {
+      "title": "Tapşırıq Yaradıldı!",
+      "message": "Tapşırığınız uğurla dərc edildi. Tezliklə təkliflər almağa başlayacaqsınız.",
+      "viewTask": "Tapşırığa Bax",
+      "createAnother": "Başqa Tapşırıq Yarat"
+    },
+    "authRequired": {
+      "title": "Daxil Olun",
+      "message": "Tapşırıq dərc etmək üçün hesabınıza daxil olmalısınız. Formunuz avtomatik olaraq saxlanılacaq."
+    },
+    "error": {
+      "title": "Xəta Baş Verdi",
+      "generic": "Tapşırıq yaradılarkən xəta baş verdi. Zəhmət olmasa yenidən cəhd edin.",
+      "tryAgain": "Yenidən Cəhd Et"
+    },
+    "previewModal": {
+      "title": "Tapşırıq Önizləməsi",
+      "edit": "Redaktə Et",
+      "publishNow": "İndi Dərc Et"
+    }
+  },
+  "freelancers": {
+    "title": "Freelancerləri Tap",
+    "freelancersAvailable": "freelancer mövcuddur",
+    "completedJobs": "Tamamlanmış İşlər",
+    "searchPlaceholder": "Freelancer axtarın...",
+    "filters": "Filtrlər",
+    "clearAll": "Hamısını təmizlə",
+    "location": "Yer",
+    "locationPlaceholder": "Məsələn: Bakı",
+    "minRating": "Minimum Reytinq",
+    "allRatings": "Bütün Reytinqlər",
+    "sortBy": "Sıralama",
+    "defaultSort": "Varsayılan",
+    "topRated": "Ən Yüksək Reytinq",
+    "mostExperienced": "Ən Təcrübəli",
+    "newest": "Ən Yeni",
+    "noFreelancersFound": "Freelancer tapılmadı. Filtrləri dəyişdirməyi cəhd edin.",
+    "tryAgain": "Yenidən Cəhd Et",
+    "previous": "Əvvəlki",
+    "next": "Növbəti",
+    "page": "Səhifə",
+    "of": "/"
+  },
+  "taskDetail": {
+    "breadcrumb": {
+      "home": "Ana Səhifə",
+      "tasks": "Tapşırıqlar"
+    },
+    "postedOn": "Yerləşdirilib",
+    "views": "Baxış",
+    "apply": "Müraciət Et",
+    "contact": "Əlaqə Saxla",
+    "share": "Paylaş",
+    "copyLink": "Linki Kopyala",
+    "linkCopied": "Link kopyalandı",
+    "about": "Tapşırıq Haqqında",
+    "description": "Təsvir",
+    "skills": "Tələb olunan Bacarıqlar",
+    "budget": "Büdcə",
+    "budgetType": "Büdcə Növü",
+    "deadline": "Son Tarix",
+    "location": "Yer",
+    "remote": "Remote",
+    "status": "Status",
+    "category": "Kateqoriya",
+    "clientInfo": "Müştəri Məlumatları",
+    "memberSince": "Üzv olub",
+    "jobsPosted": "Yerləşdirilmiş Tapşırıq",
+    "similarTasks": "Oxşar Tapşırıqlar",
+    "noSimilarTasks": "Oxşar tapşırıq tapılmadı",
+    "viewAllInCategory": "Bu kateqoriyadakı bütün tapşırıqlara bax",
+    "fixedPrice": "Sabit Qiymət",
+    "hourlyRate": "Saatlıq Tarif",
+    "daysLeft": "gün qalıb",
+    "expired": "Müddəti bitib"
   }
 }

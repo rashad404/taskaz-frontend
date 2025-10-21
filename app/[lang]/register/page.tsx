@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { Bell, Mail, Lock, User, ArrowRight, Sparkles } from 'lucide-react';
+import { CheckSquare, Mail, Lock, User, ArrowRight, Sparkles } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
 export default function RegisterPage() {
@@ -43,21 +43,46 @@ export default function RegisterPage() {
     setIsLoading(true);
 
     try {
-      // TODO: Implement actual register API call
-      // const response = await fetch('/api/auth/register', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({
-      //     name: formData.name,
-      //     email: formData.email,
-      //     password: formData.password
-      //   })
-      // });
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/register`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          password: formData.password,
+          password_confirmation: formData.confirmPassword
+        })
+      });
 
-      // For now, just simulate a registration
-      localStorage.setItem('token', 'demo-token');
-      router.push('/alerts/quick-setup');
+      const data = await response.json();
+
+      if (response.ok && data.status === 'success') {
+        // Store auth token
+        if (data.data?.token) {
+          localStorage.setItem('token', data.data.token);
+        }
+
+        // Dispatch event to notify Header
+        if (typeof window !== 'undefined') {
+          window.dispatchEvent(new Event('authStateChanged'));
+        }
+
+        // Check for return URL in sessionStorage or query params
+        const returnUrl = sessionStorage.getItem('return_url');
+        if (returnUrl) {
+          sessionStorage.removeItem('return_url');
+          router.push(returnUrl);
+        } else {
+          router.push('/');
+        }
+      } else {
+        setError(data.message || t('register.registrationFailed'));
+      }
     } catch (err) {
+      console.error('Registration error:', err);
       setError(t('register.registrationFailed'));
     } finally {
       setIsLoading(false);
@@ -78,9 +103,9 @@ export default function RegisterPage() {
             <div className="relative w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 p-[1px]">
               <div className="w-full h-full rounded-2xl bg-white dark:bg-gray-900 flex items-center justify-center">
                 <div className="relative">
-                  <Bell className="w-6 h-6 text-indigo-600 dark:text-indigo-400" strokeWidth={2} fill="none" />
+                  <CheckSquare className="w-6 h-6 text-indigo-600 dark:text-indigo-400" strokeWidth={2} fill="none" />
                   <div className="absolute inset-0 w-6 h-6">
-                    <Bell className="w-6 h-6 text-purple-500 opacity-50" strokeWidth={2} fill="none" />
+                    <CheckSquare className="w-6 h-6 text-purple-500 opacity-50" strokeWidth={2} fill="none" />
                   </div>
                 </div>
               </div>
