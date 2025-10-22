@@ -18,6 +18,12 @@ function SearchResults({ locale }: { locale: string }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Strip HTML tags from description
+  const stripHtml = (html: string) => {
+    if (!html) return '';
+    return html.replace(/<[^>]*>/g, '').trim();
+  };
+
   useEffect(() => {
     const performSearch = async () => {
       if (!query) {
@@ -138,7 +144,7 @@ function SearchResults({ locale }: { locale: string }) {
                   {task.title}
                 </h3>
                 <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-3">
-                  {task.description}
+                  {stripHtml(task.description)}
                 </p>
                 <div className="flex items-center justify-between">
                   {task.budget_amount && (

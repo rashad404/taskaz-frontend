@@ -15,6 +15,7 @@ import {
   Camera,
   Upload
 } from 'lucide-react';
+import LocationSelector from '@/components/common/LocationSelector';
 
 export default function ProfileSettingsPage() {
   const router = useRouter();
@@ -28,11 +29,13 @@ export default function ProfileSettingsPage() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
+  const [isRemote, setIsRemote] = useState(false);
+  const [cityId, setCityId] = useState<number | null>(null);
+  const [neighborhoodId, setNeighborhoodId] = useState<number | null>(null);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
-    location: '',
     bio: ''
   });
 
@@ -56,9 +59,10 @@ export default function ProfileSettingsPage() {
             name: data.data.name || '',
             email: data.data.email || '',
             phone: data.data.phone || '',
-            location: data.data.location || '',
             bio: data.data.bio || ''
           });
+          setCityId(data.data.city_id || null);
+          setNeighborhoodId(data.data.neighborhood_id || null);
         }
       })
       .catch(err => {
@@ -110,8 +114,14 @@ export default function ProfileSettingsPage() {
       formDataToSend.append('name', formData.name);
       formDataToSend.append('email', formData.email);
       formDataToSend.append('phone', formData.phone || '');
-      formDataToSend.append('location', formData.location || '');
       formDataToSend.append('bio', formData.bio || '');
+
+      if (cityId) {
+        formDataToSend.append('city_id', cityId.toString());
+      }
+      if (neighborhoodId) {
+        formDataToSend.append('neighborhood_id', neighborhoodId.toString());
+      }
 
       if (avatarFile) {
         formDataToSend.append('avatar', avatarFile);
@@ -137,9 +147,11 @@ export default function ProfileSettingsPage() {
           name: updatedUser.name || '',
           email: updatedUser.email || '',
           phone: updatedUser.phone || '',
-          location: updatedUser.location || '',
           bio: updatedUser.bio || ''
         });
+
+        setCityId(updatedUser.city_id || null);
+        setNeighborhoodId(updatedUser.neighborhood_id || null);
 
         setErrors({});
         setAvatarFile(null);
@@ -346,25 +358,23 @@ export default function ProfileSettingsPage() {
 
             {/* Location */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
                 <div className="flex items-center gap-2">
                   <MapPin className="w-4 h-4" />
                   Məkan
                 </div>
               </label>
-              <input
-                type="text"
-                value={formData.location}
-                onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                className={`w-full px-4 py-3 rounded-2xl border ${
-                  errors.location
-                    ? 'border-red-500 dark:border-red-500'
-                    : 'border-gray-300 dark:border-gray-700'
-                } bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all`}
-                placeholder="Şəhər, Ölkə"
+              <LocationSelector
+                isRemote={isRemote}
+                onRemoteChange={setIsRemote}
+                cityId={cityId}
+                onCityChange={setCityId}
+                neighborhoodId={neighborhoodId}
+                onNeighborhoodChange={setNeighborhoodId}
+                locale={locale}
               />
-              {errors.location && (
-                <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.location}</p>
+              {errors.city_id && (
+                <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.city_id}</p>
               )}
             </div>
 

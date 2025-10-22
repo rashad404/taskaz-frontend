@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import type { Metadata } from 'next';
 import {
   Star,
   MapPin,
@@ -33,6 +34,28 @@ async function getFreelancer(slug: string) {
   } catch (error) {
     return null;
   }
+}
+
+// Generate metadata for the freelancer profile page
+export async function generateMetadata({ params }: FreelancerPageProps): Promise<Metadata> {
+  const { lang, slug } = await params;
+  const freelancer = await getFreelancer(slug);
+
+  if (!freelancer) {
+    return {
+      title: 'Task.az - Peşəkar Tapılmadı',
+      description: 'Axtardığınız peşəkar tapılmadı.',
+    };
+  }
+
+  const description = freelancer.bio
+    ? `${freelancer.bio.substring(0, 160)}`
+    : `${freelancer.name} - Peşəkar profili. ${freelancer.completed_contracts || 0} tamamlanmış iş, ${freelancer.average_rating || 0} reytinq.`;
+
+  return {
+    title: `${freelancer.name} - Peşəkar Profili | Task.az`,
+    description,
+  };
 }
 
 async function getSimilarFreelancers(currentFreelancerId: number) {

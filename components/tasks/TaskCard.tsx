@@ -37,6 +37,12 @@ export default function TaskCard({ task, locale }: TaskCardProps) {
     }
   };
 
+  // Strip HTML tags from description
+  const stripHtml = (html: string) => {
+    if (!html) return '';
+    return html.replace(/<[^>]*>/g, '').trim();
+  };
+
   return (
     <Link href={`/${locale}/tasks/${task.slug}`}>
       <div className="group relative h-full cursor-pointer">
@@ -69,7 +75,7 @@ export default function TaskCard({ task, locale }: TaskCardProps) {
 
           {/* Description */}
           <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">
-            {task.description}
+            {stripHtml(task.description)}
           </p>
 
           {/* Meta Info */}

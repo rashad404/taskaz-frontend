@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import type { Metadata } from 'next';
 import * as Icons from 'lucide-react';
 
 interface CategoryPageProps {
@@ -47,6 +48,24 @@ async function getCategoryData(slug: string) {
   }
 }
 
+// Generate metadata for the category page
+export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
+  const { lang, slug } = await params;
+  const { category, tasks } = await getCategoryData(slug);
+
+  if (!category) {
+    return {
+      title: 'Task.az - Kateqoriya Tapılmadı',
+      description: 'Axtardığınız kateqoriya tapılmadı.',
+    };
+  }
+
+  return {
+    title: `${category.name} Tapşırıqları | Task.az`,
+    description: category.description || `${category.name} kateqoriyasındakı bütün tapşırıqlara baxın və müraciət edin.`,
+  };
+}
+
 export default async function CategoryPage({ params }: CategoryPageProps) {
   const { lang, slug } = await params;
   const { category, tasks } = await getCategoryData(slug);
@@ -54,6 +73,12 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   if (!category) {
     notFound();
   }
+
+  // Strip HTML tags from description
+  const stripHtml = (html: string) => {
+    if (!html) return '';
+    return html.replace(/<[^>]*>/g, '').trim();
+  };
 
   // Get icon component
   const IconComponent = category.icon ? (Icons as any)[category.icon] : null;
@@ -122,7 +147,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                   </h3>
 
                   <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">
-                    {task.description}
+                    {stripHtml(task.description)}
                   </p>
 
                   <div className="flex items-center justify-between">

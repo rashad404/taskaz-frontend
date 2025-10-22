@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import type { Metadata } from 'next';
 import {
   Star,
   MapPin,
@@ -33,9 +34,37 @@ async function getClient(slug: string) {
   }
 }
 
+// Generate metadata for the client profile page
+export async function generateMetadata({ params }: ClientPageProps): Promise<Metadata> {
+  const { lang, slug } = await params;
+  const client = await getClient(slug);
+
+  if (!client) {
+    return {
+      title: 'Task.az - Müştəri Tapılmadı',
+      description: 'Axtardığınız müştəri tapılmadı.',
+    };
+  }
+
+  const description = client.bio
+    ? `${client.bio.substring(0, 160)}`
+    : `${client.name} - Müştəri profili. ${client.total_tasks || 0} tapşırıq, ${client.completed_contracts || 0} tamamlanmış iş.`;
+
+  return {
+    title: `${client.name} - Müştəri Profili | Task.az`,
+    description,
+  };
+}
+
 function ClientDetailClient({ client, locale }: any) {
   // Map locale to date-fns locale
   const dateLocale = locale === 'en' ? enUS : locale === 'ru' ? ru : az;
+
+  // Strip HTML tags from description
+  const stripHtml = (html: string) => {
+    if (!html) return '';
+    return html.replace(/<[^>]*>/g, '').trim();
+  };
 
   return (
     <div className="min-h-screen py-8 px-4 sm:px-6">
@@ -145,7 +174,7 @@ function ClientDetailClient({ client, locale }: any) {
                         {task.title}
                       </h3>
                       <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mb-2">
-                        {task.description}
+                        {stripHtml(task.description)}
                       </p>
                       <div className="flex items-center justify-between text-sm">
                         <span className="text-indigo-600 dark:text-indigo-400 font-medium">

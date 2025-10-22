@@ -24,6 +24,12 @@ export default function MyTasksPage() {
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<'all' | 'open' | 'assigned' | 'completed'>('all');
 
+  // Strip HTML tags from description
+  const stripHtml = (html: string) => {
+    if (!html) return '';
+    return html.replace(/<[^>]*>/g, '').trim();
+  };
+
   useEffect(() => {
     const token = localStorage.getItem('token');
 
@@ -184,7 +190,7 @@ export default function MyTasksPage() {
                       {task.title}
                     </h3>
                     <p className="text-gray-600 dark:text-gray-400 line-clamp-2">
-                      {task.description}
+                      {stripHtml(task.description)}
                     </p>
                   </div>
                   <div className="ml-4">

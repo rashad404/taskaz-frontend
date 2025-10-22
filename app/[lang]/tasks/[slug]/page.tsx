@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
+import type { Metadata } from 'next';
 import {
   MapPin,
   Clock,
@@ -37,6 +38,32 @@ async function getTask(slug: string) {
   } catch (error) {
     return null;
   }
+}
+
+// Generate metadata for the task detail page
+export async function generateMetadata({ params }: TaskDetailPageProps): Promise<Metadata> {
+  const { lang, slug } = await params;
+  const task = await getTask(slug);
+
+  if (!task) {
+    return {
+      title: 'Task.az - Tapşırıq Tapılmadı',
+      description: 'Axtardığınız tapşırıq tapılmadı.',
+    };
+  }
+
+  // Strip HTML tags from description
+  const stripHtml = (html: string) => {
+    if (!html) return '';
+    return html.replace(/<[^>]*>/g, '').trim();
+  };
+
+  const description = stripHtml(task.description).substring(0, 160);
+
+  return {
+    title: `${task.title} - Task.az`,
+    description: description || 'Tapşırıq haqqında ətraflı məlumat',
+  };
 }
 
 async function getSimilarTasks(categoryId: number, currentTaskId: number) {

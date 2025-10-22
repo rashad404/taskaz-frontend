@@ -10,6 +10,7 @@ import type { Category } from '@/lib/types/marketplace';
 import TaskPreview from './TaskPreview';
 import RichTextEditor from '@/components/ui/RichTextEditor';
 import AuthModal from '@/components/auth/AuthModal';
+import LocationSelector from '@/components/common/LocationSelector';
 
 interface TaskCreateFormProps {
   locale: string;
@@ -28,6 +29,7 @@ export default function TaskCreateForm({ locale }: TaskCreateFormProps) {
     validate,
     saveDraft,
     clearDraft,
+    resetForm,
     addSkill,
     removeSkill,
     addFile,
@@ -46,6 +48,8 @@ export default function TaskCreateForm({ locale }: TaskCreateFormProps) {
   const [successMessage, setSuccessMessage] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [apiError, setApiError] = useState<string | null>(null);
+  const [cityId, setCityId] = useState<number | null>(null);
+  const [neighborhoodId, setNeighborhoodId] = useState<number | null>(null);
 
   // Fetch categories
   useEffect(() => {
@@ -149,8 +153,13 @@ export default function TaskCreateForm({ locale }: TaskCreateFormProps) {
 
       formDataToSend.append('is_remote', formData.is_remote ? '1' : '0');
 
-      if (!formData.is_remote && formData.location) {
-        formDataToSend.append('location', formData.location);
+      if (!formData.is_remote) {
+        if (cityId) {
+          formDataToSend.append('city_id', cityId.toString());
+        }
+        if (neighborhoodId) {
+          formDataToSend.append('neighborhood_id', neighborhoodId.toString());
+        }
       }
 
       if (formData.deadline) {
@@ -183,6 +192,16 @@ export default function TaskCreateForm({ locale }: TaskCreateFormProps) {
 
       // Clear draft
       clearDraft();
+
+      // Reset form
+      resetForm();
+
+      // Reset local state
+      setSelectedCategoryId(null);
+      setSelectedSubcategoryId(null);
+      setSkillInput('');
+      setCityId(null);
+      setNeighborhoodId(null);
 
       // Show success message
       setSuccessMessage(true);
@@ -453,37 +472,15 @@ export default function TaskCreateForm({ locale }: TaskCreateFormProps) {
               {t('locationWorkStyle')}
             </h3>
 
-            {/* Remote Checkbox */}
-            <div className="mb-4">
-              <label className="flex items-center gap-3 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={formData.is_remote || false}
-                  onChange={(e) => setFormField('is_remote', e.target.checked)}
-                  className="w-5 h-5 text-indigo-600 rounded"
-                />
-                <span className="text-gray-900 dark:text-white font-medium">{t('remote')}</span>
-              </label>
-            </div>
-
-            {/* Location */}
-            {!formData.is_remote && (
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  {t('location')} <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  value={formData.location || ''}
-                  onChange={(e) => setFormField('location', e.target.value)}
-                  placeholder={t('locationPlaceholder')}
-                  className="w-full px-4 py-3 rounded-2xl bg-white/50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                />
-                {errors.location && (
-                  <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.location}</p>
-                )}
-              </div>
-            )}
+            <LocationSelector
+              isRemote={formData.is_remote || false}
+              onRemoteChange={(isRemote) => setFormField('is_remote', isRemote)}
+              cityId={cityId}
+              onCityChange={setCityId}
+              neighborhoodId={neighborhoodId}
+              onNeighborhoodChange={setNeighborhoodId}
+              locale={locale}
+            />
           </div>
 
           {/* Additional Details */}
