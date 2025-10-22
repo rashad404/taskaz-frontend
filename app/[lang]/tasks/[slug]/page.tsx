@@ -19,6 +19,7 @@ import { formatDistanceToNow, format } from 'date-fns';
 import { az, enUS, ru } from 'date-fns/locale';
 import TaskCard from '@/components/tasks/TaskCard';
 import TaskDetailActions from '@/components/tasks/TaskDetailActions';
+import { getImageUrl } from '@/lib/utils';
 
 interface TaskDetailPageProps {
   params: Promise<{ lang: string; slug: string }>;
@@ -263,7 +264,7 @@ function TaskDetailClient({ task, similarTasks, locale }: { task: Task; similarT
                   {task.attachments.map((file: any, index: number) => (
                     <a
                       key={index}
-                      href={`${process.env.NEXT_PUBLIC_API_URL?.replace('/api', '')}/${file.path}`}
+                      href={getImageUrl(file.url || `storage/${file.path}`)}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center gap-3 p-4 rounded-2xl border border-gray-200 dark:border-gray-700 hover:border-indigo-200 dark:hover:border-indigo-800 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-all group"

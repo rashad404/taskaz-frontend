@@ -29,6 +29,15 @@ export interface User {
   updated_at: string;
 }
 
+export interface TaskAttachment {
+  filename: string;
+  original_name: string;
+  path: string;
+  url?: string;
+  size: number;
+  type: string;
+}
+
 export interface Task {
   id: number;
   user_id: number;
@@ -45,6 +54,7 @@ export interface Task {
   views_count: number;
   created_at: string;
   updated_at: string;
+  attachments?: TaskAttachment[];
   client?: User;
   category?: Category;
   applications?: Application[];
