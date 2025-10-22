@@ -24,7 +24,7 @@ export function Footer({ locale }: FooterProps) {
   // Contact info state
   const [contactInfo, setContactInfo] = useState<ContactInfo>({
     phone: '+994 12 900 00 00',
-    email: 'info@kredit.az',
+    email: 'info@task.az',
     address: 'Bakı şəhəri, Fətəli Xanxoyski küçəsi, 21A'
   });
 
@@ -43,7 +43,7 @@ export function Footer({ locale }: FooterProps) {
           const data = response.data.data;
           setContactInfo({
             phone: data.phone || '+994 12 900 00 00',
-            email: data.email || 'info@kredit.az',
+            email: data.email || 'info@task.az',
             address: typeof data.address === 'object' && data.address[locale]
               ? data.address[locale]
               : data.address || 'Bakı şəhəri, Fətəli Xanxoyski küçəsi, 21A'

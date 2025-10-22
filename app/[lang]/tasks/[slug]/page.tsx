@@ -5,7 +5,6 @@ import type { Metadata } from 'next';
 import {
   MapPin,
   Clock,
-  DollarSign,
   Eye,
   Calendar,
   Briefcase,

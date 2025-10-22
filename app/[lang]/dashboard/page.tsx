@@ -13,7 +13,10 @@ import {
   CheckCircle,
   FileText,
   Search,
-  Loader2
+  Loader2,
+  AlertCircle,
+  Star,
+  ArrowRight
 } from 'lucide-react';
 
 export default function DashboardPage() {
@@ -28,6 +31,7 @@ export default function DashboardPage() {
     activeContracts: 0,
     unreadMessages: 0
   });
+  const [professionalStatus, setProfessionalStatus] = useState<any>(null);
   const [recentTasks, setRecentTasks] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -96,6 +100,16 @@ export default function DashboardPage() {
           const messagesData = await messagesRes.json();
           setStats(prev => ({ ...prev, unreadMessages: messagesData.data?.unread_count || 0 }));
         }
+
+        // Fetch professional status
+        const professionalRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/professional/status`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+
+        if (professionalRes.ok) {
+          const professionalData = await professionalRes.json();
+          setProfessionalStatus(professionalData.data);
+        }
       } catch (err) {
         console.error('Failed to fetch dashboard data:', err);
       } finally {
@@ -149,6 +163,106 @@ export default function DashboardPage() {
             <span>Peşəkar Tap</span>
           </Link>
         </div>
+
+        {/* Professional Status Widget */}
+        {professionalStatus && (
+          <div className="mb-12">
+            {/* Not Applied */}
+            {professionalStatus.can_apply && !professionalStatus.professional_status && (
+              <Link href={`/${locale}/become-professional`}>
+                <div className="group relative cursor-pointer">
+                  <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 opacity-90 group-hover:opacity-100 transition-all duration-500" />
+                  <div className="relative rounded-3xl p-8 text-white">
+                    <div className="flex items-center gap-6">
+                      <div className="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-xl flex items-center justify-center">
+                        <Star className="w-8 h-8 text-white" />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="text-2xl font-bold mb-2">Peşəkar Olun</h3>
+                        <p className="text-white/90">
+                          Platformamızda peşəkar kimi özünüzü göstərin və işlər qazanmağa başlayın
+                        </p>
+                      </div>
+                      <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            )}
+
+            {/* Pending */}
+            {professionalStatus.professional_status === 'pending' && (
+              <div className="rounded-3xl p-6 bg-yellow-50 dark:bg-yellow-900/20 border-2 border-yellow-200 dark:border-yellow-800">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-yellow-100 dark:bg-yellow-900/50 flex items-center justify-center flex-shrink-0">
+                    <Clock className="w-6 h-6 text-yellow-600 dark:text-yellow-400" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-lg font-bold text-yellow-900 dark:text-yellow-100 mb-1">
+                      Təsdiqlənir
+                    </h3>
+                    <p className="text-yellow-700 dark:text-yellow-300">
+                      Peşəkar müraciətiniz nəzərdən keçirilir. Tezliklə məlumatlandırılacaqsınız.
+                    </p>
+                    <p className="text-sm text-yellow-600 dark:text-yellow-400 mt-2">
+                      Müraciət tarixi: {new Date(professionalStatus.application_date).toLocaleDateString()}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Approved */}
+            {professionalStatus.professional_status === 'approved' && (
+              <div className="rounded-3xl p-6 bg-green-50 dark:bg-green-900/20 border-2 border-green-200 dark:border-green-800">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-green-100 dark:bg-green-900/50 flex items-center justify-center flex-shrink-0">
+                    <CheckCircle className="w-6 h-6 text-green-600 dark:text-green-400" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-lg font-bold text-green-900 dark:text-green-100 mb-1">
+                      Təbriklər! Siz artıq peşəkarsınız
+                    </h3>
+                    <p className="text-green-700 dark:text-green-300">
+                      Peşəkar profiliniz təsdiqləndi. İndi tapşırıqlara müraciət edə bilərsiniz.
+                    </p>
+                    <Link
+                      href={`/${locale}/professionals/${user?.slug}`}
+                      className="inline-flex items-center gap-2 mt-4 text-green-700 dark:text-green-300 font-medium hover:text-green-900 dark:hover:text-green-100"
+                    >
+                      Profilə bax <ArrowRight className="w-4 h-4" />
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Rejected */}
+            {professionalStatus.professional_status === 'rejected' && (
+              <div className="rounded-3xl p-6 bg-red-50 dark:bg-red-900/20 border-2 border-red-200 dark:border-red-800">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-red-100 dark:bg-red-900/50 flex items-center justify-center flex-shrink-0">
+                    <AlertCircle className="w-6 h-6 text-red-600 dark:text-red-400" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-lg font-bold text-red-900 dark:text-red-100 mb-1">
+                      Müraciət Rədd Edildi
+                    </h3>
+                    <p className="text-red-700 dark:text-red-300 mb-2">
+                      Səbəb: {professionalStatus.rejected_reason || 'Göstərilməyib'}
+                    </p>
+                    <Link
+                      href={`/${locale}/become-professional`}
+                      className="inline-flex items-center gap-2 mt-4 px-4 py-2 rounded-xl bg-red-600 text-white font-medium hover:bg-red-700 transition-colors"
+                    >
+                      Yenidən Müraciət Et <ArrowRight className="w-4 h-4" />
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">

@@ -47,12 +47,12 @@ Look for:
 
 ### 3. Check PM2 Logs
 ```bash
-pm2 logs next.kredit.az --lines 100
+pm2 logs next.task.az --lines 100
 ```
 
 ### 4. Check Next.js Server Logs
 ```bash
-cd /root/next.kredit.az
+cd /root/next.task.az
 tail -f .next/server/logs/*.log
 ```
 

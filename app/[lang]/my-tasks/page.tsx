@@ -11,7 +11,7 @@ import {
   XCircle,
   Loader2,
   Users,
-  DollarSign,
+  Wallet,
   Filter
 } from 'lucide-react';
 
@@ -200,7 +200,7 @@ export default function MyTasksPage() {
 
                 <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 dark:text-gray-400">
                   <div className="flex items-center gap-1.5">
-                    <DollarSign className="w-4 h-4" />
+                    <Wallet className="w-4 h-4" />
                     <span className="font-semibold">{task.budget_amount} AZN</span>
                     {task.budget_type === 'hourly' && <span className="text-xs">(saatlıq)</span>}
                   </div>

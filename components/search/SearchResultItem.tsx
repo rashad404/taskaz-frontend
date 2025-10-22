@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
-import { Briefcase, User, Folder, MapPin, DollarSign, Star } from 'lucide-react';
+import { Briefcase, User, Folder, MapPin, Wallet, Star } from 'lucide-react';
 
 interface SearchResultItemProps {
   type: 'task' | 'freelancer' | 'category';
@@ -56,7 +56,7 @@ export default function SearchResultItem({ type, item, locale, onSelect }: Searc
             <>
               {item.budget_amount && (
                 <span className="flex items-center gap-1">
-                  <DollarSign className="w-3 h-3" />
+                  <Wallet className="w-3 h-3" />
                   {item.budget_amount} AZN
                 </span>
               )}

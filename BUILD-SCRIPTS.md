@@ -15,7 +15,7 @@ Use this for **live production** with real users.
 
 **Usage:**
 ```bash
-cd /root/next.kredit.az
+cd /root/next.task.az
 ./build-production.sh
 ```
 
@@ -34,7 +34,7 @@ Use this for **testing/staging** when you need to debug issues.
 
 **Usage:**
 ```bash
-cd /root/next.kredit.az
+cd /root/next.task.az
 ./build-production-debug.sh
 ```
 
@@ -62,10 +62,10 @@ Both scripts manage these automatically:
 
 ### PM2 Commands
 ```bash
-pm2 status next.kredit.az  # Check if running
-pm2 logs next.kredit.az     # View logs
-pm2 restart next.kredit.az  # Restart app
-pm2 stop next.kredit.az     # Stop app
+pm2 status next.task.az  # Check if running
+pm2 logs next.task.az     # View logs
+pm2 restart next.task.az  # Restart app
+pm2 stop next.task.az     # Stop app
 ```
 
 ### Basic Auth

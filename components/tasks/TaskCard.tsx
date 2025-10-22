@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
-import { MapPin, Clock, DollarSign, Eye, Calendar } from 'lucide-react';
+import { MapPin, Clock, Wallet, Eye, Calendar } from 'lucide-react';
 import type { Task } from '@/lib/types/marketplace';
 import { formatDistanceToNow } from 'date-fns';
 import { az, enUS, ru } from 'date-fns/locale';
@@ -82,7 +82,7 @@ export default function TaskCard({ task, locale }: TaskCardProps) {
           <div className="space-y-2 mb-4">
             {/* Budget */}
             <div className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
-              <DollarSign className="w-4 h-4 text-green-600 dark:text-green-400" />
+              <Wallet className="w-4 h-4 text-green-600 dark:text-green-400" />
               <span className="font-medium">{formatBudget()}</span>
             </div>
 

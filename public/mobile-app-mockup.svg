@@ -15,7 +15,7 @@
   
   <!-- App Header -->
   <rect x="20" y="65" width="160" height="60" fill="#10B981"/>
-  <text x="100" y="95" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle" fill="white">Kredit.az</text>
+  <text x="100" y="95" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle" fill="white">task.az</text>
   <text x="100" y="115" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="white" opacity="0.9">Maliyyə həlləriniz</text>
   
   <!-- Content Cards -->

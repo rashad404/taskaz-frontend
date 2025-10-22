@@ -24,8 +24,8 @@ echo ""
 if [ ! -f .env.production ]; then
     echo "Creating .env.production file with debug mode..."
     cat > .env.production << EOF
-NEXT_PUBLIC_API_URL=https://api.kredit.az/api
-NEXT_PUBLIC_SITE_URL=https://kredit.az
+NEXT_PUBLIC_API_URL=https://api.task.az/api
+NEXT_PUBLIC_SITE_URL=https://task.az
 NEXT_PUBLIC_DEBUG_MODE=true
 NEXT_PUBLIC_BUILD_VERSION=$(date +%s)
 EOF
@@ -66,12 +66,12 @@ echo "✓ Build completed successfully with debug mode!"
 echo ""
 
 # Check if PM2 process exists
-if pm2 list | grep -q "next.kredit.az"; then
+if pm2 list | grep -q "next.task.az"; then
     echo "🔄 Restarting existing PM2 process..."
-    pm2 restart next.kredit.az
+    pm2 restart next.task.az
 else
     echo "🚀 Starting new PM2 process on port 3030..."
-    pm2 start npm --name next.kredit.az -- start -- -p 3030
+    pm2 start npm --name next.task.az -- start -- -p 3030
 fi
 
 # Save PM2 configuration
@@ -87,8 +87,8 @@ echo "   - Browser console shows actual file names and line numbers"
 echo ""
 echo "⚠️  To disable debug mode, run: ./build-production.sh"
 echo ""
-echo "Check status with: pm2 status next.kredit.az"
-echo "View logs with: pm2 logs next.kredit.az"
+echo "Check status with: pm2 status next.task.az"
+echo "View logs with: pm2 logs next.task.az"
 echo "View errors in browser console with detailed stack traces"
 echo ""
 echo "Note: Clear nginx cache in WHM if users see old version"

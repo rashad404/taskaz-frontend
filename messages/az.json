@@ -485,5 +485,85 @@
     "hourlyRate": "Saatlıq Tarif",
     "daysLeft": "gün qalıb",
     "expired": "Müddəti bitib"
+  },
+  "becomeProfessional": {
+    "title": "Peşəkar Olun",
+    "subtitle": "Platformamızda peşəkar kimi özünüzü göstərin və işlər qazanmağa başlayın",
+    "steps": {
+      "basicInfo": "Əsas Məlumat",
+      "professionalDetails": "Peşəkar Məlumatlar",
+      "portfolio": "Portfolio",
+      "review": "Nəzərdən Keçir və Göndər"
+    },
+    "form": {
+      "bio": "Haqqınızda",
+      "bioPlaceholder": "Özünüzü və təcrübənizi təsvir edin...",
+      "bioHelp": "Minimum 50 simvol, maksimum 1000 simvol",
+      "location": "Yer",
+      "locationPlaceholder": "Şəhər və ya ünvan",
+      "skills": "Bacarıqlar",
+      "skillsPlaceholder": "Bacarıq əlavə edin və Enter basın...",
+      "skillsHelp": "Minimum 3, maksimum 15 bacarıq əlavə edin",
+      "hourlyRate": "Saatlıq Qiymət (AZN)",
+      "hourlyRatePlaceholder": "Məsələn: 25",
+      "hourlyRateHelp": "Saatlıq qiymətinizi AZN-lə göstərin",
+      "portfolio": "Portfolio Layihələri",
+      "portfolioHelp": "Maksimum 5 portfolio layihəsi əlavə edə bilərsiniz",
+      "addPortfolio": "Portfolio Əlavə Et",
+      "portfolioTitle": "Layihə Başlığı",
+      "portfolioTitlePlaceholder": "Məsələn: E-ticarət Vebsayt Dizaynı",
+      "portfolioDescription": "Layihə Təsviri",
+      "portfolioDescriptionPlaceholder": "Layihə haqqında qısa məlumat...",
+      "portfolioImageUrl": "Şəkil URL",
+      "portfolioImagePlaceholder": "https://...",
+      "portfolioProjectUrl": "Layihə URL",
+      "portfolioProjectPlaceholder": "https://...",
+      "removePortfolio": "Sil"
+    },
+    "validation": {
+      "bioRequired": "Haqqınızda mətn tələb olunur",
+      "bioMin": "Minimum 50 simvol yazmalısınız",
+      "bioMax": "Maksimum 1000 simvol ola bilər",
+      "locationRequired": "Yer tələb olunur",
+      "skillsRequired": "Minimum 3 bacarıq əlavə edin",
+      "skillsMax": "Maksimum 15 bacarıq əlavə edə bilərsiniz",
+      "hourlyRateRequired": "Saatlıq qiymət tələb olunur",
+      "hourlyRateMin": "Minimum 1 AZN olmalıdır",
+      "portfolioTitleRequired": "Portfolio başlığı tələb olunur",
+      "portfolioImageInvalid": "Düzgün URL daxil edin",
+      "portfolioProjectInvalid": "Düzgün URL daxil edin"
+    },
+    "preview": {
+      "title": "Profil Önizləməsi",
+      "subtitle": "Peşəkar profiliniz belə görünəcək"
+    },
+    "submit": "Müraciət Et",
+    "submitting": "Göndərilir...",
+    "success": {
+      "title": "Müraciət Göndərildi!",
+      "message": "Peşəkar müraciətiniz uğurla göndərildi. Nəzərdən keçirildikdən sonra məlumatlandırılacaqsınız.",
+      "backToDashboard": "İdarə Panelinə Qayıt"
+    },
+    "status": {
+      "pending": "Təsdiqlənir",
+      "approved": "Təsdiqləndi",
+      "rejected": "Rədd Edildi",
+      "pendingMessage": "Peşəkar müraciətiniz nəzərdən keçirilir. Tezliklə məlumatlandırılacaqsınız.",
+      "approvedMessage": "Təbriklər! Peşəkar profiliniz təsdiqlənd i. İndi tapşırıqlara müraciət edə bilərsiniz.",
+      "rejectedMessage": "Müraciətiniz rədd edildi: {reason}",
+      "reapply": "Yenidən Müraciət Et",
+      "viewProfile": "Profilə Bax",
+      "editProfile": "Profili Redaktə Et"
+    },
+    "authRequired": {
+      "title": "Daxil Olun",
+      "message": "Peşəkar olmaq üçün hesabınıza daxil olmalısınız."
+    },
+    "error": {
+      "alreadyPending": "Artıq gözləyən müraciətiniz var",
+      "alreadyApproved": "Siz artıq təsdiqlənmiş peşəkarsınız",
+      "generic": "Müraciət göndərilərkən xəta baş verdi. Yenidən cəhd edin.",
+      "tryAgain": "Yenidən Cəhd Et"
+    }
   }
 }

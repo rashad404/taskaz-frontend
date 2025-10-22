@@ -44,7 +44,7 @@ export function Logo({ locale = 'az' }: { locale?: string }) {
     <Link href={homePath} onClick={handleLogoClick} className="flex items-center hover:opacity-90 transition-opacity flex-shrink-0">
       <Image
         src={logoSrc}
-        alt="Kredit.az"
+        alt="task.az"
         width={180}
         height={50}
         priority

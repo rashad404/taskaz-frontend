@@ -1,4 +1,4 @@
-# Kredit.az Frontend - Comprehensive Documentation
+# task.az Frontend - Comprehensive Documentation
 
 ## Table of Contents
 - [Languages & Frameworks](#languages--frameworks)

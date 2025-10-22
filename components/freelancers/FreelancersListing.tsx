@@ -3,10 +3,11 @@
 import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
+import Link from 'next/link';
 import { usersApi } from '@/lib/api/marketplace';
 import FreelancerCard, { Freelancer } from './FreelancerCard';
 import FreelancersFilters, { FreelancerFilters } from './FreelancersFilters';
-import { Loader2 } from 'lucide-react';
+import { Loader2, Star, ArrowRight } from 'lucide-react';
 
 interface FreelancersListingProps {
   locale: string;
@@ -93,7 +94,7 @@ export default function FreelancersListing({ locale, initialFilters }: Freelance
       }
     });
 
-    router.push(`/${locale}/freelancers?${params.toString()}`);
+    router.push(`/${locale}/professionals?${params.toString()}`);
   };
 
   const handlePageChange = (page: number) => {
@@ -107,7 +108,7 @@ export default function FreelancersListing({ locale, initialFilters }: Freelance
       }
     });
 
-    router.push(`/${locale}/freelancers?${params.toString()}`);
+    router.push(`/${locale}/professionals?${params.toString()}`);
   };
 
   if (error) {
@@ -133,12 +134,28 @@ export default function FreelancersListing({ locale, initialFilters }: Freelance
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-4xl font-bold mb-2">
-            <span className="gradient-text">{t('title')}</span>
-          </h1>
-          <p className="text-gray-600 dark:text-gray-300">
-            {pagination.total} {t('freelancersAvailable')}
-          </p>
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+            <div>
+              <h1 className="text-4xl font-bold mb-2">
+                <span className="gradient-text">{t('title')}</span>
+              </h1>
+              <p className="text-gray-600 dark:text-gray-300">
+                {pagination.total} {t('freelancersAvailable')}
+              </p>
+            </div>
+
+            {/* Become a Professional CTA */}
+            <Link href={`/${locale}/become-professional`}>
+              <div className="group relative cursor-pointer">
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 opacity-90 group-hover:opacity-100 transition-all duration-500" />
+                <div className="relative flex items-center gap-3 px-6 py-4 text-white">
+                  <Star className="w-5 h-5" />
+                  <span className="font-semibold whitespace-nowrap">Peşəkar Olun</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </div>
+              </div>
+            </Link>
+          </div>
         </div>
 
         {/* Filters */}

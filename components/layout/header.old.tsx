@@ -252,7 +252,7 @@ export function Header({ locale }: HeaderProps) {
             {/* Copyright footer to indicate end of menu */}
             <div className="px-4 py-4 mt-6 border-t border-gray-100 dark:border-gray-800">
               <p className="text-xs text-gray-500 dark:text-gray-400 text-center">
-                {dictionary.footer?.copyright?.replace('{year}', new Date().getFullYear().toString()) || `Bütün hüquqları qorunur © ${new Date().getFullYear()} Kredit.az`}
+                {dictionary.footer?.copyright?.replace('{year}', new Date().getFullYear().toString()) || `Bütün hüquqları qorunur © ${new Date().getFullYear()} task.az`}
               </p>
             </div>
             </nav>

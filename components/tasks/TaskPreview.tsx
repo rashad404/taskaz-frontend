@@ -1,7 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { X, MapPin, Calendar, DollarSign, Tag } from 'lucide-react';
+import { X, MapPin, Calendar, Wallet, Tag } from 'lucide-react';
 import type { TaskFormData } from '@/lib/types/marketplace';
 
 interface TaskPreviewProps {
@@ -68,7 +68,7 @@ export default function TaskPreview({ formData, onClose, onPublish, categoryName
               {/* Budget */}
               {(formData.budget_amount || formData.budget_type) && (
                 <div className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
-                  <DollarSign className="w-4 h-4 text-green-600 dark:text-green-400" />
+                  <Wallet className="w-4 h-4 text-green-600 dark:text-green-400" />
                   <span className="font-medium">
                     {formData.budget_amount
                       ? `${formData.budget_amount} AZN${formData.budget_type === 'hourly' ? '/saat' : ''}`

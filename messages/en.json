@@ -370,5 +370,85 @@
     "hourlyRate": "Hourly Rate",
     "daysLeft": "days left",
     "expired": "Expired"
+  },
+  "becomeProfessional": {
+    "title": "Become a Professional",
+    "subtitle": "Showcase yourself as a professional on the platform and start earning",
+    "steps": {
+      "basicInfo": "Basic Information",
+      "professionalDetails": "Professional Details",
+      "portfolio": "Portfolio",
+      "review": "Review & Submit"
+    },
+    "form": {
+      "bio": "About You",
+      "bioPlaceholder": "Describe yourself and your experience...",
+      "bioHelp": "Minimum 50 characters, maximum 1000 characters",
+      "location": "Location",
+      "locationPlaceholder": "City or address",
+      "skills": "Skills",
+      "skillsPlaceholder": "Add a skill and press Enter...",
+      "skillsHelp": "Add minimum 3, maximum 15 skills",
+      "hourlyRate": "Hourly Rate (AZN)",
+      "hourlyRatePlaceholder": "e.g., 25",
+      "hourlyRateHelp": "Specify your hourly rate in AZN",
+      "portfolio": "Portfolio Projects",
+      "portfolioHelp": "You can add up to 5 portfolio projects",
+      "addPortfolio": "Add Portfolio",
+      "portfolioTitle": "Project Title",
+      "portfolioTitlePlaceholder": "e.g., E-commerce Website Design",
+      "portfolioDescription": "Project Description",
+      "portfolioDescriptionPlaceholder": "Brief information about the project...",
+      "portfolioImageUrl": "Image URL",
+      "portfolioImagePlaceholder": "https://...",
+      "portfolioProjectUrl": "Project URL",
+      "portfolioProjectPlaceholder": "https://...",
+      "removePortfolio": "Remove"
+    },
+    "validation": {
+      "bioRequired": "Bio is required",
+      "bioMin": "Must be at least 50 characters",
+      "bioMax": "Maximum 1000 characters allowed",
+      "locationRequired": "Location is required",
+      "skillsRequired": "Add at least 3 skills",
+      "skillsMax": "Maximum 15 skills allowed",
+      "hourlyRateRequired": "Hourly rate is required",
+      "hourlyRateMin": "Must be at least 1 AZN",
+      "portfolioTitleRequired": "Portfolio title is required",
+      "portfolioImageInvalid": "Enter a valid URL",
+      "portfolioProjectInvalid": "Enter a valid URL"
+    },
+    "preview": {
+      "title": "Profile Preview",
+      "subtitle": "This is how your professional profile will look"
+    },
+    "submit": "Submit Application",
+    "submitting": "Submitting...",
+    "success": {
+      "title": "Application Submitted!",
+      "message": "Your professional application has been submitted successfully. You will be notified once it's reviewed.",
+      "backToDashboard": "Back to Dashboard"
+    },
+    "status": {
+      "pending": "Pending Review",
+      "approved": "Approved",
+      "rejected": "Rejected",
+      "pendingMessage": "Your professional application is under review. You will be notified soon.",
+      "approvedMessage": "Congratulations! Your professional profile has been approved. You can now apply to tasks.",
+      "rejectedMessage": "Your application was rejected: {reason}",
+      "reapply": "Reapply",
+      "viewProfile": "View Profile",
+      "editProfile": "Edit Profile"
+    },
+    "authRequired": {
+      "title": "Sign In Required",
+      "message": "You need to sign in to become a professional."
+    },
+    "error": {
+      "alreadyPending": "You already have a pending application",
+      "alreadyApproved": "You are already an approved professional",
+      "generic": "An error occurred while submitting your application. Please try again.",
+      "tryAgain": "Try Again"
+    }
   }
 }

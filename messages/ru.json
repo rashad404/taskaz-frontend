@@ -294,5 +294,85 @@
     "hourlyRate": "Почасовая ставка",
     "daysLeft": "дней осталось",
     "expired": "Истек"
+  },
+  "becomeProfessional": {
+    "title": "Стать профессионалом",
+    "subtitle": "Представьте себя как профессионал на платформе и начните зарабатывать",
+    "steps": {
+      "basicInfo": "Основная информация",
+      "professionalDetails": "Профессиональные детали",
+      "portfolio": "Портфолио",
+      "review": "Проверка и отправка"
+    },
+    "form": {
+      "bio": "О вас",
+      "bioPlaceholder": "Опишите себя и свой опыт...",
+      "bioHelp": "Минимум 50 символов, максимум 1000 символов",
+      "location": "Местоположение",
+      "locationPlaceholder": "Город или адрес",
+      "skills": "Навыки",
+      "skillsPlaceholder": "Добавьте навык и нажмите Enter...",
+      "skillsHelp": "Добавьте минимум 3, максимум 15 навыков",
+      "hourlyRate": "Почасовая ставка (AZN)",
+      "hourlyRatePlaceholder": "например, 25",
+      "hourlyRateHelp": "Укажите вашу почасовую ставку в AZN",
+      "portfolio": "Проекты портфолио",
+      "portfolioHelp": "Вы можете добавить до 5 проектов портфолио",
+      "addPortfolio": "Добавить портфолио",
+      "portfolioTitle": "Название проекта",
+      "portfolioTitlePlaceholder": "например, Дизайн сайта электронной коммерции",
+      "portfolioDescription": "Описание проекта",
+      "portfolioDescriptionPlaceholder": "Краткая информация о проекте...",
+      "portfolioImageUrl": "URL изображения",
+      "portfolioImagePlaceholder": "https://...",
+      "portfolioProjectUrl": "URL проекта",
+      "portfolioProjectPlaceholder": "https://...",
+      "removePortfolio": "Удалить"
+    },
+    "validation": {
+      "bioRequired": "Биография обязательна",
+      "bioMin": "Должно быть не менее 50 символов",
+      "bioMax": "Максимум 1000 символов",
+      "locationRequired": "Местоположение обязательно",
+      "skillsRequired": "Добавьте хотя бы 3 навыка",
+      "skillsMax": "Максимум 15 навыков",
+      "hourlyRateRequired": "Почасовая ставка обязательна",
+      "hourlyRateMin": "Минимум 1 AZN",
+      "portfolioTitleRequired": "Название портфолио обязательно",
+      "portfolioImageInvalid": "Введите корректный URL",
+      "portfolioProjectInvalid": "Введите корректный URL"
+    },
+    "preview": {
+      "title": "Предпросмотр профиля",
+      "subtitle": "Так будет выглядеть ваш профессиональный профиль"
+    },
+    "submit": "Отправить заявку",
+    "submitting": "Отправка...",
+    "success": {
+      "title": "Заявка отправлена!",
+      "message": "Ваша профессиональная заявка успешно отправлена. Вы будете уведомлены после проверки.",
+      "backToDashboard": "Вернуться к панели управления"
+    },
+    "status": {
+      "pending": "На рассмотрении",
+      "approved": "Одобрено",
+      "rejected": "Отклонено",
+      "pendingMessage": "Ваша профессиональная заявка находится на рассмотрении. Вы скоро будете уведомлены.",
+      "approvedMessage": "Поздравляем! Ваш профессиональный профиль одобрен. Теперь вы можете подавать заявки на задачи.",
+      "rejectedMessage": "Ваша заявка была отклонена: {reason}",
+      "reapply": "Подать повторно",
+      "viewProfile": "Просмотреть профиль",
+      "editProfile": "Редактировать профиль"
+    },
+    "authRequired": {
+      "title": "Требуется вход",
+      "message": "Вам нужно войти, чтобы стать профессионалом."
+    },
+    "error": {
+      "alreadyPending": "У вас уже есть заявка на рассмотрении",
+      "alreadyApproved": "Вы уже одобренный профессионал",
+      "generic": "Произошла ошибка при отправке заявки. Попробуйте снова.",
+      "tryAgain": "Попробовать снова"
+    }
   }
 }

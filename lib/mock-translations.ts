@@ -56,7 +56,7 @@ export const translations = {
       placeholder: "Mail daxil edin",
       button: "Abunə ol!"
     },
-    copyright: "Bütün hüquqları qorunur © 2025 Kredit.az"
+    copyright: "Bütün hüquqları qorunur © 2025 task.az"
   },
   offer: {
     annualRate: "İllik faiz",
