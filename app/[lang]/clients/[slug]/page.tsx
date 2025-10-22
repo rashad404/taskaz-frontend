@@ -66,7 +66,7 @@ function ClientDetailClient({ client, locale }: any) {
                   <div className="w-full h-full rounded-full bg-white dark:bg-gray-900 flex items-center justify-center overflow-hidden">
                     {client.avatar ? (
                       <img
-                        src={client.avatar}
+                        src={`${process.env.NEXT_PUBLIC_API_URL?.replace('/api', '')}/storage/${client.avatar}`}
                         alt={client.name}
                         className="w-full h-full object-cover"
                       />

@@ -146,7 +146,7 @@ export default function SettingsPage() {
                   <div className="w-full h-full rounded-full bg-white dark:bg-gray-900 flex items-center justify-center overflow-hidden">
                     {user.avatar ? (
                       <img
-                        src={user.avatar}
+                        src={`${process.env.NEXT_PUBLIC_API_URL?.replace('/api', '')}/storage/${user.avatar}`}
                         alt={user.name}
                         className="w-full h-full object-cover"
                       />

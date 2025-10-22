@@ -101,7 +101,7 @@ function FreelancerDetailClient({ freelancer, similarFreelancers, locale }: any)
                   <div className="w-full h-full rounded-full bg-white dark:bg-gray-900 flex items-center justify-center overflow-hidden">
                     {freelancer.avatar ? (
                       <img
-                        src={freelancer.avatar}
+                        src={`${process.env.NEXT_PUBLIC_API_URL?.replace('/api', '')}/storage/${freelancer.avatar}`}
                         alt={freelancer.name}
                         className="w-full h-full object-cover"
                       />

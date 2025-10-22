@@ -287,7 +287,19 @@ export default function ConversationsPage() {
                           >
                             <div className={`max-w-[70%] ${isMyMessage ? 'order-2' : 'order-1'}`}>
                               <div className="flex items-center gap-2 mb-1">
-                                <User className="w-4 h-4 text-gray-400" />
+                                <div className="w-5 h-5 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center overflow-hidden flex-shrink-0">
+                                  {message.sender?.avatar ? (
+                                    <img
+                                      src={`${process.env.NEXT_PUBLIC_API_URL?.replace('/api', '')}/storage/${message.sender.avatar}`}
+                                      alt={message.sender.name}
+                                      className="w-full h-full object-cover"
+                                    />
+                                  ) : (
+                                    <span className="text-[10px] font-bold text-white">
+                                      {message.sender?.name?.charAt(0) || 'U'}
+                                    </span>
+                                  )}
+                                </div>
                                 <span className="text-xs text-gray-600 dark:text-gray-400">
                                   {message.sender?.name || 'Bilinməyən'}
                                 </span>

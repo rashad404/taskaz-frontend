@@ -287,8 +287,16 @@ function TaskDetailClient({ task, similarTasks, locale }: { task: Task; similarT
                 </h2>
                 <div className="flex items-start gap-4">
                   {/* Avatar */}
-                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-2xl font-bold flex-shrink-0">
-                    {task.client.name.charAt(0)}
+                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-2xl font-bold flex-shrink-0 overflow-hidden">
+                    {task.client.avatar ? (
+                      <img
+                        src={`${process.env.NEXT_PUBLIC_API_URL?.replace('/api', '')}/storage/${task.client.avatar}`}
+                        alt={task.client.name}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <span>{task.client.name.charAt(0)}</span>
+                    )}
                   </div>
 
                   <div className="flex-1">
