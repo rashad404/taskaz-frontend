@@ -16,7 +16,7 @@
     },
     "hero": {
       "title": "İstedadları Tapın. İşləri Həll Edin.",
-      "subtitle": "Azərbaycanda bacarıqlı freelancerlərlə əlaqə qurun",
+      "subtitle": "Azərbaycanda peşəkar xidmət göstərənlərlə əlaqə qurun",
       "description": "Layihənizi yerləşdirin və istedadlı peşəkarlardan təkliflər alın",
       "searchPlaceholder": "Hansı xidməti axtarırsınız?",
       "search": "Axtar",
@@ -33,12 +33,12 @@
       "title": "Necə İşləyir",
       "subtitle": "Uğura doğru sadə addımlar",
       "forClients": "Müştərilər Üçün",
-      "forFreelancers": "Freelancerlər Üçün",
+      "forFreelancers": "Peşəkarlar Üçün",
       "client": {
         "step1Title": "Tapşırığınızı Yerləşdirin",
         "step1Desc": "Layihənizi təsvir edin, büdcə və son tarix təyin edin",
         "step2Title": "Təklifləri Nəzərdən Keçirin",
-        "step2Desc": "Bacarıqlı freelancerlərdən müraciətlər alın",
+        "step2Desc": "Bacarıqlı peşəkarlardan müraciətlər alın",
         "step3Title": "İşə Götürün və Əməkdaşlıq Edin",
         "step3Desc": "Layihəniz üçün ən uyğun olanı seçin",
         "step4Title": "Təhlükəsiz Ödəniş",
@@ -56,21 +56,21 @@
       }
     },
     "topFreelancers": {
-      "title": "Top Freelancerlər",
+      "title": "Top Peşəkarlar",
       "subtitle": "Təsdiqlənmiş peşəkarları işə götürün",
       "completedJobs": "Tamamlanmış İşlər",
-      "noFreelancers": "Hələ freelancer yoxdur"
+      "noFreelancers": "Hələ peşəkar yoxdur"
     },
     "whyTaskaz": {
       "title": "Niyə Task.az",
-      "subtitle": "Etibarlı freelance platformanız",
+      "subtitle": "Etibarlı peşəkar xidmətlər platformanız",
       "securePayments": {
         "title": "Təhlükəsiz Ödənişlər",
         "description": "İkitərəfli təsdiq sistemi hər iki tərəfi qoruyur"
       },
       "qualityTalent": {
         "title": "Keyfiyyətli İstedadlar",
-        "description": "Reytinq və rəyləri olan təsdiqlənmiş freelancerlər"
+        "description": "Reytinq və rəyləri olan təsdiqlənmiş peşəkarlar"
       },
       "localPlatform": {
         "title": "Yerli Platforma",
@@ -84,7 +84,7 @@
     "finalCTA": {
       "clients": {
         "title": "İş Lazımdır?",
-        "description": "Tapşırığınızı yerləşdirin və istedadlı freelancerlərdən təkliflər alın",
+        "description": "Tapşırığınızı yerləşdirin və istedadlı peşəkarlardan təkliflər alın",
         "button": "Tapşırıq Yerləşdir"
       },
       "freelancers": {
@@ -226,14 +226,14 @@
     "confirmDelete": "Bu bildirişi silmək istədiyinizə əminsiniz?"
   },
   "search": {
-    "placeholder": "Tapşırıq, freelancer və ya kateqoriya axtarın...",
+    "placeholder": "Tapşırıq, peşəkar və ya kateqoriya axtarın...",
     "searching": "Axtarılır...",
     "noResults": "Nəticə tapılmadı",
     "noResultsDesc": "Başqa açar sözlərlə yenidən cəhd edin",
     "recentSearches": "Son Axtarışlar",
     "viewAll": "Bütün nəticələrə bax",
     "tasks": "Tapşırıqlar",
-    "freelancers": "Freelancerlər",
+    "freelancers": "Peşəkarlar",
     "categories": "Kateqoriyalar",
     "remote": "Remote",
     "from": "dan",
@@ -275,8 +275,8 @@
     "terms": "Şərtlər"
   },
   "metadata": {
-    "title": "Task.az - Freelance Platforma",
-    "description": "Azərbaycanda tapşırıqlar və istedadlar üçün platforma. İşləri yerləşdirin, freelancerləri tapın və əməkdaşlıq edin."
+    "title": "Task.az - Peşəkar Xidmətlər Platforması",
+    "description": "Azərbaycanda tapşırıqlar və peşəkar xidmətlər üçün platforma. İşləri yerləşdirin, peşəkarları tapın və əməkdaşlıq edin."
   },
   "login": {
     "welcomeBack": "Xoş gəlmisiniz",
@@ -359,7 +359,7 @@
   },
   "taskCreate": {
     "pageTitle": "Tapşırıq Yarat",
-    "pageSubtitle": "Tapşırığınızı yerləşdirin və bacarıqlı freelancerlərdən təkliflər alın",
+    "pageSubtitle": "Tapşırığınızı yerləşdirin və bacarıqlı peşəkarlardan təkliflər alın",
     "basicInfo": "Əsas Məlumat",
     "title": "Tapşırıq Başlığı",
     "titlePlaceholder": "Məsələn: Veb-sayt dizaynı lazımdır",
@@ -431,10 +431,10 @@
     }
   },
   "freelancers": {
-    "title": "Freelancerləri Tap",
-    "freelancersAvailable": "freelancer mövcuddur",
+    "title": "Peşəkarları Tap",
+    "freelancersAvailable": "peşəkar mövcuddur",
     "completedJobs": "Tamamlanmış İşlər",
-    "searchPlaceholder": "Freelancer axtarın...",
+    "searchPlaceholder": "Peşəkar axtarın...",
     "filters": "Filtrlər",
     "clearAll": "Hamısını təmizlə",
     "location": "Yer",
@@ -446,7 +446,7 @@
     "topRated": "Ən Yüksək Reytinq",
     "mostExperienced": "Ən Təcrübəli",
     "newest": "Ən Yeni",
-    "noFreelancersFound": "Freelancer tapılmadı. Filtrləri dəyişdirməyi cəhd edin.",
+    "noFreelancersFound": "Peşəkar tapılmadı. Filtrləri dəyişdirməyi cəhd edin.",
     "tryAgain": "Yenidən Cəhd Et",
     "previous": "Əvvəlki",
     "next": "Növbəti",

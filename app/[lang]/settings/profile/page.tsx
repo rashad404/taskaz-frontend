@@ -11,7 +11,9 @@ import {
   Save,
   Loader2,
   ChevronLeft,
-  FileText
+  FileText,
+  Camera,
+  Upload
 } from 'lucide-react';
 
 export default function ProfileSettingsPage() {
@@ -24,6 +26,8 @@ export default function ProfileSettingsPage() {
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState({ type: '', text: '' });
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [avatarFile, setAvatarFile] = useState<File | null>(null);
+  const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -65,6 +69,32 @@ export default function ProfileSettingsPage() {
       });
   }, [router, locale]);
 
+  const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      // Validate file size (max 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        setMessage({ type: 'error', text: 'Şəkil 5MB-dan böyük ola bilməz' });
+        return;
+      }
+
+      // Validate file type
+      if (!file.type.startsWith('image/')) {
+        setMessage({ type: 'error', text: 'Yalnız şəkil faylları yükləyə bilərsiniz' });
+        return;
+      }
+
+      setAvatarFile(file);
+
+      // Create preview
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setAvatarPreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setMessage({ type: '', text: '' });
@@ -74,21 +104,46 @@ export default function ProfileSettingsPage() {
     try {
       const token = localStorage.getItem('token');
 
+      // Use FormData for file upload
+      const formDataToSend = new FormData();
+      formDataToSend.append('_method', 'PUT'); // Laravel method spoofing for file uploads
+      formDataToSend.append('name', formData.name);
+      formDataToSend.append('email', formData.email);
+      formDataToSend.append('phone', formData.phone || '');
+      formDataToSend.append('location', formData.location || '');
+      formDataToSend.append('bio', formData.bio || '');
+
+      if (avatarFile) {
+        formDataToSend.append('avatar', avatarFile);
+      }
+
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user`, {
-        method: 'PUT',
+        method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify(formData)
+        body: formDataToSend
       });
 
       const data = await response.json();
 
       if (response.ok) {
         setMessage({ type: 'success', text: 'Profil uğurla yeniləndi' });
-        setUser(data.data);
+        const updatedUser = data.data;
+        setUser(updatedUser);
+
+        // Update formData with the latest user info
+        setFormData({
+          name: updatedUser.name || '',
+          email: updatedUser.email || '',
+          phone: updatedUser.phone || '',
+          location: updatedUser.location || '',
+          bio: updatedUser.bio || ''
+        });
+
         setErrors({});
+        setAvatarFile(null);
+        setAvatarPreview(null);
       } else {
         // Handle validation errors
         if (data.errors && typeof data.errors === 'object') {
@@ -110,7 +165,8 @@ export default function ProfileSettingsPage() {
         }
       }
     } catch (err) {
-      setMessage({ type: 'error', text: 'Serverlə əlaqə xətası' });
+      console.error('Profile update error:', err);
+      setMessage({ type: 'error', text: 'Serverlə əlaqə xətası. Zəhmət olmasa yenidən cəhd edin.' });
     } finally {
       setSaving(false);
     }
@@ -169,6 +225,50 @@ export default function ProfileSettingsPage() {
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="rounded-3xl p-8 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-white/30 dark:border-gray-700/30">
+          {/* Profile Photo Section */}
+          <div className="mb-8 flex flex-col items-center">
+            <div className="relative">
+              {/* Avatar Display */}
+              <div className="w-32 h-32 rounded-full overflow-hidden bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center">
+                {avatarPreview || (user.avatar && `${process.env.NEXT_PUBLIC_API_URL?.replace('/api', '')}/storage/${user.avatar}`) ? (
+                  <img
+                    src={avatarPreview || `${process.env.NEXT_PUBLIC_API_URL?.replace('/api', '')}/storage/${user.avatar}`}
+                    alt={user.name}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <span className="text-white text-4xl font-bold">
+                    {user.name?.charAt(0).toUpperCase()}
+                  </span>
+                )}
+              </div>
+
+              {/* Upload Button Overlay */}
+              <label
+                htmlFor="avatar-upload"
+                className="absolute bottom-0 right-0 w-10 h-10 bg-indigo-600 hover:bg-indigo-700 rounded-full flex items-center justify-center cursor-pointer shadow-lg transition-colors"
+              >
+                <Camera className="w-5 h-5 text-white" />
+                <input
+                  id="avatar-upload"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleAvatarChange}
+                  className="hidden"
+                />
+              </label>
+            </div>
+
+            <div className="mt-4 text-center">
+              <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                Profil Şəkli
+              </p>
+              <p className="text-xs text-gray-500 dark:text-gray-400">
+                JPG, PNG və ya GIF. Maksimum 5MB.
+              </p>
+            </div>
+          </div>
+
           <div className="space-y-6">
             {/* Name */}
             <div>

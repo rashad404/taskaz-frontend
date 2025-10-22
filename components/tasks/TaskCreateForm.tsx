@@ -34,7 +34,11 @@ export default function TaskCreateForm({ locale }: TaskCreateFormProps) {
     removeFile,
   } = useTaskForm();
 
+  const [allCategories, setAllCategories] = useState<Category[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
+  const [subcategories, setSubcategories] = useState<Category[]>([]);
+  const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(null);
+  const [selectedSubcategoryId, setSelectedSubcategoryId] = useState<number | null>(null);
   const [loadingCategories, setLoadingCategories] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
@@ -48,6 +52,7 @@ export default function TaskCreateForm({ locale }: TaskCreateFormProps) {
     const fetchCategories = async () => {
       try {
         const data = await categoriesApi.getAll();
+        setAllCategories(data);
         const parentCategories = data.filter((cat: Category) => !cat.parent_id);
         setCategories(parentCategories);
       } catch (error) {
@@ -58,6 +63,38 @@ export default function TaskCreateForm({ locale }: TaskCreateFormProps) {
     };
     fetchCategories();
   }, []);
+
+  // Handle category selection
+  const handleCategoryChange = (categoryId: number | null) => {
+    setSelectedCategoryId(categoryId);
+
+    if (categoryId) {
+      const subs = allCategories.filter((cat: Category) => cat.parent_id === categoryId);
+      setSubcategories(subs);
+
+      // If no subcategories, use parent as the final category
+      if (subs.length === 0) {
+        setFormField('category_id', categoryId);
+        setSelectedSubcategoryId(null);
+      } else {
+        // Reset subcategory selection when parent changes
+        setSelectedSubcategoryId(null);
+        setFormField('category_id', null);
+      }
+    } else {
+      setSubcategories([]);
+      setSelectedSubcategoryId(null);
+      setFormField('category_id', null);
+    }
+  };
+
+  // Handle subcategory selection
+  const handleSubcategoryChange = (subcategoryId: number | null) => {
+    setSelectedSubcategoryId(subcategoryId);
+    if (subcategoryId) {
+      setFormField('category_id', subcategoryId);
+    }
+  };
 
   const handleSkillKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && skillInput.trim()) {
@@ -173,7 +210,7 @@ export default function TaskCreateForm({ locale }: TaskCreateFormProps) {
     // Form data is already saved in draft
   };
 
-  const selectedCategory = categories.find(c => c.id === formData.category_id);
+  const selectedCategory = allCategories.find(c => c.id === formData.category_id);
 
   if (successMessage) {
     return (
@@ -264,15 +301,15 @@ export default function TaskCreateForm({ locale }: TaskCreateFormProps) {
             {/* Category */}
             <div className="mb-6">
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                {t('category')} <span className="text-red-500">*</span>
+                Əsas Kateqoriya <span className="text-red-500">*</span>
               </label>
               <select
-                value={formData.category_id || ''}
-                onChange={(e) => setFormField('category_id', parseInt(e.target.value))}
+                value={selectedCategoryId || ''}
+                onChange={(e) => handleCategoryChange(e.target.value ? parseInt(e.target.value) : null)}
                 className="w-full px-4 py-3 rounded-2xl bg-white/50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 disabled={loadingCategories}
               >
-                <option value="">{t('categoryPlaceholder')}</option>
+                <option value="">Kateqoriya seçin</option>
                 {categories.map((category) => (
                   <option key={category.id} value={category.id}>
                     {category.name}
@@ -283,6 +320,30 @@ export default function TaskCreateForm({ locale }: TaskCreateFormProps) {
                 <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.category_id}</p>
               )}
             </div>
+
+            {/* Subcategory - shown only if parent category has children */}
+            {subcategories.length > 0 && (
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Alt Kateqoriya <span className="text-red-500">*</span>
+                </label>
+                <select
+                  value={selectedSubcategoryId || ''}
+                  onChange={(e) => handleSubcategoryChange(e.target.value ? parseInt(e.target.value) : null)}
+                  className="w-full px-4 py-3 rounded-2xl bg-white/50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                >
+                  <option value="">Alt kateqoriya seçin</option>
+                  {subcategories.map((subcategory) => (
+                    <option key={subcategory.id} value={subcategory.id}>
+                      {subcategory.name}
+                    </option>
+                  ))}
+                </select>
+                {!selectedSubcategoryId && errors.category_id && (
+                  <p className="mt-1 text-sm text-red-600 dark:text-red-400">Alt kateqoriya seçməlisiniz</p>
+                )}
+              </div>
+            )}
 
             {/* Description */}
             <div className="mb-6">

@@ -12,7 +12,7 @@
     "welcome": "Welcome to Task.az",
     "hero": {
       "title": "Find Talent. Get Work Done.",
-      "subtitle": "Connect with skilled freelancers in Azerbaijan",
+      "subtitle": "Connect with skilled professionals in Azerbaijan",
       "description": "Post your project and receive proposals from talented professionals",
       "searchPlaceholder": "What service are you looking for?",
       "search": "Search",
@@ -29,12 +29,12 @@
       "title": "How It Works",
       "subtitle": "Simple steps to success",
       "forClients": "For Clients",
-      "forFreelancers": "For Freelancers",
+      "forFreelancers": "For Professionals",
       "client": {
         "step1Title": "Post Your Task",
         "step1Desc": "Describe your project, set budget and deadline",
         "step2Title": "Review Proposals",
-        "step2Desc": "Get applications from skilled freelancers",
+        "step2Desc": "Get applications from skilled professionals",
         "step3Title": "Hire & Collaborate",
         "step3Desc": "Choose the best match for your project",
         "step4Title": "Pay Securely",
@@ -52,21 +52,21 @@
       }
     },
     "topFreelancers": {
-      "title": "Top Freelancers",
+      "title": "Top Professionals",
       "subtitle": "Hire verified professionals",
       "completedJobs": "Completed Jobs",
-      "noFreelancers": "No freelancers available yet"
+      "noFreelancers": "No professionals available yet"
     },
     "whyTaskaz": {
       "title": "Why Choose Task.az",
-      "subtitle": "Your trusted freelance marketplace",
+      "subtitle": "Your trusted professional services platform",
       "securePayments": {
         "title": "Secure Payments",
         "description": "Dual confirmation system protects both parties"
       },
       "qualityTalent": {
         "title": "Quality Talent",
-        "description": "Verified freelancers with ratings and reviews"
+        "description": "Verified professionals with ratings and reviews"
       },
       "localPlatform": {
         "title": "Local Platform",
@@ -80,7 +80,7 @@
     "finalCTA": {
       "clients": {
         "title": "Need Work Done?",
-        "description": "Post your task and get proposals from talented freelancers",
+        "description": "Post your task and get proposals from talented professionals",
         "button": "Post a Task"
       },
       "freelancers": {
@@ -270,8 +270,8 @@
     "terms": "Terms"
   },
   "metadata": {
-    "title": "Task.az - Freelance Marketplace",
-    "description": "Platform for tasks and talent in Azerbaijan. Post jobs, find freelancers, and collaborate."
+    "title": "Task.az - Professional Services Platform",
+    "description": "Platform for tasks and professional services in Azerbaijan. Post jobs, find professionals, and collaborate."
   },
   "login": {
     "welcomeBack": "Welcome Back",
@@ -316,10 +316,10 @@
     "passwordPlaceholder": "••••••••"
   },
   "freelancers": {
-    "title": "Find Freelancers",
-    "freelancersAvailable": "freelancers available",
+    "title": "Find Professionals",
+    "freelancersAvailable": "professionals available",
     "completedJobs": "Completed Jobs",
-    "searchPlaceholder": "Search freelancers...",
+    "searchPlaceholder": "Search professionals...",
     "filters": "Filters",
     "clearAll": "Clear all",
     "location": "Location",
@@ -331,7 +331,7 @@
     "topRated": "Top Rated",
     "mostExperienced": "Most Experienced",
     "newest": "Newest",
-    "noFreelancersFound": "No freelancers found. Try adjusting your filters.",
+    "noFreelancersFound": "No professionals found. Try adjusting your filters.",
     "tryAgain": "Try Again",
     "previous": "Previous",
     "next": "Next",

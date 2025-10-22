@@ -30,14 +30,8 @@ export default function StatsSection({ locale }: StatsSectionProps) {
     // Fetch stats from API
     const fetchStats = async () => {
       try {
-        // TODO: Replace with actual stats API endpoint when available
-        // For now, we'll simulate a loading state
-        await new Promise(resolve => setTimeout(resolve, 500));
-
-        // This would be replaced with actual API call:
-        // const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/stats`);
-        // setStats(response.data.data);
-
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/stats`);
+        setStats(response.data.data);
         setLoading(false);
       } catch (error) {
         console.error('Failed to fetch stats:', error);
