@@ -73,7 +73,7 @@ async function getSimilarprofessionals(currentprofessionalId: number) {
   }
 }
 
-function professionalDetailClient({ professional, similarprofessionals, locale }: any) {
+function ProfessionalDetailClient({ professional, similarprofessionals, locale }: any) {
   // Map locale to date-fns locale
   const dateLocale = locale === 'en' ? enUS : locale === 'ru' ? ru : az;
 
@@ -324,5 +324,5 @@ export default async function professionalPage({ params }: professionalPageProps
   // Fetch similar professionals
   const similarprofessionals = await getSimilarprofessionals(professional.id);
 
-  return <professionalDetailClient professional={professional} similarprofessionals={similarprofessionals} locale={lang} />;
+  return <ProfessionalDetailClient professional={professional} similarprofessionals={similarprofessionals} locale={lang} />;
 }
