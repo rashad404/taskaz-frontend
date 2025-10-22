@@ -51,7 +51,7 @@ export default function FinalCTASection({ locale }: FinalCTASectionProps) {
             </div>
           </div>
 
-          {/* Freelancer CTA */}
+          {/* professional CTA */}
           <div className="group relative cursor-pointer" onClick={() => router.push(`/${locale}/tasks`)}>
             {/* Background Gradient */}
             <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-emerald-500 to-teal-500 opacity-90 group-hover:opacity-100 transition-all duration-500" />
@@ -65,17 +65,17 @@ export default function FinalCTASection({ locale }: FinalCTASectionProps) {
 
               {/* Title */}
               <h3 className="text-3xl font-bold mb-4">
-                {t('freelancers.title')}
+                {t('professionals.title')}
               </h3>
 
               {/* Description */}
               <p className="text-white/90 mb-8 text-lg">
-                {t('freelancers.description')}
+                {t('professionals.description')}
               </p>
 
               {/* Button */}
               <button className="group/btn inline-flex items-center gap-2 px-8 py-4 rounded-2xl font-medium bg-white text-emerald-600 hover:bg-gray-100 transition-all duration-300 cursor-pointer">
-                <span>{t('freelancers.button')}</span>
+                <span>{t('professionals.button')}</span>
                 <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
               </button>
             </div>

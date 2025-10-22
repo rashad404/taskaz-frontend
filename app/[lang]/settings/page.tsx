@@ -106,7 +106,7 @@ export default function SettingsPage() {
     {
       id: 'messages',
       title: 'Mesajlar',
-      description: 'Müştərilər və freelancerlərlə danışıqlar',
+      description: 'Müştərilər və professionallərlə danışıqlar',
       icon: MessageSquare,
       href: `/${locale}/conversations`,
       color: 'text-purple-600 dark:text-purple-400',

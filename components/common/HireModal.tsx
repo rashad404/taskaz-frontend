@@ -8,16 +8,16 @@ import { useRouter } from 'next/navigation';
 interface HireModalProps {
   isOpen: boolean;
   onClose: () => void;
-  freelancerId: number;
-  freelancerName: string;
+  professionalId: number;
+  professionalName: string;
   locale?: string;
 }
 
 export default function HireModal({
   isOpen,
   onClose,
-  freelancerId,
-  freelancerName,
+  professionalId,
+  professionalName,
   locale = 'az'
 }: HireModalProps) {
   const [mounted, setMounted] = useState(false);
@@ -41,11 +41,11 @@ export default function HireModal({
       return;
     }
 
-    // Store freelancer info for later use (could be used to pre-fill or suggest)
+    // Store professional info for later use (could be used to pre-fill or suggest)
     if (typeof window !== 'undefined') {
-      sessionStorage.setItem('suggested_freelancer', JSON.stringify({
-        id: freelancerId,
-        name: freelancerName
+      sessionStorage.setItem('suggested_professional', JSON.stringify({
+        id: professionalId,
+        name: professionalName
       }));
     }
 
@@ -78,18 +78,18 @@ export default function HireModal({
 
         {/* Content */}
         <div className="p-6 space-y-6">
-          {/* Freelancer Info */}
+          {/* professional Info */}
           <div className="p-4 bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-200 dark:border-indigo-800 rounded-2xl">
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold text-lg">
-                {freelancerName.charAt(0)}
+                {professionalName.charAt(0)}
               </div>
               <div>
                 <p className="font-semibold text-gray-900 dark:text-white">
-                  {freelancerName}
+                  {professionalName}
                 </p>
                 <p className="text-sm text-gray-600 dark:text-gray-400">
-                  Freelancer
+                  professional
                 </p>
               </div>
             </div>
@@ -106,7 +106,7 @@ export default function HireModal({
                   Tapşırıq Yaradın
                 </h3>
                 <p className="text-sm text-gray-600 dark:text-gray-400">
-                  {freelancerName} ilə işləmək üçün əvvəlcə tapşırıq yaratmalısınız. Tapşırığınızın detallarını, büdcəsini və tələblərini qeyd edin.
+                  {professionalName} ilə işləmək üçün əvvəlcə tapşırıq yaratmalısınız. Tapşırığınızın detallarını, büdcəsini və tələblərini qeyd edin.
                 </p>
               </div>
             </div>
@@ -117,10 +117,10 @@ export default function HireModal({
               </div>
               <div>
                 <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
-                  Freelancer Müraciət Edər
+                  professional Müraciət Edər
                 </h3>
                 <p className="text-sm text-gray-600 dark:text-gray-400">
-                  Tapşırığınızı yaratdıqdan sonra, {freelancerName} profilinizə keçib müraciət edə bilər və ya siz onunla birbaşa əlaqə saxlaya bilərsiniz.
+                  Tapşırığınızı yaratdıqdan sonra, {professionalName} profilinizə keçib müraciət edə bilər və ya siz onunla birbaşa əlaqə saxlaya bilərsiniz.
                 </p>
               </div>
             </div>
@@ -134,7 +134,7 @@ export default function HireModal({
                   Müraciəti Qəbul Edin
                 </h3>
                 <p className="text-sm text-gray-600 dark:text-gray-400">
-                  {freelancerName}-dan müraciət aldıqdan sonra, onu qəbul edin və iş başlasın.
+                  {professionalName}-dan müraciət aldıqdan sonra, onu qəbul edin və iş başlasın.
                 </p>
               </div>
             </div>
@@ -143,7 +143,7 @@ export default function HireModal({
           {/* Info Box */}
           <div className="p-4 bg-gray-50 dark:bg-gray-800/50 rounded-2xl border border-gray-200 dark:border-gray-700">
             <p className="text-sm text-gray-700 dark:text-gray-300">
-              <span className="font-semibold">Məsləhət:</span> Tapşırıq yaratdıqdan sonra, bu səhifəyə qayıdıb {freelancerName} ilə mesaj göndərə bilərsiniz.
+              <span className="font-semibold">Məsləhət:</span> Tapşırıq yaratdıqdan sonra, bu səhifəyə qayıdıb {professionalName} ilə mesaj göndərə bilərsiniz.
             </p>
           </div>
 

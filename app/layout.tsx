@@ -11,7 +11,7 @@ const dmSans = DM_Sans({
 
 export const metadata: Metadata = {
   title: "Task.az - Freelance Marketplace",
-  description: "Platform for tasks and talent in Azerbaijan. Post jobs, find freelancers, and collaborate.",
+  description: "Platform for tasks and talent in Azerbaijan. Post jobs, find professionals, and collaborate.",
   icons: {
     icon: [
       { url: '/favicon.svg', type: 'image/svg+xml' },

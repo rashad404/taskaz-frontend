@@ -141,7 +141,7 @@ export default function DashboardPage() {
             Xoş gəldiniz, {user.name}!
           </h1>
           <p className="text-gray-600 dark:text-gray-400">
-            İşlərinizi və freelancerlərinizi burada idarə edin
+            İşlərinizi və professionallərinizi burada idarə edin
           </p>
         </div>
 
@@ -354,7 +354,7 @@ export default function DashboardPage() {
                   Hələ tapşırıq yoxdur
                 </h3>
                 <p className="text-gray-600 dark:text-gray-400 mb-6">
-                  İlk tapşırığınızı yaradın və ən yaxşı freelancerləri tapın
+                  İlk tapşırığınızı yaradın və ən yaxşı professionalləri tapın
                 </p>
                 <Link
                   href={`/${locale}/tasks/create`}

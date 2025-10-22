@@ -21,7 +21,7 @@ export interface User {
   email: string;
   phone: string | null;
   avatar: string | null;
-  type: 'client' | 'freelancer' | 'both';
+  type: 'client' | 'professional' | 'both';
   bio: string | null;
   location: string | null;
   status: 'active' | 'suspended';
@@ -63,7 +63,7 @@ export interface Application {
   created_at: string;
   updated_at: string;
   task?: Task;
-  freelancer?: User;
+  professional?: User;
 }
 
 export interface Contract {
@@ -71,7 +71,7 @@ export interface Contract {
   task_id: number;
   application_id: number;
   client_id: number;
-  freelancer_id: number;
+  professional_id: number;
   final_amount: string;
   status: 'active' | 'completed' | 'cancelled';
   started_at: string | null;
@@ -82,7 +82,7 @@ export interface Contract {
   task?: Task;
   application?: Application;
   client?: User;
-  freelancer?: User;
+  professional?: User;
   payments?: Payment[];
   reviews?: Review[];
 }
@@ -94,14 +94,14 @@ export interface Payment {
   method: 'cash' | 'bank_transfer' | 'online';
   status: 'pending' | 'sent' | 'confirmed';
   client_confirmed: boolean;
-  freelancer_confirmed: boolean;
+  professional_confirmed: boolean;
   notes: string | null;
   transaction_id: string | null;
   gateway: string | null;
   fee_amount: string | null;
   net_amount: string | null;
   client_confirmed_at: string | null;
-  freelancer_confirmed_at: string | null;
+  professional_confirmed_at: string | null;
   created_at: string;
   updated_at: string;
   contract?: Contract;
@@ -114,7 +114,7 @@ export interface Review {
   reviewed_id: number;
   rating: number;
   comment: string | null;
-  type: 'client_to_freelancer' | 'freelancer_to_client';
+  type: 'client_to_professional' | 'professional_to_client';
   created_at: string;
   updated_at: string;
   contract?: Contract;

@@ -239,9 +239,9 @@
     "emailPlaceholder": "you@example.com",
     "passwordPlaceholder": "••••••••"
   },
-  "freelancers": {
+  "professionals": {
     "title": "Найти Профессионалов",
-    "freelancersAvailable": "профессионалов доступно",
+    "professionalsAvailable": "профессионалов доступно",
     "completedJobs": "Выполненных работ",
     "searchPlaceholder": "Поиск профессионалов...",
     "filters": "Фильтры",
@@ -255,7 +255,7 @@
     "topRated": "Топ рейтинг",
     "mostExperienced": "Самые опытные",
     "newest": "Новейшие",
-    "noFreelancersFound": "Профессионалы не найдены. Попробуйте изменить фильтры.",
+    "noprofessionalsFound": "Профессионалы не найдены. Попробуйте изменить фильтры.",
     "tryAgain": "Попробовать снова",
     "previous": "Предыдущий",
     "next": "Следующий",

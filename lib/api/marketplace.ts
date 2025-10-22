@@ -166,8 +166,8 @@ export const paymentsApi = {
     return response.data.data;
   },
 
-  confirmByFreelancer: async (id: number): Promise<Payment> => {
-    const response = await apiClient.post<ApiResponse<Payment>>(`/payments/${id}/confirm-freelancer`);
+  confirmByprofessional: async (id: number): Promise<Payment> => {
+    const response = await apiClient.post<ApiResponse<Payment>>(`/payments/${id}/confirm-professional`);
     return response.data.data;
   },
 };
@@ -213,14 +213,14 @@ export const messagesApi = {
 // Users API
 export const usersApi = {
   getAll: async (filters?: any): Promise<any> => {
-    const response = await apiClient.get<any>('/freelancers', {
+    const response = await apiClient.get<any>('/professionals', {
       params: filters,
     });
     return response.data.data;
   },
 
-  getTopFreelancers: async (limit = 6): Promise<any[]> => {
-    const response = await apiClient.get<ApiResponse<any[]>>('/top-freelancers', {
+  getTopprofessionals: async (limit = 6): Promise<any[]> => {
+    const response = await apiClient.get<ApiResponse<any[]>>('/top-professionals', {
       params: { limit },
     });
     return response.data.data;

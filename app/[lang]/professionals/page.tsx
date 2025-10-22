@@ -1,7 +1,7 @@
-import FreelancersListing from '@/components/freelancers/FreelancersListing';
+import professionalsListing from '@/components/professionals/professionalsListing';
 import type { Metadata } from 'next';
 
-interface FreelancersPageProps {
+interface professionalsPageProps {
   params: Promise<{ lang: string }>;
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
@@ -11,13 +11,13 @@ export const metadata: Metadata = {
   description: 'Azərbaycanda ən yaxşı peşəkarları tapın. Müxtəlif sahələr üzrə ixtisaslı mütəxəssislər.',
 };
 
-export default async function FreelancersPage({ params, searchParams }: FreelancersPageProps) {
+export default async function professionalsPage({ params, searchParams }: professionalsPageProps) {
   const { lang } = await params;
   const filters = await searchParams;
 
   return (
     <div className="min-h-screen">
-      <FreelancersListing locale={lang} initialFilters={filters} />
+      <professionalsListing locale={lang} initialFilters={filters} />
     </div>
   );
 }

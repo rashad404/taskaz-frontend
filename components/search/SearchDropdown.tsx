@@ -48,7 +48,7 @@ export default function SearchDropdown({ locale, placeholder, className = '' }: 
 
     const allItems = [
       ...results.tasks.map((item: any) => ({ type: 'task', item })),
-      ...results.freelancers.map((item: any) => ({ type: 'freelancer', item })),
+      ...results.professionals.map((item: any) => ({ type: 'professional', item })),
       ...results.categories.map((item: any) => ({ type: 'category', item })),
     ];
 
@@ -114,7 +114,7 @@ export default function SearchDropdown({ locale, placeholder, className = '' }: 
 
   const showRecent = isOpen && !query && recentSearches.length > 0;
   const showResults = isOpen && query.length >= 2;
-  const hasResults = results && (results.tasks.length > 0 || results.freelancers.length > 0 || results.categories.length > 0);
+  const hasResults = results && (results.tasks.length > 0 || results.professionals.length > 0 || results.categories.length > 0);
 
   // Calculate dropdown position
   const [dropdownStyle, setDropdownStyle] = useState<React.CSSProperties>({});
@@ -255,19 +255,19 @@ export default function SearchDropdown({ locale, placeholder, className = '' }: 
                         </div>
                       )}
 
-                      {/* Freelancers */}
-                      {results.freelancers.length > 0 && (
+                      {/* professionals */}
+                      {results.professionals.length > 0 && (
                         <div className="mb-4">
                           <div className="px-4 py-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                            {t('freelancers')} ({results.freelancers.length})
+                            {t('professionals')} ({results.professionals.length})
                           </div>
-                          {results.freelancers.map((freelancer: any) => (
+                          {results.professionals.map((professional: any) => (
                             <SearchResultItem
-                              key={`freelancer-${freelancer.id}`}
-                              type="freelancer"
-                              item={freelancer}
+                              key={`professional-${professional.id}`}
+                              type="professional"
+                              item={professional}
                               locale={locale}
-                              onSelect={() => handleResultClick('freelancer', freelancer)}
+                              onSelect={() => handleResultClick('professional', professional)}
                             />
                           ))}
                         </div>

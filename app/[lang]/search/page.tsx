@@ -52,7 +52,7 @@ function SearchResults({ locale }: { locale: string }) {
 
   const hasResults = results && (
     results.tasks?.length > 0 ||
-    results.freelancers?.length > 0 ||
+    results.professionals?.length > 0 ||
     results.categories?.length > 0
   );
 
@@ -164,46 +164,46 @@ function SearchResults({ locale }: { locale: string }) {
         </div>
       )}
 
-      {/* Freelancers */}
-      {results.freelancers && results.freelancers.length > 0 && (
+      {/* professionals */}
+      {results.professionals && results.professionals.length > 0 && (
         <div>
           <div className="flex items-center gap-2 mb-4">
             <Users className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-              Peşəkarlar ({results.freelancers.length})
+              Peşəkarlar ({results.professionals.length})
             </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {results.freelancers.map((freelancer: any) => (
+            {results.professionals.map((professional: any) => (
               <Link
-                key={freelancer.id}
-                href={`/${locale}/professionals/${freelancer.slug}`}
+                key={professional.id}
+                href={`/${locale}/professionals/${professional.slug}`}
                 className="block bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md hover:shadow-xl transition-all border border-gray-200 dark:border-gray-700 hover:border-indigo-500 dark:hover:border-indigo-500"
               >
                 <div className="flex items-start gap-4">
                   <div className="w-16 h-16 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold text-xl overflow-hidden">
-                    {freelancer.avatar ? (
+                    {professional.avatar ? (
                       <img
-                        src={`${process.env.NEXT_PUBLIC_API_URL?.replace('/api', '')}/storage/${freelancer.avatar}`}
-                        alt={freelancer.name}
+                        src={`${process.env.NEXT_PUBLIC_API_URL?.replace('/api', '')}/storage/${professional.avatar}`}
+                        alt={professional.name}
                         className="w-full h-full object-cover"
                       />
                     ) : (
-                      <span>{freelancer.name?.charAt(0).toUpperCase()}</span>
+                      <span>{professional.name?.charAt(0).toUpperCase()}</span>
                     )}
                   </div>
                   <div className="flex-1">
                     <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1">
-                      {freelancer.name}
+                      {professional.name}
                     </h3>
-                    {freelancer.bio && (
+                    {professional.bio && (
                       <p className="text-gray-600 dark:text-gray-400 text-sm line-clamp-2">
-                        {freelancer.bio}
+                        {professional.bio}
                       </p>
                     )}
-                    {freelancer.location && (
+                    {professional.location && (
                       <p className="text-sm text-gray-500 dark:text-gray-500 mt-2">
-                        📍 {freelancer.location}
+                        📍 {professional.location}
                       </p>
                     )}
                   </div>

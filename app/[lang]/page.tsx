@@ -2,7 +2,7 @@ import HeroSection from '@/components/home/HeroSection';
 import CategoriesGrid from '@/components/home/CategoriesGrid';
 import RecentTasksSection from '@/components/home/RecentTasksSection';
 import HowItWorksSection from '@/components/home/HowItWorksSection';
-import TopFreelancersSection from '@/components/home/TopFreelancersSection';
+import TopprofessionalsSection from '@/components/home/TopprofessionalsSection';
 import WhyTaskazSection from '@/components/home/WhyTaskazSection';
 import StatsSection from '@/components/home/StatsSection';
 import FinalCTASection from '@/components/home/FinalCTASection';
@@ -28,8 +28,8 @@ export default async function HomePage({ params }: HomePageProps) {
       {/* How It Works - Process explanation */}
       <HowItWorksSection locale={lang} />
 
-      {/* Top Freelancers - Show available talent */}
-      <TopFreelancersSection locale={lang} />
+      {/* Top professionals - Show available talent */}
+      <TopprofessionalsSection locale={lang} />
 
       {/* Why Task.az - Key benefits */}
       <WhyTaskazSection locale={lang} />

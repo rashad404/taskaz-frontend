@@ -29,7 +29,7 @@
       "title": "How It Works",
       "subtitle": "Simple steps to success",
       "forClients": "For Clients",
-      "forFreelancers": "For Professionals",
+      "forprofessionals": "For Professionals",
       "client": {
         "step1Title": "Post Your Task",
         "step1Desc": "Describe your project, set budget and deadline",
@@ -40,7 +40,7 @@
         "step4Title": "Pay Securely",
         "step4Desc": "Dual confirmation payment protection"
       },
-      "freelancer": {
+      "professional": {
         "step1Title": "Browse Tasks",
         "step1Desc": "Find projects matching your skills",
         "step2Title": "Submit Proposal",
@@ -51,11 +51,11 @@
         "step4Desc": "Receive secure payment after confirmation"
       }
     },
-    "topFreelancers": {
+    "topprofessionals": {
       "title": "Top Professionals",
       "subtitle": "Hire verified professionals",
       "completedJobs": "Completed Jobs",
-      "noFreelancers": "No professionals available yet"
+      "noprofessionals": "No professionals available yet"
     },
     "whyTaskaz": {
       "title": "Why Choose Task.az",
@@ -83,7 +83,7 @@
         "description": "Post your task and get proposals from talented professionals",
         "button": "Post a Task"
       },
-      "freelancers": {
+      "professionals": {
         "title": "Ready to Earn?",
         "description": "Browse tasks and start working on exciting projects",
         "button": "Browse Tasks"
@@ -315,9 +315,9 @@
     "emailPlaceholder": "you@example.com",
     "passwordPlaceholder": "••••••••"
   },
-  "freelancers": {
+  "professionals": {
     "title": "Find Professionals",
-    "freelancersAvailable": "professionals available",
+    "professionalsAvailable": "professionals available",
     "completedJobs": "Completed Jobs",
     "searchPlaceholder": "Search professionals...",
     "filters": "Filters",
@@ -331,7 +331,7 @@
     "topRated": "Top Rated",
     "mostExperienced": "Most Experienced",
     "newest": "Newest",
-    "noFreelancersFound": "No professionals found. Try adjusting your filters.",
+    "noprofessionalsFound": "No professionals found. Try adjusting your filters.",
     "tryAgain": "Try Again",
     "previous": "Previous",
     "next": "Next",

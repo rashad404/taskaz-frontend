@@ -10,7 +10,7 @@ interface HowItWorksSectionProps {
 
 export default function HowItWorksSection({ locale }: HowItWorksSectionProps) {
   const t = useTranslations('home.howItWorks');
-  const [activeTab, setActiveTab] = useState<'client' | 'freelancer'>('client');
+  const [activeTab, setActiveTab] = useState<'client' | 'professional'>('client');
 
   const clientSteps = [
     {
@@ -39,34 +39,34 @@ export default function HowItWorksSection({ locale }: HowItWorksSectionProps) {
     },
   ];
 
-  const freelancerSteps = [
+  const professionalSteps = [
     {
       icon: Search,
-      title: t('freelancer.step1Title'),
-      description: t('freelancer.step1Desc'),
+      title: t('professional.step1Title'),
+      description: t('professional.step1Desc'),
       gradient: 'from-indigo-500 to-purple-500',
     },
     {
       icon: Send,
-      title: t('freelancer.step2Title'),
-      description: t('freelancer.step2Desc'),
+      title: t('professional.step2Title'),
+      description: t('professional.step2Desc'),
       gradient: 'from-sky-500 to-blue-500',
     },
     {
       icon: CheckCircle,
-      title: t('freelancer.step3Title'),
-      description: t('freelancer.step3Desc'),
+      title: t('professional.step3Title'),
+      description: t('professional.step3Desc'),
       gradient: 'from-emerald-500 to-teal-500',
     },
     {
       icon: Wallet,
-      title: t('freelancer.step4Title'),
-      description: t('freelancer.step4Desc'),
+      title: t('professional.step4Title'),
+      description: t('professional.step4Desc'),
       gradient: 'from-rose-500 to-pink-500',
     },
   ];
 
-  const steps = activeTab === 'client' ? clientSteps : freelancerSteps;
+  const steps = activeTab === 'client' ? clientSteps : professionalSteps;
 
   return (
     <section className="px-6 py-16 relative">
@@ -96,14 +96,14 @@ export default function HowItWorksSection({ locale }: HowItWorksSectionProps) {
               {t('forClients')}
             </button>
             <button
-              onClick={() => setActiveTab('freelancer')}
+              onClick={() => setActiveTab('professional')}
               className={`px-8 py-3 rounded-3xl font-medium transition-all duration-300 ${
-                activeTab === 'freelancer'
+                activeTab === 'professional'
                   ? 'bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg'
                   : 'text-gray-700 dark:text-gray-300 hover:bg-white/50 dark:hover:bg-gray-800/50'
               }`}
             >
-              {t('forFreelancers')}
+              {t('forprofessionals')}
             </button>
           </div>
         </div>

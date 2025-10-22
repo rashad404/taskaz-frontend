@@ -13,18 +13,18 @@ import {
 } from 'lucide-react';
 import { formatDistanceToNow, format } from 'date-fns';
 import { az, enUS, ru } from 'date-fns/locale';
-import FreelancerCard from '@/components/freelancers/FreelancerCard';
-import FreelancerDetailActions from '@/components/freelancers/FreelancerDetailActions';
-import ContactInfo from '@/components/freelancers/ContactInfo';
+import professionalCard from '@/components/professionals/professionalCard';
+import professionalDetailActions from '@/components/professionals/professionalDetailActions';
+import ContactInfo from '@/components/professionals/ContactInfo';
 
-interface FreelancerPageProps {
+interface professionalPageProps {
   params: Promise<{ lang: string; slug: string }>;
 }
 
-async function getFreelancer(slug: string) {
+async function getprofessional(slug: string) {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/freelancers/${slug}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/professionals/${slug}`,
       { cache: 'no-store' }
     );
 
@@ -36,44 +36,44 @@ async function getFreelancer(slug: string) {
   }
 }
 
-// Generate metadata for the freelancer profile page
-export async function generateMetadata({ params }: FreelancerPageProps): Promise<Metadata> {
+// Generate metadata for the professional profile page
+export async function generateMetadata({ params }: professionalPageProps): Promise<Metadata> {
   const { lang, slug } = await params;
-  const freelancer = await getFreelancer(slug);
+  const professional = await getprofessional(slug);
 
-  if (!freelancer) {
+  if (!professional) {
     return {
       title: 'Task.az - Peşəkar Tapılmadı',
       description: 'Axtardığınız peşəkar tapılmadı.',
     };
   }
 
-  const description = freelancer.bio
-    ? `${freelancer.bio.substring(0, 160)}`
-    : `${freelancer.name} - Peşəkar profili. ${freelancer.completed_contracts || 0} tamamlanmış iş, ${freelancer.average_rating || 0} reytinq.`;
+  const description = professional.bio
+    ? `${professional.bio.substring(0, 160)}`
+    : `${professional.name} - Peşəkar profili. ${professional.completed_contracts || 0} tamamlanmış iş, ${professional.average_rating || 0} reytinq.`;
 
   return {
-    title: `${freelancer.name} - Peşəkar Profili | Task.az`,
+    title: `${professional.name} - Peşəkar Profili | Task.az`,
     description,
   };
 }
 
-async function getSimilarFreelancers(currentFreelancerId: number) {
+async function getSimilarprofessionals(currentprofessionalId: number) {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/top-freelancers?limit=6`,
+      `${process.env.NEXT_PUBLIC_API_URL}/top-professionals?limit=6`,
       { cache: 'no-store' }
     );
 
     if (!res.ok) return [];
     const data = await res.json();
-    return (data.data || []).filter((f: any) => f.id !== currentFreelancerId);
+    return (data.data || []).filter((f: any) => f.id !== currentprofessionalId);
   } catch (error) {
     return [];
   }
 }
 
-function FreelancerDetailClient({ freelancer, similarFreelancers, locale }: any) {
+function professionalDetailClient({ professional, similarprofessionals, locale }: any) {
   // Map locale to date-fns locale
   const dateLocale = locale === 'en' ? enUS : locale === 'ru' ? ru : az;
 
@@ -109,7 +109,7 @@ function FreelancerDetailClient({ freelancer, similarFreelancers, locale }: any)
           </Link>
           <ChevronRight className="w-4 h-4" />
           <span className="text-gray-900 dark:text-white truncate max-w-xs">
-            {freelancer.name}
+            {professional.name}
           </span>
         </nav>
 
@@ -122,15 +122,15 @@ function FreelancerDetailClient({ freelancer, similarFreelancers, locale }: any)
                 {/* Avatar */}
                 <div className="w-24 h-24 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 p-1 flex-shrink-0">
                   <div className="w-full h-full rounded-full bg-white dark:bg-gray-900 flex items-center justify-center overflow-hidden">
-                    {freelancer.avatar ? (
+                    {professional.avatar ? (
                       <img
-                        src={`${process.env.NEXT_PUBLIC_API_URL?.replace('/api', '')}/storage/${freelancer.avatar}`}
-                        alt={freelancer.name}
+                        src={`${process.env.NEXT_PUBLIC_API_URL?.replace('/api', '')}/storage/${professional.avatar}`}
+                        alt={professional.name}
                         className="w-full h-full object-cover"
                       />
                     ) : (
                       <span className="text-4xl font-bold text-indigo-600 dark:text-indigo-400">
-                        {freelancer.name.charAt(0)}
+                        {professional.name.charAt(0)}
                       </span>
                     )}
                   </div>
@@ -138,24 +138,24 @@ function FreelancerDetailClient({ freelancer, similarFreelancers, locale }: any)
 
                 <div className="flex-1">
                   <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-2">
-                    {freelancer.name}
+                    {professional.name}
                   </h1>
 
-                  {freelancer.location && (
+                  {professional.location && (
                     <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 mb-3">
                       <MapPin className="w-5 h-5" />
-                      <span>{freelancer.location}</span>
+                      <span>{professional.location}</span>
                     </div>
                   )}
 
                   {/* Rating */}
                   <div className="flex items-center gap-3 mb-4">
-                    {renderStars(freelancer.average_rating || 0)}
+                    {renderStars(professional.average_rating || 0)}
                     <span className="text-lg font-bold text-gray-900 dark:text-white">
-                      {freelancer.average_rating || 0}
+                      {professional.average_rating || 0}
                     </span>
                     <span className="text-gray-500 dark:text-gray-400">
-                      ({freelancer.total_reviews || 0} rəy)
+                      ({professional.total_reviews || 0} rəy)
                     </span>
                   </div>
 
@@ -164,13 +164,13 @@ function FreelancerDetailClient({ freelancer, similarFreelancers, locale }: any)
                     <div className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
                       <Briefcase className="w-5 h-5 text-green-600 dark:text-green-400" />
                       <span className="font-medium">
-                        {freelancer.completed_contracts || 0} Tamamlanmış İş
+                        {professional.completed_contracts || 0} Tamamlanmış İş
                       </span>
                     </div>
                     <div className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
                       <Calendar className="w-5 h-5 text-blue-600 dark:text-blue-400" />
                       <span>
-                        Üzv olub: {format(new Date(freelancer.created_at), 'MMMM yyyy', { locale: dateLocale })}
+                        Üzv olub: {format(new Date(professional.created_at), 'MMMM yyyy', { locale: dateLocale })}
                       </span>
                     </div>
                   </div>
@@ -179,26 +179,26 @@ function FreelancerDetailClient({ freelancer, similarFreelancers, locale }: any)
             </div>
 
             {/* Bio Section */}
-            {freelancer.bio && (
+            {professional.bio && (
               <div className="rounded-3xl p-6 sm:p-8 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-white/30 dark:border-gray-700/30">
                 <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
                   Haqqında
                 </h2>
                 <p className="text-gray-700 dark:text-gray-300 whitespace-pre-wrap">
-                  {freelancer.bio}
+                  {professional.bio}
                 </p>
               </div>
             )}
 
             {/* Reviews Section */}
-            {freelancer.received_reviews && freelancer.received_reviews.length > 0 && (
+            {professional.received_reviews && professional.received_reviews.length > 0 && (
               <div className="rounded-3xl p-6 sm:p-8 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-white/30 dark:border-gray-700/30">
                 <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-                  Rəylər ({freelancer.received_reviews.length})
+                  Rəylər ({professional.received_reviews.length})
                 </h2>
 
                 <div className="space-y-6">
-                  {freelancer.received_reviews.map((review: any) => (
+                  {professional.received_reviews.map((review: any) => (
                     <div key={review.id} className="border-b border-gray-200 dark:border-gray-700 pb-6 last:border-0 last:pb-0">
                       <div className="flex items-start justify-between mb-3">
                         <div>
@@ -240,11 +240,11 @@ function FreelancerDetailClient({ freelancer, similarFreelancers, locale }: any)
                   Əlaqə
                 </h3>
 
-                <FreelancerDetailActions freelancer={freelancer} locale={locale} />
+                <professionalDetailActions professional={professional} locale={locale} />
 
                 <ContactInfo
-                  email={freelancer.email}
-                  phone={freelancer.phone}
+                  email={professional.email}
+                  phone={professional.phone}
                   locale={locale}
                 />
               </div>
@@ -259,19 +259,19 @@ function FreelancerDetailClient({ freelancer, similarFreelancers, locale }: any)
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-gray-600 dark:text-gray-400">Reytinq</span>
                     <span className="font-bold text-gray-900 dark:text-white">
-                      {freelancer.average_rating || 0} ⭐
+                      {professional.average_rating || 0} ⭐
                     </span>
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-gray-600 dark:text-gray-400">Rəylər</span>
                     <span className="font-bold text-gray-900 dark:text-white">
-                      {freelancer.total_reviews || 0}
+                      {professional.total_reviews || 0}
                     </span>
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-gray-600 dark:text-gray-400">Tamamlanmış</span>
                     <span className="font-bold text-gray-900 dark:text-white">
-                      {freelancer.completed_contracts || 0}
+                      {professional.completed_contracts || 0}
                     </span>
                   </div>
                 </div>
@@ -280,16 +280,16 @@ function FreelancerDetailClient({ freelancer, similarFreelancers, locale }: any)
           </div>
         </div>
 
-        {/* Similar Freelancers Section */}
-        {similarFreelancers.length > 0 && (
+        {/* Similar professionals Section */}
+        {similarprofessionals.length > 0 && (
           <div className="mt-16">
             <div className="flex items-center justify-between mb-8">
               <div>
                 <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
-                  Digər Freelancerlər
+                  Digər professionallər
                 </h2>
                 <p className="text-gray-600 dark:text-gray-400">
-                  Platformamızda digər professional freelancerlər
+                  Platformamızda digər professional professionallər
                 </p>
               </div>
               <Link
@@ -302,8 +302,8 @@ function FreelancerDetailClient({ freelancer, similarFreelancers, locale }: any)
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {similarFreelancers.map((similar: any) => (
-                <FreelancerCard key={similar.id} freelancer={similar} locale={locale} />
+              {similarprofessionals.map((similar: any) => (
+                <professionalCard key={similar.id} professional={similar} locale={locale} />
               ))}
             </div>
           </div>
@@ -313,16 +313,16 @@ function FreelancerDetailClient({ freelancer, similarFreelancers, locale }: any)
   );
 }
 
-export default async function FreelancerPage({ params }: FreelancerPageProps) {
+export default async function professionalPage({ params }: professionalPageProps) {
   const { lang, slug } = await params;
-  const freelancer = await getFreelancer(slug);
+  const professional = await getprofessional(slug);
 
-  if (!freelancer) {
+  if (!professional) {
     notFound();
   }
 
-  // Fetch similar freelancers
-  const similarFreelancers = await getSimilarFreelancers(freelancer.id);
+  // Fetch similar professionals
+  const similarprofessionals = await getSimilarprofessionals(professional.id);
 
-  return <FreelancerDetailClient freelancer={freelancer} similarFreelancers={similarFreelancers} locale={lang} />;
+  return <professionalDetailClient professional={professional} similarprofessionals={similarprofessionals} locale={lang} />;
 }

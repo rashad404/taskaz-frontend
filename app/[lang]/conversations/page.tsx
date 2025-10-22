@@ -155,7 +155,7 @@ export default function ConversationsPage() {
             Mesajlar
           </h1>
           <p className="text-gray-600 dark:text-gray-400">
-            Müştərilər və freelancerlərlə danışıqlarınız
+            Müştərilər və professionallərlə danışıqlarınız
           </p>
         </div>
 

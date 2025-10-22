@@ -5,21 +5,21 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { usersApi } from '@/lib/api/marketplace';
-import FreelancerCard, { Freelancer } from './FreelancerCard';
-import FreelancersFilters, { FreelancerFilters } from './FreelancersFilters';
+import professionalCard, { professional } from './professionalCard';
+import professionalsFilters, { professionalFilters } from './professionalsFilters';
 import { Loader2, Star, ArrowRight } from 'lucide-react';
 
-interface FreelancersListingProps {
+interface professionalsListingProps {
   locale: string;
   initialFilters?: { [key: string]: string | string[] | undefined };
 }
 
-export default function FreelancersListing({ locale, initialFilters }: FreelancersListingProps) {
-  const t = useTranslations('freelancers');
+export default function professionalsListing({ locale, initialFilters }: professionalsListingProps) {
+  const t = useTranslations('professionals');
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const [freelancers, setFreelancers] = useState<Freelancer[]>([]);
+  const [professionals, setprofessionals] = useState<professional[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [pagination, setPagination] = useState({
@@ -30,8 +30,8 @@ export default function FreelancersListing({ locale, initialFilters }: Freelance
   });
 
   // Build filters from URL params
-  const buildFilters = (): FreelancerFilters => {
-    const filters: FreelancerFilters = {
+  const buildFilters = (): professionalFilters => {
+    const filters: professionalFilters = {
       page: parseInt(searchParams?.get('page') || '1'),
       per_page: 20,
     };
@@ -55,7 +55,7 @@ export default function FreelancersListing({ locale, initialFilters }: Freelance
     return filters;
   };
 
-  // Fetch freelancers
+  // Fetch professionals
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -64,7 +64,7 @@ export default function FreelancersListing({ locale, initialFilters }: Freelance
       try {
         const data = await usersApi.getAll(buildFilters());
 
-        setFreelancers(data.data);
+        setprofessionals(data.data);
         setPagination({
           current_page: data.current_page,
           last_page: data.last_page,
@@ -72,8 +72,8 @@ export default function FreelancersListing({ locale, initialFilters }: Freelance
           total: data.total,
         });
       } catch (err: any) {
-        console.error('Failed to fetch freelancers:', err);
-        setError(err.response?.data?.message || 'Failed to load freelancers');
+        console.error('Failed to fetch professionals:', err);
+        setError(err.response?.data?.message || 'Failed to load professionals');
       } finally {
         setLoading(false);
       }
@@ -82,7 +82,7 @@ export default function FreelancersListing({ locale, initialFilters }: Freelance
     fetchData();
   }, [searchParams]);
 
-  const handleFilterChange = (newFilters: Partial<FreelancerFilters>) => {
+  const handleFilterChange = (newFilters: Partial<professionalFilters>) => {
     const current = buildFilters();
     const updated = { ...current, ...newFilters, page: 1 }; // Reset to page 1 on filter change
 
@@ -140,7 +140,7 @@ export default function FreelancersListing({ locale, initialFilters }: Freelance
                 <span className="gradient-text">{t('title')}</span>
               </h1>
               <p className="text-gray-600 dark:text-gray-300">
-                {pagination.total} {t('freelancersAvailable')}
+                {pagination.total} {t('professionalsAvailable')}
               </p>
             </div>
 
@@ -159,30 +159,30 @@ export default function FreelancersListing({ locale, initialFilters }: Freelance
         </div>
 
         {/* Filters */}
-        <FreelancersFilters
+        <professionalsFilters
           currentFilters={buildFilters()}
           onFilterChange={handleFilterChange}
           locale={locale}
         />
 
-        {/* Freelancers Grid */}
+        {/* professionals Grid */}
         {loading ? (
           <div className="flex justify-center items-center py-20">
             <Loader2 className="w-8 h-8 animate-spin text-indigo-600" />
           </div>
-        ) : freelancers.length === 0 ? (
+        ) : professionals.length === 0 ? (
           <div className="text-center py-20">
             <div className="rounded-3xl bg-gray-50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 p-12">
               <p className="text-gray-600 dark:text-gray-400 text-lg">
-                {t('noFreelancersFound')}
+                {t('noprofessionalsFound')}
               </p>
             </div>
           </div>
         ) : (
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-              {freelancers.map((freelancer) => (
-                <FreelancerCard key={freelancer.id} freelancer={freelancer} locale={locale} />
+              {professionals.map((professional) => (
+                <professionalCard key={professional.id} professional={professional} locale={locale} />
               ))}
             </div>
 

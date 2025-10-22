@@ -52,7 +52,7 @@ export default function MessageModal({
       }
 
       if (!taskId) {
-        setError('Mesaj göndərmək üçün əvvəlcə tapşırıq yaratmalı və ya freelancer-in tapşırığına müraciət etməlisiniz. Tapşırıqla bağlı mesajlaşmaq mümkündür.');
+        setError('Mesaj göndərmək üçün əvvəlcə tapşırıq yaratmalı və ya professional-in tapşırığına müraciət etməlisiniz. Tapşırıqla bağlı mesajlaşmaq mümkündür.');
         setLoading(false);
         return;
       }

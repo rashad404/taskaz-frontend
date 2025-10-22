@@ -5,12 +5,12 @@ import MessageModal from '@/components/common/MessageModal';
 import HireModal from '@/components/common/HireModal';
 import { MessageSquare, Briefcase } from 'lucide-react';
 
-interface FreelancerDetailActionsProps {
-  freelancer: any;
+interface professionalDetailActionsProps {
+  professional: any;
   locale?: string;
 }
 
-export default function FreelancerDetailActions({ freelancer, locale = 'az' }: FreelancerDetailActionsProps) {
+export default function professionalDetailActions({ professional, locale = 'az' }: professionalDetailActionsProps) {
   const [isMessageModalOpen, setIsMessageModalOpen] = useState(false);
   const [isHireModalOpen, setIsHireModalOpen] = useState(false);
 
@@ -39,16 +39,16 @@ export default function FreelancerDetailActions({ freelancer, locale = 'az' }: F
       <HireModal
         isOpen={isHireModalOpen}
         onClose={() => setIsHireModalOpen(false)}
-        freelancerId={freelancer.id}
-        freelancerName={freelancer.name}
+        professionalId={professional.id}
+        professionalName={professional.name}
         locale={locale}
       />
 
       <MessageModal
         isOpen={isMessageModalOpen}
         onClose={() => setIsMessageModalOpen(false)}
-        receiverId={freelancer.id}
-        receiverName={freelancer.name}
+        receiverId={professional.id}
+        receiverName={professional.name}
         taskId={undefined}
         taskTitle={undefined}
         onSuccess={handleMessageSuccess}

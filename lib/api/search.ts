@@ -2,7 +2,7 @@ import apiClient from './client';
 
 export interface SearchResult {
   tasks: any[];
-  freelancers: any[];
+  professionals: any[];
   categories: any[];
 }
 

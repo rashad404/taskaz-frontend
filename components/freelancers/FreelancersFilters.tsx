@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl';
 import { Filter, X } from 'lucide-react';
 import SearchDropdown from '@/components/search/SearchDropdown';
 
-export interface FreelancerFilters {
+export interface professionalFilters {
   location?: string;
   min_rating?: number;
   search?: string;
@@ -15,18 +15,18 @@ export interface FreelancerFilters {
   per_page?: number;
 }
 
-interface FreelancersFiltersProps {
-  currentFilters: FreelancerFilters;
-  onFilterChange: (filters: Partial<FreelancerFilters>) => void;
+interface professionalsFiltersProps {
+  currentFilters: professionalFilters;
+  onFilterChange: (filters: Partial<professionalFilters>) => void;
   locale: string;
 }
 
-export default function FreelancersFilters({
+export default function professionalsFilters({
   currentFilters,
   onFilterChange,
   locale,
-}: FreelancersFiltersProps) {
-  const t = useTranslations('freelancers');
+}: professionalsFiltersProps) {
+  const t = useTranslations('professionals');
   const [showFilters, setShowFilters] = useState(false);
 
   const handleLocationChange = (location: string) => {

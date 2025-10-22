@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { Star, MapPin, Briefcase } from 'lucide-react';
 
-export interface Freelancer {
+export interface professional {
   id: number;
   name: string;
   slug: string;
@@ -17,13 +17,13 @@ export interface Freelancer {
   completed_contracts: number;
 }
 
-interface FreelancerCardProps {
-  freelancer: Freelancer;
+interface professionalCardProps {
+  professional: professional;
   locale: string;
 }
 
-export default function FreelancerCard({ freelancer, locale }: FreelancerCardProps) {
-  const t = useTranslations('freelancers');
+export default function professionalCard({ professional, locale }: professionalCardProps) {
+  const t = useTranslations('professionals');
 
   const renderStars = (rating: number) => {
     return (
@@ -44,7 +44,7 @@ export default function FreelancerCard({ freelancer, locale }: FreelancerCardPro
   };
 
   return (
-    <Link href={`/${locale}/professionals/${freelancer.slug}`}>
+    <Link href={`/${locale}/professionals/${professional.slug}`}>
       <div className="group relative h-full cursor-pointer">
         {/* Glass Card */}
         <div className="h-full rounded-3xl p-6 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-white/30 dark:border-gray-700/30 transition-all duration-500 group-hover:scale-[1.02] group-hover:shadow-xl">
@@ -52,15 +52,15 @@ export default function FreelancerCard({ freelancer, locale }: FreelancerCardPro
           <div className="flex flex-col items-center mb-6">
             <div className="w-24 h-24 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 p-1 mb-4">
               <div className="w-full h-full rounded-full bg-white dark:bg-gray-900 flex items-center justify-center overflow-hidden">
-                {freelancer.avatar ? (
+                {professional.avatar ? (
                   <img
-                    src={`${process.env.NEXT_PUBLIC_API_URL?.replace('/api', '')}/storage/${freelancer.avatar}`}
-                    alt={freelancer.name}
+                    src={`${process.env.NEXT_PUBLIC_API_URL?.replace('/api', '')}/storage/${professional.avatar}`}
+                    alt={professional.name}
                     className="w-full h-full object-cover"
                   />
                 ) : (
                   <span className="text-3xl font-bold text-indigo-600 dark:text-indigo-400">
-                    {freelancer.name.charAt(0).toUpperCase()}
+                    {professional.name.charAt(0).toUpperCase()}
                   </span>
                 )}
               </div>
@@ -68,35 +68,35 @@ export default function FreelancerCard({ freelancer, locale }: FreelancerCardPro
 
             {/* Name */}
             <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1 text-center group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
-              {freelancer.name}
+              {professional.name}
             </h3>
 
             {/* Rating */}
             <div className="flex items-center gap-2 mb-2">
-              {renderStars(freelancer.average_rating)}
+              {renderStars(professional.average_rating)}
               <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                {freelancer.average_rating || 0}
+                {professional.average_rating || 0}
               </span>
               <span className="text-sm text-gray-500 dark:text-gray-400">
-                ({freelancer.total_reviews || 0})
+                ({professional.total_reviews || 0})
               </span>
             </div>
           </div>
 
           {/* Bio */}
-          {freelancer.bio && (
+          {professional.bio && (
             <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-2 text-center min-h-[2.5rem]">
-              {freelancer.bio}
+              {professional.bio}
             </p>
           )}
 
           {/* Meta Info */}
           <div className="space-y-2 pt-4 border-t border-gray-200 dark:border-gray-700">
             {/* Location */}
-            {freelancer.location && (
+            {professional.location && (
               <div className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
                 <MapPin className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-                <span>{freelancer.location}</span>
+                <span>{professional.location}</span>
               </div>
             )}
 
@@ -104,7 +104,7 @@ export default function FreelancerCard({ freelancer, locale }: FreelancerCardPro
             <div className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
               <Briefcase className="w-4 h-4 text-green-600 dark:text-green-400" />
               <span>
-                {freelancer.completed_contracts || 0} {t('completedJobs')}
+                {professional.completed_contracts || 0} {t('completedJobs')}
               </span>
             </div>
           </div>

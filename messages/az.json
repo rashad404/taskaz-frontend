@@ -33,7 +33,7 @@
       "title": "Necə İşləyir",
       "subtitle": "Uğura doğru sadə addımlar",
       "forClients": "Müştərilər Üçün",
-      "forFreelancers": "Peşəkarlar Üçün",
+      "forprofessionals": "Peşəkarlar Üçün",
       "client": {
         "step1Title": "Tapşırığınızı Yerləşdirin",
         "step1Desc": "Layihənizi təsvir edin, büdcə və son tarix təyin edin",
@@ -44,7 +44,7 @@
         "step4Title": "Təhlükəsiz Ödəniş",
         "step4Desc": "İkitərəfli təsdiq ödəniş qoruması"
       },
-      "freelancer": {
+      "professional": {
         "step1Title": "Tapşırıqlara Baxın",
         "step1Desc": "Bacarıqlarınıza uyğun layihələr tapın",
         "step2Title": "Təklif Göndərin",
@@ -55,11 +55,11 @@
         "step4Desc": "Təsdiqdən sonra təhlükəsiz ödəniş alın"
       }
     },
-    "topFreelancers": {
+    "topprofessionals": {
       "title": "Top Peşəkarlar",
       "subtitle": "Təsdiqlənmiş peşəkarları işə götürün",
       "completedJobs": "Tamamlanmış İşlər",
-      "noFreelancers": "Hələ peşəkar yoxdur"
+      "noprofessionals": "Hələ peşəkar yoxdur"
     },
     "whyTaskaz": {
       "title": "Niyə Task.az",
@@ -87,7 +87,7 @@
         "description": "Tapşırığınızı yerləşdirin və istedadlı peşəkarlardan təkliflər alın",
         "button": "Tapşırıq Yerləşdir"
       },
-      "freelancers": {
+      "professionals": {
         "title": "Qazanmağa Hazırsınız?",
         "description": "Tapşırıqlara baxın və maraqlı layihələrdə işləməyə başlayın",
         "button": "Tapşırıqlara Bax"
@@ -233,7 +233,7 @@
     "recentSearches": "Son Axtarışlar",
     "viewAll": "Bütün nəticələrə bax",
     "tasks": "Tapşırıqlar",
-    "freelancers": "Peşəkarlar",
+    "professionals": "Peşəkarlar",
     "categories": "Kateqoriyalar",
     "remote": "Remote",
     "from": "dan",
@@ -430,9 +430,9 @@
       "publishNow": "İndi Dərc Et"
     }
   },
-  "freelancers": {
+  "professionals": {
     "title": "Peşəkarları Tap",
-    "freelancersAvailable": "peşəkar mövcuddur",
+    "professionalsAvailable": "peşəkar mövcuddur",
     "completedJobs": "Tamamlanmış İşlər",
     "searchPlaceholder": "Peşəkar axtarın...",
     "filters": "Filtrlər",
@@ -446,7 +446,7 @@
     "topRated": "Ən Yüksək Reytinq",
     "mostExperienced": "Ən Təcrübəli",
     "newest": "Ən Yeni",
-    "noFreelancersFound": "Peşəkar tapılmadı. Filtrləri dəyişdirməyi cəhd edin.",
+    "noprofessionalsFound": "Peşəkar tapılmadı. Filtrləri dəyişdirməyi cəhd edin.",
     "tryAgain": "Yenidən Cəhd Et",
     "previous": "Əvvəlki",
     "next": "Növbəti",

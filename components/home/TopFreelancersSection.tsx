@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { usersApi } from '@/lib/api/marketplace';
 import { Star, MapPin, Briefcase, Loader2 } from 'lucide-react';
 
-interface Freelancer {
+interface professional {
   id: number;
   name: string;
   slug: string;
@@ -19,29 +19,29 @@ interface Freelancer {
   completed_contracts: number;
 }
 
-interface TopFreelancersSectionProps {
+interface TopprofessionalsSectionProps {
   locale: string;
 }
 
-export default function TopFreelancersSection({ locale }: TopFreelancersSectionProps) {
-  const t = useTranslations('home.topFreelancers');
+export default function TopprofessionalsSection({ locale }: TopprofessionalsSectionProps) {
+  const t = useTranslations('home.topprofessionals');
   const router = useRouter();
-  const [freelancers, setFreelancers] = useState<Freelancer[]>([]);
+  const [professionals, setprofessionals] = useState<professional[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchFreelancers = async () => {
+    const fetchprofessionals = async () => {
       try {
-        const data = await usersApi.getTopFreelancers(6);
-        setFreelancers(data);
+        const data = await usersApi.getTopprofessionals(6);
+        setprofessionals(data);
       } catch (error) {
-        console.error('Failed to fetch top freelancers:', error);
+        console.error('Failed to fetch top professionals:', error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchFreelancers();
+    fetchprofessionals();
   }, []);
 
   const renderStars = (rating: number) => {
@@ -82,26 +82,26 @@ export default function TopFreelancersSection({ locale }: TopFreelancersSectionP
         </div>
       </div>
 
-      {/* Freelancers Grid */}
+      {/* professionals Grid */}
       <div className="max-w-7xl mx-auto">
         {loading ? (
           <div className="flex justify-center items-center py-20">
             <Loader2 className="w-8 h-8 animate-spin text-indigo-600" />
           </div>
-        ) : freelancers.length === 0 ? (
+        ) : professionals.length === 0 ? (
           <div className="text-center py-12">
             <div className="rounded-3xl bg-gray-50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 p-12">
               <p className="text-gray-600 dark:text-gray-400 text-lg">
-                {t('noFreelancers')}
+                {t('noprofessionals')}
               </p>
             </div>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {freelancers.map((freelancer) => (
+            {professionals.map((professional) => (
               <div
-                key={freelancer.id}
-                onClick={() => router.push(`/${locale}/professionals/${freelancer.slug}`)}
+                key={professional.id}
+                onClick={() => router.push(`/${locale}/professionals/${professional.slug}`)}
                 className="group relative h-full cursor-pointer"
               >
                 {/* Glass Card */}
@@ -110,15 +110,15 @@ export default function TopFreelancersSection({ locale }: TopFreelancersSectionP
                   <div className="flex flex-col items-center mb-6">
                     <div className="w-24 h-24 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 p-1 mb-4">
                       <div className="w-full h-full rounded-full bg-white dark:bg-gray-900 flex items-center justify-center overflow-hidden">
-                        {freelancer.avatar ? (
+                        {professional.avatar ? (
                           <img
-                            src={`${process.env.NEXT_PUBLIC_API_URL?.replace('/api', '')}/storage/${freelancer.avatar}`}
-                            alt={freelancer.name}
+                            src={`${process.env.NEXT_PUBLIC_API_URL?.replace('/api', '')}/storage/${professional.avatar}`}
+                            alt={professional.name}
                             className="w-full h-full object-cover"
                           />
                         ) : (
                           <span className="text-3xl font-bold text-indigo-600 dark:text-indigo-400">
-                            {freelancer.name.charAt(0).toUpperCase()}
+                            {professional.name.charAt(0).toUpperCase()}
                           </span>
                         )}
                       </div>
@@ -126,35 +126,35 @@ export default function TopFreelancersSection({ locale }: TopFreelancersSectionP
 
                     {/* Name */}
                     <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1 text-center">
-                      {freelancer.name}
+                      {professional.name}
                     </h3>
 
                     {/* Rating */}
                     <div className="flex items-center gap-2 mb-2">
-                      {renderStars(Math.round(freelancer.average_rating))}
+                      {renderStars(Math.round(professional.average_rating))}
                       <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                        {freelancer.average_rating}
+                        {professional.average_rating}
                       </span>
                       <span className="text-sm text-gray-500 dark:text-gray-400">
-                        ({freelancer.total_reviews})
+                        ({professional.total_reviews})
                       </span>
                     </div>
                   </div>
 
                   {/* Bio */}
-                  {freelancer.bio && (
+                  {professional.bio && (
                     <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-2 text-center">
-                      {freelancer.bio}
+                      {professional.bio}
                     </p>
                   )}
 
                   {/* Meta Info */}
                   <div className="space-y-2 pt-4 border-t border-gray-200 dark:border-gray-700">
                     {/* Location */}
-                    {freelancer.location && (
+                    {professional.location && (
                       <div className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
                         <MapPin className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-                        <span>{freelancer.location}</span>
+                        <span>{professional.location}</span>
                       </div>
                     )}
 
@@ -162,7 +162,7 @@ export default function TopFreelancersSection({ locale }: TopFreelancersSectionP
                     <div className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
                       <Briefcase className="w-4 h-4 text-green-600 dark:text-green-400" />
                       <span>
-                        {freelancer.completed_contracts} {t('completedJobs')}
+                        {professional.completed_contracts} {t('completedJobs')}
                       </span>
                     </div>
                   </div>
