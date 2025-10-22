@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { Star, MapPin, Briefcase } from 'lucide-react';
 
-export interface professional {
+export interface Professional {
   id: number;
   name: string;
   slug: string;
@@ -17,12 +17,12 @@ export interface professional {
   completed_contracts: number;
 }
 
-interface professionalCardProps {
-  professional: professional;
+interface ProfessionalCardProps {
+  professional: Professional;
   locale: string;
 }
 
-export default function professionalCard({ professional, locale }: professionalCardProps) {
+export default function ProfessionalCard({ professional, locale }: ProfessionalCardProps) {
   const t = useTranslations('professionals');
 
   const renderStars = (rating: number) => {

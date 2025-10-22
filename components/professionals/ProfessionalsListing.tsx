@@ -5,21 +5,21 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { usersApi } from '@/lib/api/marketplace';
-import professionalCard, { professional } from './professionalCard';
-import professionalsFilters, { professionalFilters } from './professionalsFilters';
+import ProfessionalCard, { Professional } from './ProfessionalCard';
+import ProfessionalsFilters, { ProfessionalFilters } from './ProfessionalsFilters';
 import { Loader2, Star, ArrowRight } from 'lucide-react';
 
-interface professionalsListingProps {
+interface ProfessionalsListingProps {
   locale: string;
   initialFilters?: { [key: string]: string | string[] | undefined };
 }
 
-export default function professionalsListing({ locale, initialFilters }: professionalsListingProps) {
+export default function ProfessionalsListing({ locale, initialFilters }: ProfessionalsListingProps) {
   const t = useTranslations('professionals');
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const [professionals, setprofessionals] = useState<professional[]>([]);
+  const [professionals, setProfessionals] = useState<Professional[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [pagination, setPagination] = useState({
@@ -30,8 +30,8 @@ export default function professionalsListing({ locale, initialFilters }: profess
   });
 
   // Build filters from URL params
-  const buildFilters = (): professionalFilters => {
-    const filters: professionalFilters = {
+  const buildFilters = (): ProfessionalFilters => {
+    const filters: ProfessionalFilters = {
       page: parseInt(searchParams?.get('page') || '1'),
       per_page: 20,
     };
@@ -64,7 +64,7 @@ export default function professionalsListing({ locale, initialFilters }: profess
       try {
         const data = await usersApi.getAll(buildFilters());
 
-        setprofessionals(data.data);
+        setProfessionals(data.data);
         setPagination({
           current_page: data.current_page,
           last_page: data.last_page,
@@ -82,7 +82,7 @@ export default function professionalsListing({ locale, initialFilters }: profess
     fetchData();
   }, [searchParams]);
 
-  const handleFilterChange = (newFilters: Partial<professionalFilters>) => {
+  const handleFilterChange = (newFilters: Partial<ProfessionalFilters>) => {
     const current = buildFilters();
     const updated = { ...current, ...newFilters, page: 1 }; // Reset to page 1 on filter change
 
@@ -159,13 +159,13 @@ export default function professionalsListing({ locale, initialFilters }: profess
         </div>
 
         {/* Filters */}
-        <professionalsFilters
+        <ProfessionalsFilters
           currentFilters={buildFilters()}
           onFilterChange={handleFilterChange}
           locale={locale}
         />
 
-        {/* professionals Grid */}
+        {/* Professionals Grid */}
         {loading ? (
           <div className="flex justify-center items-center py-20">
             <Loader2 className="w-8 h-8 animate-spin text-indigo-600" />
@@ -174,7 +174,7 @@ export default function professionalsListing({ locale, initialFilters }: profess
           <div className="text-center py-20">
             <div className="rounded-3xl bg-gray-50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 p-12">
               <p className="text-gray-600 dark:text-gray-400 text-lg">
-                {t('noprofessionalsFound')}
+                {t('noProfessionalsFound')}
               </p>
             </div>
           </div>
@@ -182,7 +182,7 @@ export default function professionalsListing({ locale, initialFilters }: profess
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
               {professionals.map((professional) => (
-                <professionalCard key={professional.id} professional={professional} locale={locale} />
+                <ProfessionalCard key={professional.id} professional={professional} locale={locale} />
               ))}
             </div>
 

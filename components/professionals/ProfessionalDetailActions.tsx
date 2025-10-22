@@ -5,12 +5,12 @@ import MessageModal from '@/components/common/MessageModal';
 import HireModal from '@/components/common/HireModal';
 import { MessageSquare, Briefcase } from 'lucide-react';
 
-interface professionalDetailActionsProps {
+interface ProfessionalDetailActionsProps {
   professional: any;
   locale?: string;
 }
 
-export default function professionalDetailActions({ professional, locale = 'az' }: professionalDetailActionsProps) {
+export default function ProfessionalDetailActions({ professional, locale = 'az' }: ProfessionalDetailActionsProps) {
   const [isMessageModalOpen, setIsMessageModalOpen] = useState(false);
   const [isHireModalOpen, setIsHireModalOpen] = useState(false);
 

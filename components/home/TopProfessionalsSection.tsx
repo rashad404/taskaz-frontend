@@ -19,11 +19,11 @@ interface professional {
   completed_contracts: number;
 }
 
-interface TopprofessionalsSectionProps {
+interface TopProfessionalsSectionProps {
   locale: string;
 }
 
-export default function TopprofessionalsSection({ locale }: TopprofessionalsSectionProps) {
+export default function TopProfessionalsSection({ locale }: TopProfessionalsSectionProps) {
   const t = useTranslations('home.topprofessionals');
   const router = useRouter();
   const [professionals, setprofessionals] = useState<professional[]>([]);

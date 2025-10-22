@@ -13,8 +13,8 @@ import {
 } from 'lucide-react';
 import { formatDistanceToNow, format } from 'date-fns';
 import { az, enUS, ru } from 'date-fns/locale';
-import professionalCard from '@/components/professionals/professionalCard';
-import professionalDetailActions from '@/components/professionals/professionalDetailActions';
+import ProfessionalCard from '@/components/professionals/ProfessionalCard';
+import ProfessionalDetailActions from '@/components/professionals/ProfessionalDetailActions';
 import ContactInfo from '@/components/professionals/ContactInfo';
 
 interface professionalPageProps {
@@ -240,7 +240,7 @@ function professionalDetailClient({ professional, similarprofessionals, locale }
                   Əlaqə
                 </h3>
 
-                <professionalDetailActions professional={professional} locale={locale} />
+                <ProfessionalDetailActions professional={professional} locale={locale} />
 
                 <ContactInfo
                   email={professional.email}
@@ -303,7 +303,7 @@ function professionalDetailClient({ professional, similarprofessionals, locale }
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {similarprofessionals.map((similar: any) => (
-                <professionalCard key={similar.id} professional={similar} locale={locale} />
+                <ProfessionalCard key={similar.id} professional={similar} locale={locale} />
               ))}
             </div>
           </div>
