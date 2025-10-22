@@ -1,10 +1,21 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { Filter, X } from 'lucide-react';
 import SearchDropdown from '@/components/search/SearchDropdown';
 import type { Category, TaskFilters as TaskFiltersType } from '@/lib/types/marketplace';
+
+interface City {
+  id: number;
+  name_az: string;
+  name_en: string;
+  name_ru: string;
+  has_neighborhoods: boolean;
+  sort_order: number;
+}
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://100.89.150.50:8000/api';
 
 interface TaskFiltersProps {
   categories: Category[];
@@ -21,6 +32,23 @@ export default function TaskFilters({
 }: TaskFiltersProps) {
   const t = useTranslations('tasks');
   const [showFilters, setShowFilters] = useState(false);
+  const [cities, setCities] = useState<City[]>([]);
+
+  // Fetch cities on mount
+  useEffect(() => {
+    const fetchCities = async () => {
+      try {
+        const response = await fetch(`${API_URL}/cities`);
+        const data = await response.json();
+        if (data.status === 'success') {
+          setCities(data.data);
+        }
+      } catch (error) {
+        console.error('Failed to fetch cities:', error);
+      }
+    };
+    fetchCities();
+  }, []);
 
   const handleCategoryChange = (categoryId: string) => {
     if (categoryId === '') {
@@ -46,11 +74,20 @@ export default function TaskFilters({
     }
   };
 
+  const handleCityChange = (cityId: string) => {
+    if (cityId === '') {
+      onFilterChange({ city_id: undefined });
+    } else {
+      onFilterChange({ city_id: parseInt(cityId) });
+    }
+  };
+
   const clearFilters = () => {
     onFilterChange({
       category_id: undefined,
       budget_type: undefined,
       is_remote: undefined,
+      city_id: undefined,
       location: undefined,
     });
   };
@@ -59,7 +96,13 @@ export default function TaskFilters({
     currentFilters.category_id ||
     currentFilters.budget_type ||
     currentFilters.is_remote !== undefined ||
+    currentFilters.city_id ||
     currentFilters.location;
+
+  const getCityName = (city: City) => {
+    const nameKey = `name_${locale}` as keyof City;
+    return city[nameKey] || city.name_az;
+  };
 
   return (
     <div className="mb-8">
@@ -102,7 +145,7 @@ export default function TaskFilters({
             )}
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* Category Filter */}
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -117,6 +160,25 @@ export default function TaskFilters({
                 {categories.map((category) => (
                   <option key={category.id} value={category.id}>
                     {category.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* City Filter */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                {locale === 'az' ? 'Şəhər' : locale === 'en' ? 'City' : 'Город'}
+              </label>
+              <select
+                value={currentFilters.city_id || ''}
+                onChange={(e) => handleCityChange(e.target.value)}
+                className="w-full px-4 py-2 rounded-2xl bg-white/50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              >
+                <option value="">{locale === 'az' ? 'Bütün şəhərlər' : locale === 'en' ? 'All cities' : 'Все города'}</option>
+                {cities.map((city) => (
+                  <option key={city.id} value={city.id}>
+                    {getCityName(city)}
                   </option>
                 ))}
               </select>

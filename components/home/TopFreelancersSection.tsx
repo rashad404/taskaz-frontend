@@ -74,7 +74,7 @@ export default function TopFreelancersSection({ locale }: TopFreelancersSectionP
             {t('subtitle')}
           </p>
           <button
-            onClick={() => router.push(`/${locale}/freelancers`)}
+            onClick={() => router.push(`/${locale}/professionals`)}
             className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-indigo-500 text-white hover:bg-indigo-600 transition-colors font-medium"
           >
             Hamısına Bax
@@ -101,7 +101,7 @@ export default function TopFreelancersSection({ locale }: TopFreelancersSectionP
             {freelancers.map((freelancer) => (
               <div
                 key={freelancer.id}
-                onClick={() => router.push(`/${locale}/freelancers/${freelancer.slug}`)}
+                onClick={() => router.push(`/${locale}/professionals/${freelancer.slug}`)}
                 className="group relative h-full cursor-pointer"
               >
                 {/* Glass Card */}

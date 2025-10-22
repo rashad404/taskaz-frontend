@@ -31,7 +31,9 @@ export default function ProfileSettingsPage() {
   const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
   const [isRemote, setIsRemote] = useState(false);
   const [cityId, setCityId] = useState<number | null>(null);
-  const [neighborhoodId, setNeighborhoodId] = useState<number | null>(null);
+  const [districtId, setDistrictId] = useState<number | null>(null);
+  const [settlementId, setSettlementId] = useState<number | null>(null);
+  const [metroStationId, setMetroStationId] = useState<number | null>(null);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -62,7 +64,9 @@ export default function ProfileSettingsPage() {
             bio: data.data.bio || ''
           });
           setCityId(data.data.city_id || null);
-          setNeighborhoodId(data.data.neighborhood_id || null);
+          setDistrictId(data.data.district_id || null);
+          setSettlementId(data.data.settlement_id || null);
+          setMetroStationId(data.data.metro_station_id || null);
         }
       })
       .catch(err => {
@@ -119,8 +123,14 @@ export default function ProfileSettingsPage() {
       if (cityId) {
         formDataToSend.append('city_id', cityId.toString());
       }
-      if (neighborhoodId) {
-        formDataToSend.append('neighborhood_id', neighborhoodId.toString());
+      if (districtId) {
+        formDataToSend.append('district_id', districtId.toString());
+      }
+      if (settlementId) {
+        formDataToSend.append('settlement_id', settlementId.toString());
+      }
+      if (metroStationId) {
+        formDataToSend.append('metro_station_id', metroStationId.toString());
       }
 
       if (avatarFile) {
@@ -151,7 +161,9 @@ export default function ProfileSettingsPage() {
         });
 
         setCityId(updatedUser.city_id || null);
-        setNeighborhoodId(updatedUser.neighborhood_id || null);
+        setDistrictId(updatedUser.district_id || null);
+        setSettlementId(updatedUser.settlement_id || null);
+        setMetroStationId(updatedUser.metro_station_id || null);
 
         setErrors({});
         setAvatarFile(null);
@@ -369,8 +381,12 @@ export default function ProfileSettingsPage() {
                 onRemoteChange={setIsRemote}
                 cityId={cityId}
                 onCityChange={setCityId}
-                neighborhoodId={neighborhoodId}
-                onNeighborhoodChange={setNeighborhoodId}
+                districtId={districtId}
+                onDistrictChange={setDistrictId}
+                settlementId={settlementId}
+                onSettlementChange={setSettlementId}
+                metroStationId={metroStationId}
+                onMetroStationChange={setMetroStationId}
                 locale={locale}
               />
               {errors.city_id && (

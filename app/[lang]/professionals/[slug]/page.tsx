@@ -104,8 +104,8 @@ function FreelancerDetailClient({ freelancer, similarFreelancers, locale }: any)
             Ana Səhifə
           </Link>
           <ChevronRight className="w-4 h-4" />
-          <Link href={`/${locale}/freelancers`} className="hover:text-indigo-600 dark:hover:text-indigo-400">
-            Freelancerlər
+          <Link href={`/${locale}/professionals`} className="hover:text-indigo-600 dark:hover:text-indigo-400">
+            Peşəkarlar
           </Link>
           <ChevronRight className="w-4 h-4" />
           <span className="text-gray-900 dark:text-white truncate max-w-xs">
@@ -293,7 +293,7 @@ function FreelancerDetailClient({ freelancer, similarFreelancers, locale }: any)
                 </p>
               </div>
               <Link
-                href={`/${locale}/freelancers`}
+                href={`/${locale}/professionals`}
                 className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 font-medium text-sm flex items-center gap-1"
               >
                 Hamısına bax

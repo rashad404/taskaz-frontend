@@ -84,21 +84,23 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   const IconComponent = category.icon ? (Icons as any)[category.icon] : null;
 
   return (
-    <div className="min-h-screen py-12 px-6">
+    <div className="min-h-screen py-16 px-6">
       <div className="max-w-7xl mx-auto">
         {/* Category Header */}
-        <div className="mb-8">
-          <div className="flex items-center gap-4 mb-4">
+        <div className="mb-12">
+          <div className="flex items-center gap-6 mb-4">
             {IconComponent && (
-              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center">
-                <IconComponent className="w-8 h-8 text-white" strokeWidth={2} />
+              <div className="relative w-20 h-20 rounded-2xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 p-[2px] transition-transform hover:scale-105 duration-300">
+                <div className="w-full h-full rounded-2xl bg-white dark:bg-gray-900 flex items-center justify-center">
+                  <IconComponent className="w-10 h-10 text-indigo-600 dark:text-indigo-400" strokeWidth={2} />
+                </div>
               </div>
             )}
             <div>
-              <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
-                {category.name}
+              <h1 className="text-4xl md:text-5xl font-bold">
+                <span className="gradient-text">{category.name}</span>
               </h1>
-              <p className="text-gray-600 dark:text-gray-400 mt-1">
+              <p className="text-gray-600 dark:text-gray-300 mt-2 text-lg">
                 {tasks.length} tapşırıq tapıldı
               </p>
             </div>
@@ -107,21 +109,26 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
         {/* Subcategories Grid - Show if this is a parent category */}
         {category.children && category.children.length > 0 && (
-          <div className="mb-12">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-              Alt Kateqoriyalar
+          <div className="mb-16">
+            <h2 className="text-3xl font-bold mb-8">
+              <span className="gradient-text">Alt Kateqoriyalar</span>
             </h2>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {category.children.map((subcategory: any) => (
                 <Link
                   key={subcategory.id}
                   href={`/${lang}/categories/${subcategory.slug}`}
-                  className="group"
+                  className="group relative cursor-pointer"
                 >
-                  <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-md hover:shadow-lg transition-all duration-300 border border-gray-200 dark:border-gray-700 hover:border-indigo-500 dark:hover:border-indigo-500">
-                    <h3 className="text-sm font-semibold text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                  <div className="h-full rounded-3xl p-6 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-white/30 dark:border-gray-700/30 transition-all duration-500 group-hover:scale-[1.05] group-hover:shadow-xl">
+                    <h3 className="text-base font-semibold text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
                       {subcategory.name}
                     </h3>
+                  </div>
+
+                  {/* Shine effect on hover */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
+                    <div className="absolute top-0 -left-full w-1/2 h-full bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 group-hover:left-full transition-all duration-1000" />
                   </div>
                 </Link>
               ))}
@@ -132,46 +139,67 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         {/* Tasks Section */}
         {tasks.length > 0 ? (
           <div>
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-              Aktiv Tapşırıqlar
+            <h2 className="text-3xl font-bold mb-8">
+              <span className="gradient-text">Aktiv Tapşırıqlar</span>
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {tasks.map((task: any) => (
                 <Link
                   key={task.id}
                   href={`/${lang}/tasks/${task.slug}`}
-                  className="block bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow border border-gray-200 dark:border-gray-700 hover:border-indigo-500 dark:hover:border-indigo-500"
+                  className="group relative h-full cursor-pointer"
                 >
-                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 line-clamp-2">
-                    {task.title}
-                  </h3>
+                  {/* Glass Card */}
+                  <div className="h-full rounded-3xl p-6 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-white/30 dark:border-gray-700/30 transition-all duration-500 group-hover:scale-[1.02] group-hover:shadow-xl">
+                    {/* Status Badge and Views */}
+                    <div className="flex items-center justify-between mb-4">
+                      {task.status && (
+                        <span className="px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400">
+                          Aktiv
+                        </span>
+                      )}
+                      {task.is_remote && (
+                        <span className="px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">
+                          Remote
+                        </span>
+                      )}
+                    </div>
 
-                  <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">
-                    {stripHtml(task.description)}
-                  </p>
+                    {/* Title */}
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 line-clamp-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                      {task.title}
+                    </h3>
 
-                  <div className="flex items-center justify-between">
+                    {/* Description */}
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">
+                      {stripHtml(task.description)}
+                    </p>
+
+                    {/* Budget */}
                     {task.budget_amount && (
-                      <span className="text-lg font-bold text-indigo-600 dark:text-indigo-400">
-                        {task.budget_amount} AZN
-                      </span>
+                      <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
+                        <span className="text-lg font-bold text-indigo-600 dark:text-indigo-400">
+                          {task.budget_amount} AZN
+                        </span>
+                      </div>
                     )}
+                  </div>
 
-                    {task.is_remote && (
-                      <span className="px-2 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded text-sm">
-                        Remote
-                      </span>
-                    )}
+                  {/* Shine effect on hover */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
+                    <div className="absolute top-0 -left-full w-1/2 h-full bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 group-hover:left-full transition-all duration-1000" />
                   </div>
                 </Link>
               ))}
             </div>
           </div>
         ) : (
-          <div className="text-center py-12 bg-gray-50 dark:bg-gray-900/50 rounded-xl border border-gray-200 dark:border-gray-700">
-            <p className="text-gray-600 dark:text-gray-400 text-lg">
-              Bu kateqoriyada hələ tapşırıq yoxdur
-            </p>
+          <div className="text-center py-12">
+            <div className="rounded-3xl bg-gray-50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 p-12">
+              <p className="text-gray-600 dark:text-gray-400 text-lg">
+                Bu kateqoriyada hələ tapşırıq yoxdur
+              </p>
+            </div>
           </div>
         )}
       </div>

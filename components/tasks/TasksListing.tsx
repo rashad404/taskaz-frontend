@@ -46,6 +46,9 @@ export default function TasksListing({ locale, initialFilters }: TasksListingPro
     if (searchParams?.get('is_remote')) {
       filters.is_remote = searchParams.get('is_remote') === 'true';
     }
+    if (searchParams?.get('city_id')) {
+      filters.city_id = parseInt(searchParams.get('city_id')!);
+    }
     if (searchParams?.get('location')) {
       filters.location = searchParams.get('location')!;
     }

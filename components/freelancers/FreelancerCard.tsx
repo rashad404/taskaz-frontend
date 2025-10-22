@@ -44,7 +44,7 @@ export default function FreelancerCard({ freelancer, locale }: FreelancerCardPro
   };
 
   return (
-    <Link href={`/${locale}/freelancers/${freelancer.slug}`}>
+    <Link href={`/${locale}/professionals/${freelancer.slug}`}>
       <div className="group relative h-full cursor-pointer">
         {/* Glass Card */}
         <div className="h-full rounded-3xl p-6 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-white/30 dark:border-gray-700/30 transition-all duration-500 group-hover:scale-[1.02] group-hover:shadow-xl">

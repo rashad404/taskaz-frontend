@@ -180,6 +180,7 @@ export interface TaskFilters {
   category_id?: number;
   budget_type?: 'fixed' | 'hourly';
   is_remote?: boolean;
+  city_id?: number;
   location?: string;
   search?: string;
   sort_by?: 'created_at' | 'budget_amount' | 'views_count';

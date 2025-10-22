@@ -19,7 +19,7 @@ export default function SearchResultItem({ type, item, locale, onSelect }: Searc
     if (type === 'task') {
       router.push(`/${locale}/tasks/${item.slug}`);
     } else if (type === 'freelancer') {
-      router.push(`/${locale}/freelancers/${item.slug}`);
+      router.push(`/${locale}/professionals/${item.slug}`);
     } else if (type === 'category') {
       router.push(`/${locale}/categories/${item.slug}`);
     }

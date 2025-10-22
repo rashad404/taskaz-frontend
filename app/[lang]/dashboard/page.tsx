@@ -142,11 +142,11 @@ export default function DashboardPage() {
           </Link>
 
           <Link
-            href={`/${locale}/freelancers`}
+            href={`/${locale}/professionals`}
             className="inline-flex items-center gap-2 btn-secondary group"
           >
             <Search className="w-5 h-5" />
-            <span>Freelancer Tap</span>
+            <span>Peşəkar Tap</span>
           </Link>
         </div>
 

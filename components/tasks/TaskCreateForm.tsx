@@ -49,7 +49,9 @@ export default function TaskCreateForm({ locale }: TaskCreateFormProps) {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [apiError, setApiError] = useState<string | null>(null);
   const [cityId, setCityId] = useState<number | null>(null);
-  const [neighborhoodId, setNeighborhoodId] = useState<number | null>(null);
+  const [districtId, setDistrictId] = useState<number | null>(null);
+  const [settlementId, setSettlementId] = useState<number | null>(null);
+  const [metroStationId, setMetroStationId] = useState<number | null>(null);
 
   // Fetch categories
   useEffect(() => {
@@ -157,8 +159,14 @@ export default function TaskCreateForm({ locale }: TaskCreateFormProps) {
         if (cityId) {
           formDataToSend.append('city_id', cityId.toString());
         }
-        if (neighborhoodId) {
-          formDataToSend.append('neighborhood_id', neighborhoodId.toString());
+        if (districtId) {
+          formDataToSend.append('district_id', districtId.toString());
+        }
+        if (settlementId) {
+          formDataToSend.append('settlement_id', settlementId.toString());
+        }
+        if (metroStationId) {
+          formDataToSend.append('metro_station_id', metroStationId.toString());
         }
       }
 
@@ -201,7 +209,9 @@ export default function TaskCreateForm({ locale }: TaskCreateFormProps) {
       setSelectedSubcategoryId(null);
       setSkillInput('');
       setCityId(null);
-      setNeighborhoodId(null);
+      setDistrictId(null);
+      setSettlementId(null);
+      setMetroStationId(null);
 
       // Show success message
       setSuccessMessage(true);
@@ -477,8 +487,12 @@ export default function TaskCreateForm({ locale }: TaskCreateFormProps) {
               onRemoteChange={(isRemote) => setFormField('is_remote', isRemote)}
               cityId={cityId}
               onCityChange={setCityId}
-              neighborhoodId={neighborhoodId}
-              onNeighborhoodChange={setNeighborhoodId}
+              districtId={districtId}
+              onDistrictChange={setDistrictId}
+              settlementId={settlementId}
+              onSettlementChange={setSettlementId}
+              metroStationId={metroStationId}
+              onMetroStationChange={setMetroStationId}
               locale={locale}
             />
           </div>

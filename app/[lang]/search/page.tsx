@@ -177,7 +177,7 @@ function SearchResults({ locale }: { locale: string }) {
             {results.freelancers.map((freelancer: any) => (
               <Link
                 key={freelancer.id}
-                href={`/${locale}/freelancers/${freelancer.slug}`}
+                href={`/${locale}/professionals/${freelancer.slug}`}
                 className="block bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md hover:shadow-xl transition-all border border-gray-200 dark:border-gray-700 hover:border-indigo-500 dark:hover:border-indigo-500"
               >
                 <div className="flex items-start gap-4">
