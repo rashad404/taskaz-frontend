@@ -51,8 +51,8 @@ if pm2 list | grep -q "next.task.az"; then
     echo "🔄 Restarting existing PM2 process..."
     pm2 restart next.task.az
 else
-    echo "🚀 Starting new PM2 process on port 3030..."
-    pm2 start npm --name next.task.az -- start -- -p 3030
+    echo "🚀 Starting new PM2 process on port 3031..."
+    pm2 start npm --name next.task.az -- start -- -p 3031
 fi
 
 # Save PM2 configuration
