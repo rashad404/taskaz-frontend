@@ -53,7 +53,7 @@ async function getCategoryData(slug: string) {
 export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
   const { lang, slug } = await params;
   const { category, tasks } = await getCategoryData(slug);
-  const t = await getTranslations({ locale: lang, namespace: 'metadata.category' });
+  const t = await getTranslations({ locale: lang, namespace: 'metadata.categories' });
 
   if (!category) {
     return {

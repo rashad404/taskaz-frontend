@@ -1,43 +1,76 @@
-'use client';
-
-import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import type { Metadata } from 'next';
+import { getTranslations } from 'next-intl/server';
 import * as Icons from 'lucide-react';
-import { categoriesApi } from '@/lib/api/marketplace';
 
 interface CategoriesPageProps {
   params: Promise<{ lang: string }>;
 }
 
-export default function CategoriesPage({ params }: CategoriesPageProps) {
-  const [locale, setLocale] = useState('az');
-  const [categories, setCategories] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
+export async function generateMetadata({ params }: CategoriesPageProps): Promise<Metadata> {
+  const { lang } = await params;
+  const t = await getTranslations({ locale: lang, namespace: 'metadata.categories' });
 
-  useEffect(() => {
-    params.then(({ lang }) => setLocale(lang));
-  }, [params]);
+  const title = t('listTitle');
+  const description = t('listDescription');
+  const url = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://task.az'}/${lang}/categories`;
 
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const allCategories = await categoriesApi.getAll();
-        // Filter to show only parent categories and add their children
-        const parentCategories = allCategories
-          .filter((cat: any) => !cat.parent_id)
-          .map((parent: any) => ({
-            ...parent,
-            children: allCategories.filter((cat: any) => cat.parent_id === parent.id)
-          }));
-        setCategories(parentCategories);
-      } catch (err: any) {
-        console.error('Failed to fetch categories:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchCategories();
-  }, []);
+  return {
+    title,
+    description,
+    openGraph: {
+      type: 'website',
+      locale: lang === 'az' ? 'az_AZ' : lang === 'en' ? 'en_US' : 'ru_RU',
+      url,
+      siteName: 'Task.az',
+      title,
+      description,
+      images: [
+        {
+          url: '/images/taskaz-image.jpg',
+          width: 1200,
+          height: 630,
+          alt: title,
+        }
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: ['/images/taskaz-image.jpg'],
+    },
+  };
+}
+
+async function getCategories() {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/categories`,
+      { cache: 'no-store' }
+    );
+
+    if (!res.ok) return [];
+    const allCategories = await res.json();
+
+    // Filter to show only parent categories and add their children
+    const parentCategories = allCategories
+      .filter((cat: any) => !cat.parent_id)
+      .map((parent: any) => ({
+        ...parent,
+        children: allCategories.filter((cat: any) => cat.parent_id === parent.id)
+      }));
+
+    return parentCategories;
+  } catch (error) {
+    console.error('Failed to fetch categories:', error);
+    return [];
+  }
+}
+
+export default async function CategoriesPage({ params }: CategoriesPageProps) {
+  const { lang } = await params;
+  const categories = await getCategories();
 
   const categoryGradients = [
     'from-orange-500 to-yellow-500',
@@ -51,23 +84,6 @@ export default function CategoriesPage({ params }: CategoriesPageProps) {
     'from-amber-500 to-orange-500',
     'from-lime-500 to-green-500',
   ];
-
-  if (loading) {
-    return (
-      <div className="min-h-screen py-12 px-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              <span className="gradient-text">Bütün Kateqoriyalar</span>
-            </h1>
-            <p className="text-lg text-gray-600 dark:text-gray-300">
-              Yüklənir...
-            </p>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen py-12 px-6">
@@ -89,7 +105,7 @@ export default function CategoriesPage({ params }: CategoriesPageProps) {
             const gradient = categoryGradients[index % categoryGradients.length];
 
             return (
-              <Link key={category.id} href={`/${locale}/categories/${category.slug}`}>
+              <Link key={category.id} href={`/${lang}/categories/${category.slug}`}>
                 <div className="relative group cursor-pointer h-full">
                   {/* Card Background Gradient */}
                   <div
@@ -164,7 +180,7 @@ export default function CategoriesPage({ params }: CategoriesPageProps) {
         {/* Back to Home Button */}
         <div className="text-center mt-12">
           <Link
-            href={`/${locale}`}
+            href={`/${lang}`}
             className="inline-flex items-center gap-2 px-6 py-3 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white font-semibold rounded-xl hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-300"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">

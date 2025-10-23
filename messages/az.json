@@ -277,9 +277,23 @@
   "metadata": {
     "title": "Task.az - Peşəkar Xidmətlər Platforması",
     "description": "Azərbaycanda tapşırıqlar və peşəkar xidmətlər üçün platforma. İşləri yerləşdirin, peşəkarları tapın və əməkdaşlıq edin.",
-    "category": {
+    "tasks": {
+      "title": "Tapşırıqlar | Task.az",
+      "description": "Peşəkar xidmətlər üzrə tapşırıqlar"
+    },
+    "professionals": {
+      "listTitle": "Peşəkarlar | Task.az",
+      "listDescription": "İxtisaslı peşəkarlar və mütəxəssislər",
+      "title": "{name} - Peşəkar Profili | Task.az",
+      "description": "{name} - {rating}⭐ reytinq, {completedJobs} iş",
+      "notFound": "Task.az - Peşəkar Tapılmadı",
+      "notFoundDescription": "Axtardığınız peşəkar tapılmadı."
+    },
+    "categories": {
+      "listTitle": "Kateqoriyalar | Task.az",
+      "listDescription": "Xidmət kateqoriyaları",
       "title": "{name} Tapşırıqları | Task.az",
-      "description": "{name} kateqoriyasındakı bütün tapşırıqlara baxın və müraciət edin.",
+      "description": "{name} üzrə peşəkarlar və tapşırıqlar",
       "notFound": "Task.az - Kateqoriya Tapılmadı",
       "notFoundDescription": "Axtardığınız kateqoriya tapılmadı."
     },
@@ -288,12 +302,6 @@
       "description": "Tapşırıq haqqında ətraflı məlumat",
       "notFound": "Task.az - Tapşırıq Tapılmadı",
       "notFoundDescription": "Axtardığınız tapşırıq tapılmadı."
-    },
-    "professional": {
-      "title": "{name} - Peşəkar Profili | Task.az",
-      "description": "{name} - Peşəkar profili. {completedJobs} tamamlanmış iş, {rating} reytinq.",
-      "notFound": "Task.az - Peşəkar Tapılmadı",
-      "notFoundDescription": "Axtardığınız peşəkar tapılmadı."
     }
   },
   "login": {

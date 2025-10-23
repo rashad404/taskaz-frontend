@@ -41,7 +41,7 @@ async function getprofessional(slug: string) {
 export async function generateMetadata({ params }: professionalPageProps): Promise<Metadata> {
   const { lang, slug } = await params;
   const professional = await getprofessional(slug);
-  const t = await getTranslations({ locale: lang, namespace: 'metadata.professional' });
+  const t = await getTranslations({ locale: lang, namespace: 'metadata.professionals' });
 
   if (!professional) {
     return {
