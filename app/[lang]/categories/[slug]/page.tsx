@@ -60,9 +60,35 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
     };
   }
 
+  const title = `${category.name} Tapşırıqları | Task.az`;
+  const description = category.description || `${category.name} kateqoriyasındakı bütün tapşırıqlara baxın və müraciət edin.`;
+  const url = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://task.az'}/${lang}/categories/${slug}`;
+
   return {
-    title: `${category.name} Tapşırıqları | Task.az`,
-    description: category.description || `${category.name} kateqoriyasındakı bütün tapşırıqlara baxın və müraciət edin.`,
+    title,
+    description,
+    openGraph: {
+      type: 'website',
+      locale: lang === 'az' ? 'az_AZ' : lang === 'en' ? 'en_US' : 'ru_RU',
+      url,
+      siteName: 'Task.az',
+      title,
+      description,
+      images: [
+        {
+          url: '/images/taskaz-image.jpg',
+          width: 1200,
+          height: 630,
+          alt: title,
+        }
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: ['/images/taskaz-image.jpg'],
+    },
   };
 }
 

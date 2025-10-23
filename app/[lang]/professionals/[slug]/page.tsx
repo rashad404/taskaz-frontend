@@ -48,13 +48,37 @@ export async function generateMetadata({ params }: professionalPageProps): Promi
     };
   }
 
+  const title = `${professional.name} - Peşəkar Profili | Task.az`;
   const description = professional.bio
     ? `${professional.bio.substring(0, 160)}`
     : `${professional.name} - Peşəkar profili. ${professional.completed_contracts || 0} tamamlanmış iş, ${professional.average_rating || 0} reytinq.`;
+  const url = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://task.az'}/${lang}/professionals/${slug}`;
 
   return {
-    title: `${professional.name} - Peşəkar Profili | Task.az`,
+    title,
     description,
+    openGraph: {
+      type: 'profile',
+      locale: lang === 'az' ? 'az_AZ' : lang === 'en' ? 'en_US' : 'ru_RU',
+      url,
+      siteName: 'Task.az',
+      title,
+      description,
+      images: [
+        {
+          url: '/images/taskaz-image.jpg',
+          width: 1200,
+          height: 630,
+          alt: title,
+        }
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: ['/images/taskaz-image.jpg'],
+    },
   };
 }
 

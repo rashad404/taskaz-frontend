@@ -58,11 +58,35 @@ export async function generateMetadata({ params }: TaskDetailPageProps): Promise
     return html.replace(/<[^>]*>/g, '').trim();
   };
 
-  const description = stripHtml(task.description).substring(0, 160);
+  const title = `${task.title} - Task.az`;
+  const description = stripHtml(task.description).substring(0, 160) || 'Tapşırıq haqqında ətraflı məlumat';
+  const url = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://task.az'}/${lang}/tasks/${slug}`;
 
   return {
-    title: `${task.title} - Task.az`,
-    description: description || 'Tapşırıq haqqında ətraflı məlumat',
+    title,
+    description,
+    openGraph: {
+      type: 'article',
+      locale: lang === 'az' ? 'az_AZ' : lang === 'en' ? 'en_US' : 'ru_RU',
+      url,
+      siteName: 'Task.az',
+      title,
+      description,
+      images: [
+        {
+          url: '/images/taskaz-image.jpg',
+          width: 1200,
+          height: 630,
+          alt: title,
+        }
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: ['/images/taskaz-image.jpg'],
+    },
   };
 }
 
