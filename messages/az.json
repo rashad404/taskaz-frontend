@@ -276,7 +276,25 @@
   },
   "metadata": {
     "title": "Task.az - Peşəkar Xidmətlər Platforması",
-    "description": "Azərbaycanda tapşırıqlar və peşəkar xidmətlər üçün platforma. İşləri yerləşdirin, peşəkarları tapın və əməkdaşlıq edin."
+    "description": "Azərbaycanda tapşırıqlar və peşəkar xidmətlər üçün platforma. İşləri yerləşdirin, peşəkarları tapın və əməkdaşlıq edin.",
+    "category": {
+      "title": "{name} Tapşırıqları | Task.az",
+      "description": "{name} kateqoriyasındakı bütün tapşırıqlara baxın və müraciət edin.",
+      "notFound": "Task.az - Kateqoriya Tapılmadı",
+      "notFoundDescription": "Axtardığınız kateqoriya tapılmadı."
+    },
+    "task": {
+      "title": "{title} - Task.az",
+      "description": "Tapşırıq haqqında ətraflı məlumat",
+      "notFound": "Task.az - Tapşırıq Tapılmadı",
+      "notFoundDescription": "Axtardığınız tapşırıq tapılmadı."
+    },
+    "professional": {
+      "title": "{name} - Peşəkar Profili | Task.az",
+      "description": "{name} - Peşəkar profili. {completedJobs} tamamlanmış iş, {rating} reytinq.",
+      "notFound": "Task.az - Peşəkar Tapılmadı",
+      "notFoundDescription": "Axtardığınız peşəkar tapılmadı."
+    }
   },
   "login": {
     "welcomeBack": "Xoş gəlmisiniz",

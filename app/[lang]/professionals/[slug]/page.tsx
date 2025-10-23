@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import { getTranslations } from 'next-intl/server';
 import {
   Star,
   MapPin,
@@ -40,18 +41,23 @@ async function getprofessional(slug: string) {
 export async function generateMetadata({ params }: professionalPageProps): Promise<Metadata> {
   const { lang, slug } = await params;
   const professional = await getprofessional(slug);
+  const t = await getTranslations({ locale: lang, namespace: 'metadata.professional' });
 
   if (!professional) {
     return {
-      title: 'Task.az - Peşəkar Tapılmadı',
-      description: 'Axtardığınız peşəkar tapılmadı.',
+      title: t('notFound'),
+      description: t('notFoundDescription'),
     };
   }
 
-  const title = `${professional.name} - Peşəkar Profili | Task.az`;
+  const title = t('title', { name: professional.name });
   const description = professional.bio
     ? `${professional.bio.substring(0, 160)}`
-    : `${professional.name} - Peşəkar profili. ${professional.completed_contracts || 0} tamamlanmış iş, ${professional.average_rating || 0} reytinq.`;
+    : t('description', {
+        name: professional.name,
+        completedJobs: professional.completed_contracts || 0,
+        rating: professional.average_rating || 0
+      });
   const url = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://task.az'}/${lang}/professionals/${slug}`;
 
   return {

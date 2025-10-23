@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import * as Icons from 'lucide-react';
+import { getTranslations } from 'next-intl/server';
 
 interface CategoryPageProps {
   params: Promise<{ lang: string; slug: string }>;
@@ -52,16 +53,17 @@ async function getCategoryData(slug: string) {
 export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
   const { lang, slug } = await params;
   const { category, tasks } = await getCategoryData(slug);
+  const t = await getTranslations({ locale: lang, namespace: 'metadata.category' });
 
   if (!category) {
     return {
-      title: 'Task.az - Kateqoriya Tapılmadı',
-      description: 'Axtardığınız kateqoriya tapılmadı.',
+      title: t('notFound'),
+      description: t('notFoundDescription'),
     };
   }
 
-  const title = `${category.name} Tapşırıqları | Task.az`;
-  const description = category.description || `${category.name} kateqoriyasındakı bütün tapşırıqlara baxın və müraciət edin.`;
+  const title = t('title', { name: category.name });
+  const description = category.description || t('description', { name: category.name });
   const url = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://task.az'}/${lang}/categories/${slug}`;
 
   return {

@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 import type { Metadata } from 'next';
 import {
   MapPin,
@@ -44,11 +45,12 @@ async function getTask(slug: string) {
 export async function generateMetadata({ params }: TaskDetailPageProps): Promise<Metadata> {
   const { lang, slug } = await params;
   const task = await getTask(slug);
+  const t = await getTranslations({ locale: lang, namespace: 'metadata.task' });
 
   if (!task) {
     return {
-      title: 'Task.az - Tapşırıq Tapılmadı',
-      description: 'Axtardığınız tapşırıq tapılmadı.',
+      title: t('notFound'),
+      description: t('notFoundDescription'),
     };
   }
 
@@ -58,8 +60,8 @@ export async function generateMetadata({ params }: TaskDetailPageProps): Promise
     return html.replace(/<[^>]*>/g, '').trim();
   };
 
-  const title = `${task.title} - Task.az`;
-  const description = stripHtml(task.description).substring(0, 160) || 'Tapşırıq haqqında ətraflı məlumat';
+  const title = t('title', { title: task.title });
+  const description = stripHtml(task.description).substring(0, 160) || t('description');
   const url = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://task.az'}/${lang}/tasks/${slug}`;
 
   return {
