@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { Star, MapPin, Briefcase } from 'lucide-react';
+import { getStorageUrl } from '@/lib/utils/url';
 
 export interface Professional {
   id: number;
@@ -21,6 +22,12 @@ interface ProfessionalCardProps {
   professional: Professional;
   locale: string;
 }
+
+// Strip HTML tags from text
+const stripHtml = (html: string | null): string => {
+  if (!html) return '';
+  return html.replace(/<[^>]*>/g, '').trim();
+};
 
 export default function ProfessionalCard({ professional, locale }: ProfessionalCardProps) {
   const t = useTranslations('professionals');
@@ -54,7 +61,7 @@ export default function ProfessionalCard({ professional, locale }: ProfessionalC
               <div className="w-full h-full rounded-full bg-white dark:bg-gray-900 flex items-center justify-center overflow-hidden">
                 {professional.avatar ? (
                   <img
-                    src={`${process.env.NEXT_PUBLIC_API_URL?.replace('/api', '')}/storage/${professional.avatar}`}
+                    src={getStorageUrl(professional.avatar)}
                     alt={professional.name}
                     className="w-full h-full object-cover"
                   />
@@ -86,7 +93,7 @@ export default function ProfessionalCard({ professional, locale }: ProfessionalC
           {/* Bio */}
           {professional.bio && (
             <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-2 text-center min-h-[2.5rem]">
-              {professional.bio}
+              {stripHtml(professional.bio)}
             </p>
           )}
 

@@ -17,6 +17,7 @@ import { az, enUS, ru } from 'date-fns/locale';
 import ProfessionalCard from '@/components/professionals/ProfessionalCard';
 import ProfessionalDetailActions from '@/components/professionals/ProfessionalDetailActions';
 import ContactInfo from '@/components/professionals/ContactInfo';
+import { getStorageUrl } from '@/lib/utils/url';
 
 interface professionalPageProps {
   params: Promise<{ lang: string; slug: string }>;
@@ -50,9 +51,12 @@ export async function generateMetadata({ params }: professionalPageProps): Promi
     };
   }
 
+  // Strip HTML from bio for metadata
+  const stripHtml = (html: string) => html.replace(/<[^>]*>/g, '').trim();
+
   const title = t('title', { name: professional.name });
   const description = professional.bio
-    ? `${professional.bio.substring(0, 160)}`
+    ? stripHtml(professional.bio).substring(0, 160)
     : t('description', {
         name: professional.name,
         completedJobs: professional.completed_contracts || 0,
@@ -162,7 +166,7 @@ function ProfessionalDetailClient({ professional, similarprofessionals, locale }
                   <div className="w-full h-full rounded-full bg-white dark:bg-gray-900 flex items-center justify-center overflow-hidden">
                     {professional.avatar ? (
                       <img
-                        src={`${process.env.NEXT_PUBLIC_API_URL?.replace('/api', '')}/storage/${professional.avatar}`}
+                        src={getStorageUrl(professional.avatar)}
                         alt={professional.name}
                         className="w-full h-full object-cover"
                       />
@@ -222,9 +226,10 @@ function ProfessionalDetailClient({ professional, similarprofessionals, locale }
                 <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
                   Haqqında
                 </h2>
-                <p className="text-gray-700 dark:text-gray-300 whitespace-pre-wrap">
-                  {professional.bio}
-                </p>
+                <div
+                  className="text-gray-700 dark:text-gray-300 [&>p]:mb-4 [&>a]:text-indigo-600 [&>a]:underline hover:[&>a]:text-indigo-800 dark:[&>a]:text-indigo-400 dark:hover:[&>a]:text-indigo-300"
+                  dangerouslySetInnerHTML={{ __html: professional.bio }}
+                />
               </div>
             )}
 

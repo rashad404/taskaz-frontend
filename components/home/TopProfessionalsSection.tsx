@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { usersApi } from '@/lib/api/marketplace';
 import { Star, MapPin, Briefcase, Loader2 } from 'lucide-react';
+import { getStorageUrl } from '@/lib/utils/url';
 
 interface professional {
   id: number;
@@ -112,7 +113,7 @@ export default function TopProfessionalsSection({ locale }: TopProfessionalsSect
                       <div className="w-full h-full rounded-full bg-white dark:bg-gray-900 flex items-center justify-center overflow-hidden">
                         {professional.avatar ? (
                           <img
-                            src={`${process.env.NEXT_PUBLIC_API_URL?.replace('/api', '')}/storage/${professional.avatar}`}
+                            src={getStorageUrl(professional.avatar)}
                             alt={professional.name}
                             className="w-full h-full object-cover"
                           />
