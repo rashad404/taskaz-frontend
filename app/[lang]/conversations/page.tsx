@@ -1,4 +1,5 @@
 'use client';
+import { getStorageUrl } from '@/lib/utils/url';
 
 import { useEffect, useState } from 'react';
 import { useRouter, useParams } from 'next/navigation';
@@ -290,7 +291,7 @@ export default function ConversationsPage() {
                                 <div className="w-5 h-5 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center overflow-hidden flex-shrink-0">
                                   {message.sender?.avatar ? (
                                     <img
-                                      src={`${process.env.NEXT_PUBLIC_API_URL?.replace('/api', '')}/storage/${message.sender.avatar}`}
+                                      src={getStorageUrl(message.sender.avatar)}
                                       alt={message.sender.name}
                                       className="w-full h-full object-cover"
                                     />

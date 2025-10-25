@@ -1,4 +1,5 @@
 'use client';
+import { getStorageUrl } from '@/lib/utils/url';
 
 import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
@@ -184,7 +185,7 @@ function SearchResults({ locale }: { locale: string }) {
                   <div className="w-16 h-16 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold text-xl overflow-hidden">
                     {professional.avatar ? (
                       <img
-                        src={`${process.env.NEXT_PUBLIC_API_URL?.replace('/api', '')}/storage/${professional.avatar}`}
+                        src={getStorageUrl(professional.avatar)}
                         alt={professional.name}
                         className="w-full h-full object-cover"
                       />

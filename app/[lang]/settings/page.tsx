@@ -17,6 +17,7 @@ import {
   Edit2,
   Loader2
 } from 'lucide-react';
+import { getStorageUrl } from '@/lib/utils/url';
 
 export default function SettingsPage() {
   const router = useRouter();
@@ -146,7 +147,7 @@ export default function SettingsPage() {
                   <div className="w-full h-full rounded-full bg-white dark:bg-gray-900 flex items-center justify-center overflow-hidden">
                     {user.avatar ? (
                       <img
-                        src={`${process.env.NEXT_PUBLIC_API_URL?.replace('/api', '')}/storage/${user.avatar}`}
+                        src={getStorageUrl(user.avatar)}
                         alt={user.name}
                         className="w-full h-full object-cover"
                       />

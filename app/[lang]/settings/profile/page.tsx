@@ -16,6 +16,7 @@ import {
   Upload
 } from 'lucide-react';
 import LocationSelector from '@/components/common/LocationSelector';
+import { getStorageUrl } from '@/lib/utils/url';
 
 export default function ProfileSettingsPage() {
   const router = useRouter();
@@ -254,9 +255,9 @@ export default function ProfileSettingsPage() {
             <div className="relative">
               {/* Avatar Display */}
               <div className="w-32 h-32 rounded-full overflow-hidden bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center">
-                {avatarPreview || (user.avatar && `${process.env.NEXT_PUBLIC_API_URL?.replace('/api', '')}/storage/${user.avatar}`) ? (
+                {avatarPreview || user.avatar ? (
                   <img
-                    src={avatarPreview || `${process.env.NEXT_PUBLIC_API_URL?.replace('/api', '')}/storage/${user.avatar}`}
+                    src={avatarPreview || getStorageUrl(user.avatar)}
                     alt={user.name}
                     className="w-full h-full object-cover"
                   />

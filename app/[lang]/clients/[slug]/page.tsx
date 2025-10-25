@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import { getStorageUrl } from '@/lib/utils/url';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import {
@@ -95,7 +96,7 @@ function ClientDetailClient({ client, locale }: any) {
                   <div className="w-full h-full rounded-full bg-white dark:bg-gray-900 flex items-center justify-center overflow-hidden">
                     {client.avatar ? (
                       <img
-                        src={`${process.env.NEXT_PUBLIC_API_URL?.replace('/api', '')}/storage/${client.avatar}`}
+                        src={getStorageUrl(client.avatar)}
                         alt={client.name}
                         className="w-full h-full object-cover"
                       />

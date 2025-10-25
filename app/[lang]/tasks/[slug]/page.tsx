@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import { getStorageUrl } from '@/lib/utils/url';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
@@ -351,7 +352,7 @@ function TaskDetailClient({ task, similarTasks, locale }: { task: Task; similarT
                   <div className="w-16 h-16 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-2xl font-bold flex-shrink-0 overflow-hidden">
                     {task.client.avatar ? (
                       <img
-                        src={`${process.env.NEXT_PUBLIC_API_URL?.replace('/api', '')}/storage/${task.client.avatar}`}
+                        src={getStorageUrl(task.client.avatar)}
                         alt={task.client.name}
                         className="w-full h-full object-cover"
                       />
