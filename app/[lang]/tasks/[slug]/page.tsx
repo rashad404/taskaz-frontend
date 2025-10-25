@@ -1,7 +1,6 @@
 import { notFound } from 'next/navigation';
 import { getStorageUrl } from '@/lib/utils/url';
 import Link from 'next/link';
-import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import type { Metadata } from 'next';
 import {
@@ -11,9 +10,6 @@ import {
   Calendar,
   Briefcase,
   ChevronRight,
-  Share2,
-  Copy,
-  CheckCircle,
   User
 } from 'lucide-react';
 import type { Task } from '@/lib/types/marketplace';
@@ -21,6 +17,7 @@ import { formatDistanceToNow, format } from 'date-fns';
 import { az, enUS, ru } from 'date-fns/locale';
 import TaskCard from '@/components/tasks/TaskCard';
 import TaskDetailActions from '@/components/tasks/TaskDetailActions';
+import ShareButton from '@/components/tasks/ShareButton';
 import { getImageUrl } from '@/lib/utils';
 
 interface TaskDetailPageProps {
@@ -195,9 +192,7 @@ function TaskDetailClient({ task, similarTasks, locale }: { task: Task; similarT
                 <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">
                   {task.title}
                 </h1>
-                <button className="flex-shrink-0 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-                  <Share2 className="w-5 h-5 text-gray-600 dark:text-gray-400" />
-                </button>
+                <ShareButton title={task.title} />
               </div>
 
               {/* Meta Info */}
