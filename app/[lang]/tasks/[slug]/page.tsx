@@ -67,6 +67,14 @@ export async function generateMetadata({ params }: TaskDetailPageProps): Promise
   return {
     title,
     description,
+    alternates: {
+      canonical: lang === 'az' ? `/tasks/${slug}` : `/${lang}/tasks/${slug}`,
+      languages: {
+        'az': `/tasks/${slug}`,
+        'en': `/en/tasks/${slug}`,
+        'ru': `/ru/tasks/${slug}`,
+      },
+    },
     openGraph: {
       type: 'article',
       locale: lang === 'az' ? 'az_AZ' : lang === 'en' ? 'en_US' : 'ru_RU',

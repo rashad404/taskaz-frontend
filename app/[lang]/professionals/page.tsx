@@ -18,6 +18,14 @@ export async function generateMetadata({ params }: ProfessionalsPageProps): Prom
   return {
     title,
     description,
+    alternates: {
+      canonical: lang === 'az' ? '/professionals' : `/${lang}/professionals`,
+      languages: {
+        'az': '/professionals',
+        'en': '/en/professionals',
+        'ru': '/ru/professionals',
+      },
+    },
     openGraph: {
       type: 'website',
       locale: lang === 'az' ? 'az_AZ' : lang === 'en' ? 'en_US' : 'ru_RU',

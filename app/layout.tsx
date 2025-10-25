@@ -13,6 +13,14 @@ export const metadata: Metadata = {
   title: "Task.az - Xidmətlər və Ustalar",
   description: "Task.az - Azərbaycanda xidmət - usta sifariş etmək üçün platforma. Təmir, proqramlaşdırma, dərs, tərcümə və digər xidmətlər. İş elanları yerləşdirin və ya peşəkar tapın.",
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://task.az'),
+  alternates: {
+    canonical: '/',
+    languages: {
+      'az': '/',
+      'en': '/en',
+      'ru': '/ru',
+    },
+  },
   icons: {
     icon: [
       { url: '/favicon.svg', type: 'image/svg+xml' },

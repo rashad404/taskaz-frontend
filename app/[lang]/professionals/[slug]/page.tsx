@@ -63,6 +63,14 @@ export async function generateMetadata({ params }: professionalPageProps): Promi
   return {
     title,
     description,
+    alternates: {
+      canonical: lang === 'az' ? `/professionals/${slug}` : `/${lang}/professionals/${slug}`,
+      languages: {
+        'az': `/professionals/${slug}`,
+        'en': `/en/professionals/${slug}`,
+        'ru': `/ru/professionals/${slug}`,
+      },
+    },
     openGraph: {
       type: 'profile',
       locale: lang === 'az' ? 'az_AZ' : lang === 'en' ? 'en_US' : 'ru_RU',

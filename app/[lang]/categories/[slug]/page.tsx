@@ -69,6 +69,14 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
   return {
     title,
     description,
+    alternates: {
+      canonical: lang === 'az' ? `/categories/${slug}` : `/${lang}/categories/${slug}`,
+      languages: {
+        'az': `/categories/${slug}`,
+        'en': `/en/categories/${slug}`,
+        'ru': `/ru/categories/${slug}`,
+      },
+    },
     openGraph: {
       type: 'website',
       locale: lang === 'az' ? 'az_AZ' : lang === 'en' ? 'en_US' : 'ru_RU',
