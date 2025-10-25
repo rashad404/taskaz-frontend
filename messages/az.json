@@ -21,7 +21,17 @@
       "searchPlaceholder": "Hansı xidməti axtarırsınız?",
       "search": "Axtar",
       "postTask": "Tapşırıq Yerləşdir",
-      "browseTasks": "Tapşırıqlara Bax"
+      "browseTasks": "Tapşırıqlara Bax",
+      "promoMessages": [
+        "Web sayt sifariş vermək istəyirsən?",
+        "Soyuducun işləmir, usta axtarırsan?",
+        "Maşının xarab olub yolda qalmısan?",
+        "Ev təmiri lazımdır?",
+        "Proqramçı axtarırsan?",
+        "Dizayner lazımdır?",
+        "İngilis dili dərsi təşkil etmək istəyirsən?"
+      ],
+      "promoSubtext": "Düzgün ünvandasan. Usta çağır, problemi həll et!"
     },
     "recentTasks": {
       "title": "Son Tapşırıqlar",
@@ -292,7 +302,7 @@
     "categories": {
       "listTitle": "Kateqoriyalar | Task.az",
       "listDescription": "Xidmət kateqoriyaları",
-      "title": "{name} Tapşırıqları | Task.az",
+      "title": "{name} Xidmətləri | Task.az",
       "description": "{name} üzrə peşəkarlar və tapşırıqlar",
       "notFound": "Task.az - Kateqoriya Tapılmadı",
       "notFoundDescription": "Axtardığınız kateqoriya tapılmadı."

@@ -17,7 +17,17 @@
       "searchPlaceholder": "What service are you looking for?",
       "search": "Search",
       "postTask": "Post a Task",
-      "browseTasks": "Browse Tasks"
+      "browseTasks": "Browse Tasks",
+      "promoMessages": [
+        "Need a website developed?",
+        "Refrigerator broken, looking for a repairman?",
+        "Car broke down on the road?",
+        "Need home repairs?",
+        "Looking for a programmer?",
+        "Need a designer?",
+        "Want to organize English lessons?"
+      ],
+      "promoSubtext": "You're in the right place. Call an expert, solve the problem!"
     },
     "recentTasks": {
       "title": "Recent Tasks",
