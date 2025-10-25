@@ -275,15 +275,15 @@
     "terms": "Şərtlər"
   },
   "metadata": {
-    "title": "Task.az - Peşəkar Xidmətlər Platforması",
-    "description": "Azərbaycanda tapşırıqlar və peşəkar xidmətlər üçün platforma. İşləri yerləşdirin, peşəkarları tapın və əməkdaşlıq edin.",
+    "title": "Task.az - Xidmətlər və Ustalar",
+    "description": "Task.az - Azərbaycanda xidmət - usta sifariş etmək üçün platforma. Təmir, proqramlaşdırma, dərs, tərcümə və digər xidmətlər. İş elanları yerləşdirin və ya peşəkar tapın.",
     "tasks": {
-      "title": "Tapşırıqlar | Task.az",
-      "description": "Peşəkar xidmətlər üzrə tapşırıqlar"
+      "title": "Işlər - Sifarişlər | Task.az",
+      "description": "Aktiv iş elanları və sifarişlər. Təmir, dizayn, proqramlaşdırma, tərcümə, dərs və digər xidmətlər üçün tapşırıqlar. Peşəkarlar üçün yeni iş imkanları."
     },
     "professionals": {
-      "listTitle": "Peşəkarlar | Task.az",
-      "listDescription": "İxtisaslı peşəkarlar və mütəxəssislər",
+      "listTitle": "Xidmətlər - Ustalar | Task.az",
+      "listDescription": "Azərbaycanda yoxlanılmış peşəkarlar və xidmət göstərənlər. Proqramçı, təmirçi, müəllim, dizayner, tərcüməçi və digər sahələr. Reytinq və rəylərə əsasən seçin.",
       "title": "{name} - Peşəkar Profili | Task.az",
       "description": "{name} - {rating}⭐ reytinq, {completedJobs} iş",
       "notFound": "Task.az - Peşəkar Tapılmadı",

@@ -10,8 +10,8 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Task.az - Freelance Marketplace",
-  description: "Platform for tasks and talent in Azerbaijan. Post jobs, find professionals, and collaborate.",
+  title: "Task.az - Xidmətlər və Ustalar",
+  description: "Task.az - Azərbaycanda xidmət - usta sifariş etmək üçün platforma. Təmir, proqramlaşdırma, dərs, tərcümə və digər xidmətlər. İş elanları yerləşdirin və ya peşəkar tapın.",
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://task.az'),
   icons: {
     icon: [
@@ -33,21 +33,21 @@ export const metadata: Metadata = {
     locale: 'az_AZ',
     url: process.env.NEXT_PUBLIC_SITE_URL || 'https://task.az',
     siteName: 'Task.az',
-    title: 'Task.az - Freelance Marketplace',
-    description: 'Platform for tasks and talent in Azerbaijan. Post jobs, find professionals, and collaborate.',
+    title: 'Task.az - Xidmətlər və Ustalar',
+    description: 'Task.az - Azərbaycanda xidmət - usta sifariş etmək üçün platforma. Təmir, proqramlaşdırma, dərs, tərcümə və digər xidmətlər. İş elanları yerləşdirin və ya peşəkar tapın.',
     images: [
       {
         url: '/images/taskaz-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'Task.az - Freelance Marketplace',
+        alt: 'Task.az - Xidmətlər və Ustalar',
       }
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Task.az - Freelance Marketplace',
-    description: 'Platform for tasks and talent in Azerbaijan. Post jobs, find professionals, and collaborate.',
+    title: 'Task.az - Xidmətlər və Ustalar',
+    description: 'Task.az - Azərbaycanda xidmət - usta sifariş etmək üçün platforma. Təmir, proqramlaşdırma, dərs, tərcümə və digər xidmətlər. İş elanları yerləşdirin və ya peşəkar tapın.',
     images: ['/images/taskaz-image.jpg'],
   },
 };
