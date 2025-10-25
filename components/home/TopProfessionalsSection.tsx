@@ -24,6 +24,17 @@ interface TopProfessionalsSectionProps {
   locale: string;
 }
 
+// Utility function to strip HTML tags
+const stripHtmlTags = (html: string): string => {
+  if (!html) return '';
+  // Remove HTML tags
+  const text = html.replace(/<[^>]*>/g, '');
+  // Decode HTML entities
+  const textarea = document.createElement('textarea');
+  textarea.innerHTML = text;
+  return textarea.value;
+};
+
 export default function TopProfessionalsSection({ locale }: TopProfessionalsSectionProps) {
   const t = useTranslations('home.topprofessionals');
   const router = useRouter();
@@ -145,7 +156,7 @@ export default function TopProfessionalsSection({ locale }: TopProfessionalsSect
                   {/* Bio */}
                   {professional.bio && (
                     <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-2 text-center">
-                      {professional.bio}
+                      {stripHtmlTags(professional.bio)}
                     </p>
                   )}
 
