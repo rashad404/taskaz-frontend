@@ -15,23 +15,50 @@
       "subtitle": "Layihəniz üçün mükəmməl mütəxəssis tapın"
     },
     "hero": {
-      "title": "İstedadları Tapın. İşləri Həll Edin.",
+      "title": "Azərbaycanın #1 xidmət platforması",
       "subtitle": "Azərbaycanda peşəkar xidmət göstərənlərlə əlaqə qurun",
       "description": "Layihənizi yerləşdirin və istedadlı peşəkarlardan təkliflər alın",
       "searchPlaceholder": "Hansı xidməti axtarırsınız?",
       "search": "Axtar",
       "postTask": "Tapşırıq Yerləşdir",
       "browseTasks": "Tapşırıqlara Bax",
-      "promoMessages": [
-        "Web sayt sifariş vermək istəyirsən?",
-        "Soyuducun işləmir, usta axtarırsan?",
-        "Maşının xarab olub yolda qalmısan?",
-        "Ev təmiri lazımdır?",
-        "Proqramçı axtarırsan?",
-        "Dizayner lazımdır?",
-        "İngilis dili dərsi təşkil etmək istəyirsən?"
-      ],
-      "promoSubtext": "Düzgün ünvandasan. Usta çağır, problemi həll et!"
+      "promoSlides": [
+        {
+          "message": "Web sayt sifariş vermək istəyirsən?",
+          "subtext": "Peşəkar proqramçılar səni gözləyir",
+          "icon": "code"
+        },
+        {
+          "message": "Soyuducun işləmir, usta axtarırsan?",
+          "subtext": "Təcrübəli ustalar bir kliklə",
+          "icon": "wrench"
+        },
+        {
+          "message": "Maşının xarab olub yolda qalmısan?",
+          "subtext": "Avtomexaniklər dərhal kömək edər",
+          "icon": "car"
+        },
+        {
+          "message": "Ev təmiri lazımdır?",
+          "subtext": "Mütəxəssislər hazırdır",
+          "icon": "home"
+        },
+        {
+          "message": "Proqramçı axtarırsan?",
+          "subtext": "İstedadlı developerlar burada",
+          "icon": "terminal"
+        },
+        {
+          "message": "Dizayner lazımdır?",
+          "subtext": "Kreativ dizaynerləri tap",
+          "icon": "palette"
+        },
+        {
+          "message": "İngilis dili dərsi təşkil etmək istəyirsən?",
+          "subtext": "Təcrübəli müəllimlər səni gözləyir",
+          "icon": "book"
+        }
+      ]
     },
     "recentTasks": {
       "title": "Son Tapşırıqlar",

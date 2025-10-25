@@ -59,17 +59,10 @@ async function getCategories() {
     );
 
     if (!res.ok) return [];
-    const allCategories = await res.json();
 
-    // Filter to show only parent categories and add their children
-    const parentCategories = allCategories
-      .filter((cat: any) => !cat.parent_id)
-      .map((parent: any) => ({
-        ...parent,
-        children: allCategories.filter((cat: any) => cat.parent_id === parent.id)
-      }));
-
-    return parentCategories;
+    // API now returns parent categories with nested children
+    const categories = await res.json();
+    return categories;
   } catch (error) {
     console.error('Failed to fetch categories:', error);
     return [];

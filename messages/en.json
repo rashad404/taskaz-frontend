@@ -11,23 +11,50 @@
   "home": {
     "welcome": "Welcome to Task.az",
     "hero": {
-      "title": "Find Talent. Get Work Done.",
+      "title": "Azerbaijan's #1 Service Platform",
       "subtitle": "Connect with skilled professionals in Azerbaijan",
       "description": "Post your project and receive proposals from talented professionals",
       "searchPlaceholder": "What service are you looking for?",
       "search": "Search",
       "postTask": "Post a Task",
       "browseTasks": "Browse Tasks",
-      "promoMessages": [
-        "Need a website developed?",
-        "Refrigerator broken, looking for a repairman?",
-        "Car broke down on the road?",
-        "Need home repairs?",
-        "Looking for a programmer?",
-        "Need a designer?",
-        "Want to organize English lessons?"
-      ],
-      "promoSubtext": "You're in the right place. Call an expert, solve the problem!"
+      "promoSlides": [
+        {
+          "message": "Need a website developed?",
+          "subtext": "Professional developers are waiting for you",
+          "icon": "code"
+        },
+        {
+          "message": "Refrigerator broken, looking for a repairman?",
+          "subtext": "Experienced technicians in one click",
+          "icon": "wrench"
+        },
+        {
+          "message": "Car broke down on the road?",
+          "subtext": "Auto mechanics will help immediately",
+          "icon": "car"
+        },
+        {
+          "message": "Need home repairs?",
+          "subtext": "Specialists are ready",
+          "icon": "home"
+        },
+        {
+          "message": "Looking for a programmer?",
+          "subtext": "Talented developers are here",
+          "icon": "terminal"
+        },
+        {
+          "message": "Need a designer?",
+          "subtext": "Find creative designers",
+          "icon": "palette"
+        },
+        {
+          "message": "Want to organize English lessons?",
+          "subtext": "Experienced teachers are waiting",
+          "icon": "book"
+        }
+      ]
     },
     "recentTasks": {
       "title": "Recent Tasks",
