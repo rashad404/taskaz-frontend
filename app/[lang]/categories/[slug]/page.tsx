@@ -10,26 +10,36 @@ interface CategoryPageProps {
 
 async function getCategoryData(slug: string) {
   try {
-    // Fetch all categories
+    // Fetch all categories (API returns parents with nested children)
     const categoryRes = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/categories`,
       { cache: 'no-store' }
     );
 
     if (!categoryRes.ok) return { category: null, tasks: [] };
-    const allCategories = await categoryRes.json();
+    const parentCategories = await categoryRes.json();
 
-    // Find the category by slug
-    let category = allCategories.find((cat: any) => cat.slug === slug);
+    // Find the category by slug (could be parent or child)
+    let category = parentCategories.find((cat: any) => cat.slug === slug);
+
+    // If not found in parents, search in children
+    if (!category) {
+      for (const parent of parentCategories) {
+        if (parent.children && parent.children.length > 0) {
+          const child = parent.children.find((c: any) => c.slug === slug);
+          if (child) {
+            category = child;
+            break;
+          }
+        }
+      }
+    }
 
     if (!category) {
       return { category: null, tasks: [] };
     }
 
-    // If this is a parent category, find its children
-    if (!category.parent_id) {
-      category.children = allCategories.filter((cat: any) => cat.parent_id === category.id);
-    }
+    // Children are already nested in the API response, no need to rebuild
 
     // Fetch tasks for this category
     const tasksRes = await fetch(
@@ -137,7 +147,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                 <span className="gradient-text">{category.name}</span>
               </h1>
               <p className="text-gray-600 dark:text-gray-300 mt-2 text-lg">
-                {tasks.length} tapşırıq tapıldı
+                {tasks.length} xidmət tapıldı
               </p>
             </div>
           </div>
