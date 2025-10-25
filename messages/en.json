@@ -270,8 +270,34 @@
     "terms": "Terms"
   },
   "metadata": {
-    "title": "Task.az - Professional Services Platform",
-    "description": "Platform for tasks and professional services in Azerbaijan. Post jobs, find professionals, and collaborate."
+    "title": "Task.az - Services and Professionals",
+    "description": "Task.az - Platform for ordering services and professionals in Azerbaijan. Repair, programming, tutoring, translation and other services. Post jobs or find professionals.",
+    "tasks": {
+      "title": "Jobs - Orders | Task.az",
+      "description": "Active job listings and orders. Tasks for repair, design, programming, translation, tutoring and other services. New job opportunities for professionals."
+    },
+    "professionals": {
+      "listTitle": "Services - Professionals | Task.az",
+      "listDescription": "Verified professionals and service providers in Azerbaijan. Programmers, repairmen, teachers, designers, translators and other fields. Choose based on ratings and reviews.",
+      "title": "{name} - Professional Profile | Task.az",
+      "description": "{name} - {rating}⭐ rating, {completedJobs} jobs",
+      "notFound": "Task.az - Professional Not Found",
+      "notFoundDescription": "The professional you are looking for was not found."
+    },
+    "categories": {
+      "listTitle": "Categories | Task.az",
+      "listDescription": "Service categories",
+      "title": "{name} Tasks | Task.az",
+      "description": "Professionals and tasks in {name}",
+      "notFound": "Task.az - Category Not Found",
+      "notFoundDescription": "The category you are looking for was not found."
+    },
+    "task": {
+      "title": "{title} - Task.az",
+      "description": "Detailed information about the task",
+      "notFound": "Task.az - Task Not Found",
+      "notFoundDescription": "The task you are looking for was not found."
+    }
   },
   "login": {
     "welcomeBack": "Welcome Back",
