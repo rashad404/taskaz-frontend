@@ -237,13 +237,13 @@ export default function HeroSection({ locale }: HeroSectionProps) {
       </form>
 
       {/* Progress Indicators */}
-      <div className="absolute left-1/2 top-[335px] md:top-[565px] -translate-x-1/2 w-[calc(100%-40px)] md:w-auto max-w-[441px] flex gap-[6px] md:gap-[8px] items-center">
+      <div className="absolute left-1/2 top-[335px] md:top-[565px] -translate-x-1/2 w-[calc(100%-40px)] md:w-[441px] flex gap-[6px] md:gap-[8px] items-center">
         {categoryTexts.map((_, index) => (
           <button
             key={index}
             onClick={() => setCurrentSlide(index)}
             className={`h-[3px] md:h-[4px] rounded-[8px] transition-all duration-300 cursor-pointer ${
-              index === 0 ? 'w-[80px] md:w-[166px]' : 'flex-1'
+              index === 0 ? 'w-[80px] md:w-[166px]' : 'flex-1 min-w-0'
             } ${
               index === currentSlide
                 ? 'bg-gradient-to-r from-[#14b8a6] via-[#06b6d4] via-[#8b5cf6] to-[#ec4899]'
