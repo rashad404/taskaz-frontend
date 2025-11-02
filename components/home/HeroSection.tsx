@@ -96,7 +96,7 @@ export default function HeroSection({ locale }: HeroSectionProps) {
 
       {/* Gradient underline decoration under animated text */}
       <div
-        className="absolute left-[297.87px] top-[255.75px] h-[18px] flex items-center justify-center transition-all duration-300"
+        className="absolute left-[308px] top-[268px] h-[18px] flex items-center justify-start transition-all duration-300"
         style={{ width: `${underlineWidth}px` }}
       >
         <div className="flex-none w-full" style={{ transform: 'rotate(358.703deg)' }}>
