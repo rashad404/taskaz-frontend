@@ -143,54 +143,8 @@ export default function HeroSection({ locale }: HeroSectionProps) {
 
         {/* Content Container */}
         <div className="relative h-full">
-          {/* Line 1: "Evə təmir üçün" */}
-          <div
-            className="absolute left-0 md:left-[20%] lg:left-[22%] xl:left-[308px] top-[30px] md:top-[149px] w-[calc(100%-200px)] md:w-auto font-bold text-[24px] md:text-[40px] lg:text-[48px] leading-[32px] md:leading-[52px] lg:leading-[62px] text-black dark:text-white"
-            style={{ fontFamily: 'Inter, sans-serif' }}
-          >
-            Evə təmir üçün
-          </div>
-
-          {/* Line 2: Animated gradient text - "usta lazımdırsa" */}
-          <p
-            ref={textRef}
-            className="absolute left-0 md:left-[20%] lg:left-[22%] xl:left-[308px] top-[65px] md:top-[211px] font-bold text-[24px] md:text-[40px] lg:text-[48px] leading-[32px] md:leading-[52px] lg:leading-[54px] bg-clip-text max-w-[calc(100%-20px)]"
-            style={{
-              fontFamily: 'Inter, sans-serif',
-              backgroundImage: 'linear-gradient(90deg, #14b8a6 0%, #06b6d4 30%, #8b5cf6 50%, #ec4899 60%, #ec4899 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent'
-            }}
-          >
-            {categoryTexts[currentSlide]}
-          </p>
-
-          {/* Gradient underline decoration under animated text */}
-          <div
-            className="absolute left-0 md:left-[20%] lg:left-[22%] xl:left-[308px] top-[118px] md:top-[265px] h-[10px] md:h-[18px] flex items-center justify-start transition-all duration-300"
-            style={{ width: `${underlineWidth}px` }}
-          >
-            <div className="flex-none w-full" style={{ transform: 'rotate(358.703deg)' }}>
-              <Image
-                src="/assets/images/gradient-underline.svg"
-                alt=""
-                width={underlineWidth}
-                height={18}
-                className="block w-full h-auto"
-              />
-            </div>
-          </div>
-
-          {/* Line 3: "buna görə narahat olma" */}
-          <div
-            className="absolute left-0 md:left-[20%] lg:left-[22%] xl:left-[308px] top-[145px] md:top-[273px] w-[calc(100%-20px)] md:w-auto font-bold text-[24px] md:text-[40px] lg:text-[48px] leading-[32px] md:leading-[52px] lg:leading-[62px] text-black dark:text-white"
-            style={{ fontFamily: 'Inter, sans-serif' }}
-          >
-            buna görə narahat olma
-          </div>
-
-          {/* Worker Image Container with Info Cards */}
-          <div className="absolute right-0 md:right-[8%] lg:right-[12%] xl:right-[308px] top-[30px] md:top-[122px] w-[200px] md:w-[250px] lg:w-[302px] h-[200px] md:h-[250px] lg:h-[302px]">
+          {/* Worker Image Container with Info Cards - Lower z-index */}
+          <div className="absolute right-0 md:right-[8%] lg:right-[12%] xl:right-[308px] top-[30px] md:top-[122px] w-[200px] md:w-[250px] lg:w-[302px] h-[200px] md:h-[250px] lg:h-[302px] z-0">
             {/* Worker Image */}
             <div className="relative w-full h-full">
               <Image
@@ -277,6 +231,53 @@ export default function HeroSection({ locale }: HeroSectionProps) {
                 </svg>
               </div>
             </div>
+          </div>
+
+          {/* Text Elements - Higher z-index to appear above worker image */}
+          {/* Line 1: "Evə təmir üçün" */}
+          <div
+            className="absolute left-0 md:left-[20%] lg:left-[22%] xl:left-[308px] top-[30px] md:top-[149px] w-[calc(100%-200px)] md:w-auto font-bold text-[24px] md:text-[40px] lg:text-[48px] leading-[32px] md:leading-[52px] lg:leading-[62px] text-black dark:text-white z-10"
+            style={{ fontFamily: 'Inter, sans-serif' }}
+          >
+            Evə təmir üçün
+          </div>
+
+          {/* Line 2: Animated gradient text - "usta lazımdırsa" */}
+          <p
+            ref={textRef}
+            className="absolute left-0 md:left-[20%] lg:left-[22%] xl:left-[308px] top-[65px] md:top-[211px] font-bold text-[24px] md:text-[40px] lg:text-[48px] leading-[32px] md:leading-[52px] lg:leading-[54px] bg-clip-text max-w-[calc(100%-20px)] z-10"
+            style={{
+              fontFamily: 'Inter, sans-serif',
+              backgroundImage: 'linear-gradient(90deg, #14b8a6 0%, #06b6d4 30%, #8b5cf6 50%, #ec4899 60%, #ec4899 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent'
+            }}
+          >
+            {categoryTexts[currentSlide]}
+          </p>
+
+          {/* Gradient underline decoration under animated text */}
+          <div
+            className="absolute left-0 md:left-[20%] lg:left-[22%] xl:left-[308px] top-[118px] md:top-[265px] h-[10px] md:h-[18px] flex items-center justify-start transition-all duration-300 z-10"
+            style={{ width: `${underlineWidth}px` }}
+          >
+            <div className="flex-none w-full" style={{ transform: 'rotate(358.703deg)' }}>
+              <Image
+                src="/assets/images/gradient-underline.svg"
+                alt=""
+                width={underlineWidth}
+                height={18}
+                className="block w-full h-auto"
+              />
+            </div>
+          </div>
+
+          {/* Line 3: "buna görə narahat olma" */}
+          <div
+            className="absolute left-0 md:left-[20%] lg:left-[22%] xl:left-[308px] top-[145px] md:top-[273px] w-[calc(100%-20px)] md:w-auto font-bold text-[24px] md:text-[40px] lg:text-[48px] leading-[32px] md:leading-[52px] lg:leading-[62px] text-black dark:text-white z-10"
+            style={{ fontFamily: 'Inter, sans-serif' }}
+          >
+            buna görə narahat olma
           </div>
         </div>
 
