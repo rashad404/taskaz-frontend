@@ -123,10 +123,10 @@ export default function HeroSection({ locale }: HeroSectionProps) {
       </div>
 
       {/* Search Box Background - White translucent with larger white border */}
-      <div className="absolute left-1/2 top-[400px] -translate-x-1/2 w-[930px] h-[116px] bg-[rgba(255,255,255,0.4)] border-[3px] border-solid border-white rounded-[80px]" />
+      <div className="absolute left-[220px] top-[400px] w-[1000px] h-[116px] bg-[rgba(255,255,255,0.4)] border-[3px] border-solid border-white rounded-[80px]" />
 
       {/* Search Box - Main Input */}
-      <form onSubmit={handleSearch} className="absolute left-1/2 top-[420px] -translate-x-1/2 w-[871px]">
+      <form onSubmit={handleSearch} className="absolute left-[250px] top-[420px] w-[940px]">
         <div className="bg-white dark:bg-gray-800 border-[1.5px] border-solid border-[#d1d5db] dark:border-gray-700 rounded-[64px] flex items-center justify-between px-[32px] py-[24px]" style={{ boxShadow: '0px 4px 20px 0px rgba(0, 0, 0, 0.08)' }}>
           <input
             type="text"
