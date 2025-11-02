@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 
 interface HeroSectionProps {
@@ -12,6 +12,8 @@ export default function HeroSection({ locale }: HeroSectionProps) {
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState('');
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [underlineWidth, setUnderlineWidth] = useState(372);
+  const textRef = useRef<HTMLParagraphElement>(null);
 
   const categoryTexts = [
     'usta lazımdırsa',
@@ -28,6 +30,14 @@ export default function HeroSection({ locale }: HeroSectionProps) {
     }, 3000);
     return () => clearInterval(interval);
   }, [categoryTexts.length]);
+
+  // Update underline width when text changes
+  useEffect(() => {
+    if (textRef.current) {
+      const width = textRef.current.offsetWidth;
+      setUnderlineWidth(width + 20); // Add some padding
+    }
+  }, [currentSlide, categoryTexts]);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -72,6 +82,7 @@ export default function HeroSection({ locale }: HeroSectionProps) {
 
       {/* Animated gradient text - "usta lazımdırsa" */}
       <p
+        ref={textRef}
         className="absolute left-[308px] top-[210px] font-bold text-[48px] leading-[54px] bg-clip-text"
         style={{
           fontFamily: 'Inter, sans-serif',
@@ -84,14 +95,17 @@ export default function HeroSection({ locale }: HeroSectionProps) {
       </p>
 
       {/* Gradient underline decoration under animated text */}
-      <div className="absolute left-[297.87px] top-[255.75px] w-[372px] h-[18px] flex items-center justify-center">
-        <div className="flex-none" style={{ transform: 'rotate(358.703deg)' }}>
+      <div
+        className="absolute left-[297.87px] top-[255.75px] h-[18px] flex items-center justify-center transition-all duration-300"
+        style={{ width: `${underlineWidth}px` }}
+      >
+        <div className="flex-none w-full" style={{ transform: 'rotate(358.703deg)' }}>
           <Image
             src="/assets/images/gradient-underline.svg"
             alt=""
-            width={372}
+            width={underlineWidth}
             height={18}
-            className="block max-w-none"
+            className="block w-full h-auto"
           />
         </div>
       </div>
