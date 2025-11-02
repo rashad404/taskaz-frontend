@@ -26,21 +26,76 @@ export default function HeroSection({ locale }: HeroSectionProps) {
     saveToRecent,
   } = useSearch();
 
-  const categoryTexts = [
-    'usta lazımdırsa',
-    'proqramçı lazımdırsa',
-    'dizayner lazımdırsa',
-    'təmizləyici lazımdırsa',
-    'mexanik lazımdırsa',
+  const slides = [
+    {
+      image: '/assets/images/worker.png',
+      lines: [
+        { text: 'Evə təmir üçün', gradient: false },
+        { text: 'usta lazımdırsa', gradient: true },
+        { text: 'buna görə narahat olma', gradient: false },
+      ]
+    },
+    {
+      image: '/images/hero/copywriter.png',
+      lines: [
+        { text: 'Copywriter', gradient: false },
+        { text: 'axtarırsan?', gradient: true },
+        { text: 'mütəxəssislərdən', gradient: false },
+        { text: 'seçim et', gradient: false },
+      ]
+    },
+    {
+      image: '/images/hero/home.png',
+      lines: [
+        { text: 'Evinin təmiri üçün', gradient: false },
+        { text: 'usta axtarırsan?', gradient: true },
+        { text: 'ustalardan', gradient: false },
+        { text: 'seçim et', gradient: false },
+      ]
+    },
+    {
+      image: '/images/hero/automobile.png',
+      lines: [
+        { text: 'Avtomobilin', gradient: false },
+        { text: 'xarab olub?', gradient: true },
+        { text: 'yolda qalmısan?', gradient: false },
+      ]
+    },
+    {
+      image: '/images/hero/teacher.png',
+      lines: [
+        { text: 'İngilis dili dərsi', gradient: false },
+        { text: 'təşkil etmək', gradient: true },
+        { text: 'istəyirsən?', gradient: false },
+      ]
+    },
+    {
+      image: '/images/hero/developer.png',
+      lines: [
+        { text: 'Proqramçı', gradient: false },
+        { text: 'axtarırsan?', gradient: true },
+        { text: 'mütəxəssislərdən', gradient: false },
+        { text: 'seçim et', gradient: false },
+      ]
+    },
+    {
+      image: '/images/hero/designer.png',
+      lines: [
+        { text: 'Dizayner', gradient: false },
+        { text: 'axtarırsan?', gradient: true },
+        { text: 'kreativ dizayner', gradient: false },
+        { text: 'tap', gradient: false },
+      ]
+    },
   ];
 
   // Auto-rotate every 3 seconds
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % categoryTexts.length);
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
     }, 3000);
     return () => clearInterval(interval);
-  }, [categoryTexts.length]);
+  }, [slides.length]);
 
   // Update underline width when text changes
   useEffect(() => {
@@ -48,7 +103,7 @@ export default function HeroSection({ locale }: HeroSectionProps) {
       const width = textRef.current.offsetWidth;
       setUnderlineWidth(width + 20); // Add some padding
     }
-  }, [currentSlide, categoryTexts]);
+  }, [currentSlide, slides]);
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -143,16 +198,16 @@ export default function HeroSection({ locale }: HeroSectionProps) {
 
         {/* Content Container */}
         <div className="relative h-full">
-          {/* Worker Image Container with Info Cards - Lower z-index */}
+          {/* Hero Image Container with Info Cards - Lower z-index */}
           <div className="absolute right-0 md:right-[8%] lg:right-[12%] xl:right-[308px] top-[30px] md:top-[122px] w-[200px] md:w-[250px] lg:w-[302px] h-[200px] md:h-[250px] lg:h-[302px] z-0">
-            {/* Worker Image */}
+            {/* Hero Image */}
             <div className="relative w-full h-full">
               <Image
-                src="/assets/images/worker.png"
-                alt="Professional Worker"
+                src={slides[currentSlide].image}
+                alt="Professional"
                 width={302}
                 height={302}
-                className="block max-w-none w-full h-full object-cover object-center"
+                className="block max-w-none w-full h-full object-cover object-center transition-opacity duration-500"
                 priority
               />
             </div>
@@ -233,52 +288,68 @@ export default function HeroSection({ locale }: HeroSectionProps) {
             </div>
           </div>
 
-          {/* Text Elements - Higher z-index to appear above worker image */}
-          {/* Line 1: "Evə təmir üçün" */}
-          <div
-            className="absolute left-0 md:left-[20%] lg:left-[22%] xl:left-[308px] top-[30px] md:top-[149px] w-[calc(100%-200px)] md:w-auto font-bold text-[24px] md:text-[40px] lg:text-[48px] leading-[32px] md:leading-[52px] lg:leading-[62px] text-black dark:text-white z-10"
-            style={{ fontFamily: 'Inter, sans-serif' }}
-          >
-            Evə təmir üçün
-          </div>
+          {/* Text Elements - Higher z-index to appear above hero image */}
+          {slides[currentSlide].lines.map((line, index) => {
+            // Calculate positions based on line index
+            const positions = [
+              { mobile: 30, desktop: 149 },   // Line 1
+              { mobile: 65, desktop: 211 },   // Line 2
+              { mobile: 145, desktop: 273 },  // Line 3
+              { mobile: 180, desktop: 335 },  // Line 4 (if exists)
+            ];
 
-          {/* Line 2: Animated gradient text - "usta lazımdırsa" */}
-          <p
-            ref={textRef}
-            className="absolute left-0 md:left-[20%] lg:left-[22%] xl:left-[308px] top-[65px] md:top-[211px] font-bold text-[24px] md:text-[40px] lg:text-[48px] leading-[32px] md:leading-[52px] lg:leading-[54px] bg-clip-text max-w-[calc(100%-20px)] z-10"
-            style={{
-              fontFamily: 'Inter, sans-serif',
-              backgroundImage: 'linear-gradient(90deg, #14b8a6 0%, #06b6d4 30%, #8b5cf6 50%, #ec4899 60%, #ec4899 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent'
-            }}
-          >
-            {categoryTexts[currentSlide]}
-          </p>
+            const isGradientLine = line.gradient;
+            const pos = positions[index] || positions[positions.length - 1];
 
-          {/* Gradient underline decoration under animated text */}
-          <div
-            className="absolute left-0 md:left-[20%] lg:left-[22%] xl:left-[308px] top-[118px] md:top-[265px] h-[10px] md:h-[18px] flex items-center justify-start transition-all duration-300 z-10"
-            style={{ width: `${underlineWidth}px` }}
-          >
-            <div className="flex-none w-full" style={{ transform: 'rotate(358.703deg)' }}>
-              <Image
-                src="/assets/images/gradient-underline.svg"
-                alt=""
-                width={underlineWidth}
-                height={18}
-                className="block w-full h-auto"
-              />
-            </div>
-          </div>
-
-          {/* Line 3: "buna görə narahat olma" */}
-          <div
-            className="absolute left-0 md:left-[20%] lg:left-[22%] xl:left-[308px] top-[145px] md:top-[273px] w-[calc(100%-20px)] md:w-auto font-bold text-[24px] md:text-[40px] lg:text-[48px] leading-[32px] md:leading-[52px] lg:leading-[62px] text-black dark:text-white z-10"
-            style={{ fontFamily: 'Inter, sans-serif' }}
-          >
-            buna görə narahat olma
-          </div>
+            return (
+              <div key={index}>
+                {/* Text Line */}
+                {isGradientLine ? (
+                  <>
+                    <p
+                      ref={textRef}
+                      className="absolute left-0 md:left-[20%] lg:left-[22%] xl:left-[308px] top-[65px] md:top-[211px] font-bold text-[24px] md:text-[40px] lg:text-[48px] leading-[32px] md:leading-[52px] lg:leading-[54px] bg-clip-text max-w-[calc(100%-20px)] z-10 transition-opacity duration-500"
+                      style={{
+                        fontFamily: 'Inter, sans-serif',
+                        backgroundImage: 'linear-gradient(90deg, #14b8a6 0%, #06b6d4 30%, #8b5cf6 50%, #ec4899 60%, #ec4899 100%)',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent'
+                      }}
+                    >
+                      {line.text}
+                    </p>
+                    {/* Gradient underline decoration */}
+                    <div
+                      className="absolute left-0 md:left-[20%] lg:left-[22%] xl:left-[308px] top-[118px] md:top-[265px] h-[10px] md:h-[18px] flex items-center justify-start transition-all duration-300 z-10"
+                      style={{ width: `${underlineWidth}px` }}
+                    >
+                      <div className="flex-none w-full" style={{ transform: 'rotate(358.703deg)' }}>
+                        <Image
+                          src="/assets/images/gradient-underline.svg"
+                          alt=""
+                          width={underlineWidth}
+                          height={18}
+                          className="block w-full h-auto"
+                        />
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <div
+                    className={`absolute left-0 md:left-[20%] lg:left-[22%] xl:left-[308px] ${
+                      index === 0 ? 'top-[30px] md:top-[149px]' :
+                      index === 2 ? 'top-[145px] md:top-[273px]' :
+                      index === 3 ? 'top-[180px] md:top-[335px]' :
+                      'top-[145px] md:top-[273px]'
+                    } w-[calc(100%-200px)] md:w-auto font-bold text-[24px] md:text-[40px] lg:text-[48px] leading-[32px] md:leading-[52px] lg:leading-[62px] text-black dark:text-white z-10 transition-opacity duration-500`}
+                    style={{ fontFamily: 'Inter, sans-serif' }}
+                  >
+                    {line.text}
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
 
         {/* Search Box with Dropdown */}
@@ -386,7 +457,7 @@ export default function HeroSection({ locale }: HeroSectionProps) {
 
       {/* Progress Indicators */}
       <div className="absolute left-1/2 top-[335px] md:top-[565px] -translate-x-1/2 w-[calc(100%-40px)] md:w-[441px] flex gap-[6px] md:gap-[8px] items-center">
-        {categoryTexts.map((_, index) => (
+        {slides.map((_, index) => (
           <button
             key={index}
             onClick={() => setCurrentSlide(index)}
