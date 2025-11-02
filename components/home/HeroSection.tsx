@@ -75,7 +75,7 @@ export default function HeroSection({ locale }: HeroSectionProps) {
         className="absolute left-[308px] top-[210px] font-bold text-[48px] leading-[54px] bg-clip-text"
         style={{
           fontFamily: 'Inter, sans-serif',
-          backgroundImage: 'linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%)',
+          backgroundImage: 'linear-gradient(90deg, #14b8a6 0%, #06b6d4 25%, #8b5cf6 75%, #ec4899 100%)',
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent'
         }}
@@ -113,13 +113,13 @@ export default function HeroSection({ locale }: HeroSectionProps) {
 
       {/* Search Box - Main Input */}
       <form onSubmit={handleSearch} className="absolute left-1/2 top-[420px] -translate-x-1/2 w-[871px]">
-        <div className="bg-white dark:bg-gray-800 border border-solid border-[#f3f3f3] dark:border-gray-700 rounded-[64px] flex items-center justify-between px-[32px] py-[24px]">
+        <div className="bg-white dark:bg-gray-800 border border-solid border-[#e5e5e5] dark:border-gray-700 rounded-[64px] flex items-center justify-between px-[32px] py-[24px]" style={{ boxShadow: '0px 4px 20px 0px rgba(0, 0, 0, 0.08)' }}>
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Hansı xidmət axtarırsınız?"
-            className="flex-1 bg-transparent outline-none font-normal text-[18px] leading-[24px] text-black dark:text-white placeholder:text-gray-400"
+            className="flex-1 bg-transparent outline-none font-normal text-[18px] leading-[24px] text-black dark:text-white placeholder:text-[#6b7280]"
             style={{ fontFamily: 'Inter, sans-serif' }}
           />
           <button type="submit" className="ml-4 shrink-0 w-[28px] h-[28px]">
@@ -136,14 +136,19 @@ export default function HeroSection({ locale }: HeroSectionProps) {
 
       {/* Progress Indicators */}
       <div className="absolute left-1/2 top-[565px] -translate-x-1/2 w-[441px] flex gap-[8px] items-center">
-        <div className="inline-grid">
-          <div className="bg-[#cbcbcb] h-[4px] w-[166px] rounded-[8px]" />
-          <div className="h-[4px] w-[119px] rounded-[8px]" style={{ gridColumn: 1, gridRow: 1 }} />
-        </div>
-        <div className="flex-1 h-[4px] bg-[#cbcbcb] rounded-[8px]" />
-        <div className="flex-1 h-[4px] bg-[#cbcbcb] rounded-[8px]" />
-        <div className="flex-1 h-[4px] bg-[#cbcbcb] rounded-[8px]" />
-        <div className="flex-1 h-[4px] bg-[#cbcbcb] rounded-[8px]" />
+        {categoryTexts.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentSlide(index)}
+            className={`h-[4px] rounded-[8px] transition-all duration-300 cursor-pointer ${
+              index === 0 ? 'w-[166px]' : 'flex-1'
+            } ${
+              index === currentSlide
+                ? 'bg-gradient-to-r from-[#06b6d4] to-[#3b82f6]'
+                : 'bg-[#cbcbcb]'
+            }`}
+          />
+        ))}
       </div>
 
       {/* Mesaj göndər Card */}
@@ -153,13 +158,13 @@ export default function HeroSection({ locale }: HeroSectionProps) {
 
         {/* Text content */}
         <p
-          className="absolute left-[57px] top-[11px] w-[107px] h-[17px] font-semibold text-[14px] leading-[20px] text-[#383838] dark:text-white whitespace-pre-wrap"
+          className="absolute left-[57px] top-[11px] w-[107px] h-[17px] font-semibold text-[14px] leading-[20px] text-[#383838] dark:text-white whitespace-nowrap"
           style={{ fontFamily: 'Inter, sans-serif', letterSpacing: '0.28px' }}
         >
           Mesaj göndər
         </p>
         <p
-          className="absolute left-[57px] top-[28px] font-normal text-[12px] leading-[20px] text-[#545567] dark:text-gray-400"
+          className="absolute left-[57px] top-[28px] font-normal text-[12px] leading-[16px] text-[#545567] dark:text-gray-400 whitespace-nowrap"
           style={{ fontFamily: 'Inter, sans-serif', letterSpacing: '0.24px' }}
         >
           Qarşılıqlı rahat mesajlaşma
@@ -190,13 +195,13 @@ export default function HeroSection({ locale }: HeroSectionProps) {
 
         {/* Text content */}
         <p
-          className="absolute left-[57px] top-[9px] font-semibold text-[14px] leading-[20px] text-[#383838] dark:text-white"
+          className="absolute left-[57px] top-[9px] font-semibold text-[14px] leading-[20px] text-[#383838] dark:text-white whitespace-nowrap"
           style={{ fontFamily: 'Inter, sans-serif', letterSpacing: '0.28px' }}
         >
           Vaxt dəqiqliyi
         </p>
         <p
-          className="absolute left-[57px] top-[29px] font-normal text-[12px] leading-[20px] text-[#545567] dark:text-gray-400"
+          className="absolute left-[57px] top-[29px] font-normal text-[12px] leading-[16px] text-[#545567] dark:text-gray-400 whitespace-nowrap"
           style={{ fontFamily: 'Inter, sans-serif', letterSpacing: '0.24px' }}
         >
           Rahatlıqla təyin et
