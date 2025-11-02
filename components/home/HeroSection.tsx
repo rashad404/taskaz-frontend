@@ -47,9 +47,9 @@ export default function HeroSection({ locale }: HeroSectionProps) {
   };
 
   return (
-    <section className="relative bg-[#f5f8ff] dark:bg-gray-900 h-[700px] overflow-hidden z-10">
+    <section className="relative bg-[#f5f8ff] dark:bg-gray-900 h-[420px] md:h-[700px] overflow-hidden z-10">
       {/* Background Ellipse 4 - Purple gradient */}
-      <div className="absolute left-[-277px] top-[137px] w-[491px] h-[492px]">
+      <div className="absolute left-[-277px] md:left-[-277px] top-[137px] md:top-[137px] w-[491px] h-[492px] hidden md:block">
         <Image
           src="/assets/images/ellipse-purple.svg"
           alt=""
@@ -60,7 +60,7 @@ export default function HeroSection({ locale }: HeroSectionProps) {
       </div>
 
       {/* Background Ellipse 5 - Blue gradient */}
-      <div className="absolute left-[1177px] top-[137px] w-[656px] h-[656px]">
+      <div className="absolute right-[-300px] md:left-[1177px] top-[50px] md:top-[137px] w-[500px] md:w-[656px] h-[500px] md:h-[656px] opacity-20 md:opacity-100">
         <Image
           src="/assets/images/ellipse-blue.svg"
           alt=""
@@ -70,23 +70,21 @@ export default function HeroSection({ locale }: HeroSectionProps) {
         />
       </div>
 
-      {/* Main Headline - "Evə təmir üçün / buna görə narahat olma" */}
+      {/* Line 1: "Evə təmir üçün" */}
       <div
-        className="absolute left-[308px] top-[149px] w-[498px] h-[132px] font-bold text-[48px] leading-[62px] text-black dark:text-white whitespace-pre-wrap"
+        className="absolute left-[20px] md:left-[308px] top-[30px] md:top-[149px] w-[calc(100%-220px)] md:w-[498px] font-bold text-[24px] md:text-[48px] leading-[32px] md:leading-[62px] text-black dark:text-white"
         style={{ fontFamily: 'Inter, sans-serif' }}
       >
-        <p className="mb-0">Evə təmir üçün  </p>
-        <p className="mb-0">&nbsp;</p>
-        <p className="mb-0">buna görə narahat olma </p>
+        Evə təmir üçün
       </div>
 
-      {/* Animated gradient text - "usta lazımdırsa" */}
+      {/* Line 2: Animated gradient text - "usta lazımdırsa" */}
       <p
         ref={textRef}
-        className="absolute left-[308px] top-[210px] font-bold text-[48px] leading-[54px] bg-clip-text mb-8"
+        className="absolute left-[20px] md:left-[308px] top-[65px] md:top-[211px] font-bold text-[24px] md:text-[48px] leading-[32px] md:leading-[54px] bg-clip-text max-w-[calc(100%-40px)] md:max-w-none"
         style={{
           fontFamily: 'Inter, sans-serif',
-          backgroundImage: 'linear-gradient(90deg, #14b8a6 0%, #06b6d4 20%, #8b5cf6 50%, #ec4899 70%, #ec4899 100%)',
+          backgroundImage: 'linear-gradient(90deg, #14b8a6 0%, #06b6d4 30%, #8b5cf6 50%, #ec4899 60%, #ec4899 100%)',
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent'
         }}
@@ -96,7 +94,7 @@ export default function HeroSection({ locale }: HeroSectionProps) {
 
       {/* Gradient underline decoration under animated text */}
       <div
-        className="absolute left-[308px] top-[265px] h-[18px] flex items-center justify-start transition-all duration-300"
+        className="absolute left-[20px] md:left-[308px] top-[118px] md:top-[265px] h-[10px] md:h-[18px] flex items-center justify-start transition-all duration-300"
         style={{ width: `${underlineWidth}px` }}
       >
         <div className="flex-none w-full" style={{ transform: 'rotate(358.703deg)' }}>
@@ -110,8 +108,16 @@ export default function HeroSection({ locale }: HeroSectionProps) {
         </div>
       </div>
 
+      {/* Line 3: "buna görə narahat olma" */}
+      <div
+        className="absolute left-[20px] md:left-[308px] top-[145px] md:top-[273px] w-[calc(100%-40px)] md:w-[498px] font-bold text-[24px] md:text-[48px] leading-[32px] md:leading-[62px] text-black dark:text-white"
+        style={{ fontFamily: 'Inter, sans-serif' }}
+      >
+        buna görə narahat olma
+      </div>
+
       {/* Worker Image */}
-      <div className="absolute left-[805px] top-[122px] w-[302px] h-[302px]">
+      <div className="absolute right-[10px] md:left-[805px] top-[30px] md:top-[122px] w-[200px] md:w-[302px] h-[200px] md:h-[302px]">
         <Image
           src="/assets/images/worker.png"
           alt="Professional Worker"
@@ -123,20 +129,20 @@ export default function HeroSection({ locale }: HeroSectionProps) {
       </div>
 
       {/* Search Box Background - White translucent with larger white border */}
-      <div className="absolute left-[220px] top-[400px] w-[1000px] h-[116px] bg-[rgba(255,255,255,0.4)] border-[3px] border-solid border-white rounded-[80px]" />
+      <div className="absolute left-[20px] md:left-[220px] top-[210px] md:top-[400px] w-[calc(100%-40px)] md:w-[1000px] h-[90px] md:h-[116px] bg-[rgba(255,255,255,0.4)] border-[2px] md:border-[3px] border-solid border-white rounded-[50px] md:rounded-[80px]" />
 
       {/* Search Box - Main Input */}
-      <form onSubmit={handleSearch} className="absolute left-[250px] top-[420px] w-[940px]">
-        <div className="bg-white dark:bg-gray-800 border-[1.5px] border-solid border-[#d1d5db] dark:border-gray-700 rounded-[64px] flex items-center justify-between px-[32px] py-[24px]" style={{ boxShadow: '0px 4px 20px 0px rgba(0, 0, 0, 0.08)' }}>
+      <form onSubmit={handleSearch} className="absolute left-[30px] md:left-[250px] top-[225px] md:top-[420px] w-[calc(100%-60px)] md:w-[940px]">
+        <div className="bg-white dark:bg-gray-800 border-[1.5px] border-solid border-[#d1d5db] dark:border-gray-700 rounded-[40px] md:rounded-[64px] flex items-center justify-between px-[20px] md:px-[32px] py-[14px] md:py-[24px]" style={{ boxShadow: '0px 4px 20px 0px rgba(0, 0, 0, 0.08)' }}>
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Hansı xidmət axtarırsınız?"
-            className="flex-1 bg-transparent outline-none font-normal text-[18px] leading-[24px] text-black dark:text-white placeholder:text-[#1f2937]"
+            className="flex-1 bg-transparent outline-none font-normal text-[14px] md:text-[18px] leading-[20px] md:leading-[24px] text-black dark:text-white placeholder:text-[#1f2937]"
             style={{ fontFamily: 'Inter, sans-serif' }}
           />
-          <button type="submit" className="ml-4 shrink-0 w-[28px] h-[28px]">
+          <button type="submit" className="ml-2 md:ml-4 shrink-0 w-[20px] md:w-[28px] h-[20px] md:h-[28px]">
             <Image
               src="/assets/images/search-icon.svg"
               alt="Search"
@@ -149,13 +155,13 @@ export default function HeroSection({ locale }: HeroSectionProps) {
       </form>
 
       {/* Progress Indicators */}
-      <div className="absolute left-1/2 top-[565px] -translate-x-1/2 w-[441px] flex gap-[8px] items-center">
+      <div className="absolute left-1/2 top-[335px] md:top-[565px] -translate-x-1/2 w-[calc(100%-40px)] max-w-[441px] flex gap-[6px] md:gap-[8px] items-center">
         {categoryTexts.map((_, index) => (
           <button
             key={index}
             onClick={() => setCurrentSlide(index)}
-            className={`h-[4px] rounded-[8px] transition-all duration-300 cursor-pointer ${
-              index === 0 ? 'w-[166px]' : 'flex-1'
+            className={`h-[3px] md:h-[4px] rounded-[8px] transition-all duration-300 cursor-pointer ${
+              index === 0 ? 'w-[80px] md:w-[166px]' : 'flex-1'
             } ${
               index === currentSlide
                 ? 'bg-gradient-to-r from-[#14b8a6] via-[#06b6d4] via-[#8b5cf6] to-[#ec4899]'
@@ -166,7 +172,7 @@ export default function HeroSection({ locale }: HeroSectionProps) {
       </div>
 
       {/* Mesaj göndər Card */}
-      <div className="absolute left-[984px] top-[224px]">
+      <div className="hidden md:block absolute left-[984px] top-[224px]">
         {/* White background with backdrop blur */}
         <div className="absolute left-0 top-0 w-[234px] h-[58px] bg-[rgba(255,255,255,0.8)] backdrop-blur-[10px] rounded-[100px]" style={{ backdropFilter: 'blur(10px)' }} />
 
@@ -203,7 +209,7 @@ export default function HeroSection({ locale }: HeroSectionProps) {
       </div>
 
       {/* Vaxt dəqiqliyi Card */}
-      <div className="absolute left-[748px] top-[329px]">
+      <div className="hidden md:block absolute left-[748px] top-[329px]">
         {/* White background with backdrop blur */}
         <div className="absolute left-0 top-0 w-[185px] h-[58px] bg-[rgba(255,255,255,0.8)] backdrop-blur-[10px] rounded-[100px]" style={{ backdropFilter: 'blur(10px)' }} />
 
