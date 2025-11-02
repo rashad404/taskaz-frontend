@@ -83,7 +83,7 @@ export default function HeroSection({ locale }: HeroSectionProps) {
       {/* Animated gradient text - "usta lazımdırsa" */}
       <p
         ref={textRef}
-        className="absolute left-[308px] top-[210px] font-bold text-[48px] leading-[54px] bg-clip-text"
+        className="absolute left-[308px] top-[210px] font-bold text-[48px] leading-[54px] bg-clip-text mb-8"
         style={{
           fontFamily: 'Inter, sans-serif',
           backgroundImage: 'linear-gradient(90deg, #14b8a6 0%, #06b6d4 25%, #8b5cf6 75%, #ec4899 100%)',
@@ -96,7 +96,7 @@ export default function HeroSection({ locale }: HeroSectionProps) {
 
       {/* Gradient underline decoration under animated text */}
       <div
-        className="absolute left-[308px] top-[268px] h-[18px] flex items-center justify-start transition-all duration-300"
+        className="absolute left-[308px] top-[265px] h-[18px] flex items-center justify-start transition-all duration-300"
         style={{ width: `${underlineWidth}px` }}
       >
         <div className="flex-none w-full" style={{ transform: 'rotate(358.703deg)' }}>
