@@ -3,10 +3,11 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter, usePathname, useParams } from 'next/navigation';
-import { Menu, X, CheckSquare, User, LogOut } from 'lucide-react';
+import { Menu, X, User, LogOut } from 'lucide-react';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { useTranslations } from 'next-intl';
 import StartupBar from '@/components/common/StartupBar';
+import Image from 'next/image';
 
 export default function Header() {
   const t = useTranslations();
@@ -18,15 +19,12 @@ export default function Header() {
   const pathname = usePathname();
   const params = useParams();
 
-  // Get locale from params (proper way for next-intl)
   const locale = (params?.lang as string) || 'az';
 
-  // Check authentication status
   const checkAuth = () => {
     const token = localStorage.getItem('token');
     if (token) {
       setIsAuthenticated(true);
-      // You could fetch user data here
       setUser({ name: 'User', email: 'user@example.com' });
     } else {
       setIsAuthenticated(false);
@@ -35,11 +33,9 @@ export default function Header() {
   };
 
   useEffect(() => {
-    // Check on mount and route changes
     checkAuth();
     setIsMounted(true);
 
-    // Listen for auth state changes (from modal login/register)
     const handleAuthChange = () => {
       checkAuth();
     };
@@ -56,7 +52,6 @@ export default function Header() {
     setIsAuthenticated(false);
     setUser(null);
 
-    // Dispatch event to notify other components
     if (typeof window !== 'undefined') {
       window.dispatchEvent(new Event('authStateChanged'));
     }
@@ -65,80 +60,118 @@ export default function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-[100] bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
+    <header className="sticky top-0 z-[100] bg-white dark:bg-gray-900 border-b border-solid border-[rgba(0,0,0,0.1)] dark:border-gray-800">
       <StartupBar />
-      <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-14">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group">
-            <div className="relative">
-              <div className="relative w-10 h-10 rounded-2xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 p-[1px] transition-transform group-hover:scale-105 duration-300">
-                <div className="w-full h-full rounded-2xl bg-white dark:bg-gray-900 flex items-center justify-center">
-                  <div className="relative">
-                    <CheckSquare className="w-5 h-5 text-indigo-600 dark:text-indigo-400" strokeWidth={2} fill="none" />
-                    <div className="absolute inset-0 w-5 h-5">
-                      <CheckSquare className="w-5 h-5 text-purple-500 opacity-50" strokeWidth={2} fill="none" />
-                    </div>
-                  </div>
-                </div>
-              </div>
+      <nav className="relative">
+        {/* Desktop Header - Exact Figma positioning */}
+        <div className={`hidden md:flex absolute left-1/2 top-0 -translate-x-1/2 w-[1200px] border-b-0 border-solid border-[rgba(0,0,0,0.1)] dark:border-gray-800 items-center justify-between px-0 py-[24px] transition-opacity duration-300 ${isMounted ? 'opacity-100' : 'opacity-0'}`}>
+          {/* Logo - 152x30px */}
+          <Link href="/" className="shrink-0">
+            <div className="w-[152px] h-[30px]">
+              <Image
+                src="/assets/images/logo.svg"
+                alt="Task.az"
+                width={152}
+                height={30}
+                className="block max-w-none w-full h-full"
+                priority
+              />
             </div>
-            <span className="gradient-text text-lg font-bold">Task.az</span>
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className={`hidden md:flex items-center gap-6 transition-opacity duration-300 ${isMounted ? 'opacity-100' : 'opacity-0'}`}>
-            {isAuthenticated && (
+          {/* Center + Right section - 994px exact width */}
+          <div className="flex items-center justify-between w-[994px]">
+            {/* Left Navigation Links */}
+            <div className="flex items-center gap-[21px] font-semibold text-[16px] leading-[20px] text-black dark:text-white" style={{ fontFamily: 'Inter, sans-serif' }}>
               <Link
-                href={`/${locale}/dashboard`}
-                className={`text-sm font-medium transition-colors ${
-                  pathname === '/dashboard'
-                    ? 'text-[rgb(81,91,195)]'
-                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
-                }`}
+                href={`/${locale}/tasks`}
+                className="shrink-0 hover:opacity-80 transition-opacity"
               >
-                {t('nav.dashboard')}
+                Tapşırıqlar
               </Link>
-            )}
+              <Link
+                href={`/${locale}/professionals`}
+                className="shrink-0 hover:opacity-80 transition-opacity"
+              >
+                Peşəkarlar
+              </Link>
+            </div>
 
-            <ThemeToggle />
-
-            {isAuthenticated ? (
-              <div className="flex items-center gap-3">
-                <Link
-                  href={`/${locale}/settings`}
-                  className="w-8 h-8 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-                >
-                  <User className="w-4 h-4 text-gray-600 dark:text-gray-400" />
-                </Link>
-
-                <button
-                  onClick={handleLogout}
-                  className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
-                >
-                  <LogOut className="w-4 h-4" />
-                </button>
-              </div>
-            ) : (
-              <div className="flex items-center gap-3">
-                <Link
-                  href={`/${locale}/login`}
-                  className="text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
-                >
-                  {t('nav.signIn')}
-                </Link>
-                <Link
-                  href={`/${locale}/register`}
-                  className="px-4 py-1.5 bg-[rgb(81,91,195)] text-white text-sm font-medium rounded-lg hover:bg-[rgb(61,71,175)] transition-colors"
-                >
-                  {t('nav.getStarted')}
-                </Link>
-              </div>
-            )}
+            {/* Right Side - Auth & Actions */}
+            <div className="flex items-center gap-[20px]">
+              {isAuthenticated ? (
+                <>
+                  <Link
+                    href={`/${locale}/dashboard`}
+                    className="shrink-0 font-semibold text-[16px] leading-[20px] text-black dark:text-white hover:opacity-80 transition-opacity"
+                    style={{ fontFamily: 'Inter, sans-serif' }}
+                  >
+                    {t('nav.dashboard')}
+                  </Link>
+                  <div className="flex items-center gap-3">
+                    <Link
+                      href={`/${locale}/settings`}
+                      className="w-8 h-8 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                    >
+                      <User className="w-4 h-4 text-gray-600 dark:text-gray-400" />
+                    </Link>
+                    <button
+                      onClick={handleLogout}
+                      className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+                    >
+                      <LogOut className="w-4 h-4" />
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <p className="shrink-0 font-semibold text-[16px] leading-[20px] text-black dark:text-white" style={{ fontFamily: 'Inter, sans-serif' }}>
+                    <Link href={`/${locale}/login`} className="hover:opacity-80 transition-opacity">
+                      Daxil ol
+                    </Link>
+                  </p>
+                  <div className="flex items-center gap-[8px]">
+                    <Link
+                      href={`/${locale}/tasks/create`}
+                      className="flex items-center justify-center gap-[4px] bg-black dark:bg-white px-[15px] h-[40px] rounded-[8px] hover:opacity-90 transition-opacity"
+                      style={{ boxShadow: '0px 2px 0px 0px rgba(5,145,255,0.1)' }}
+                    >
+                      <div className="w-[24px] h-[22px] shrink-0">
+                        <Image
+                          src="/assets/images/plus-icon.svg"
+                          alt=""
+                          width={24}
+                          height={22}
+                          className="block max-w-none w-full h-full"
+                        />
+                      </div>
+                      <p className="shrink-0 font-normal text-[16px] leading-[24px] text-white dark:text-black" style={{ fontFamily: 'Inter, sans-serif' }}>
+                        Task aç
+                      </p>
+                    </Link>
+                  </div>
+                </>
+              )}
+              <ThemeToggle />
+            </div>
           </div>
+        </div>
 
-          {/* Mobile menu button */}
-          <div className="flex items-center gap-3 md:hidden">
+        {/* Mobile Header */}
+        <div className="md:hidden flex items-center justify-between px-4 py-[24px]">
+          <Link href="/" className="shrink-0">
+            <div className="w-[120px] h-[24px]">
+              <Image
+                src="/assets/images/logo.svg"
+                alt="Task.az"
+                width={120}
+                height={24}
+                className="block max-w-none w-full h-full"
+              />
+            </div>
+          </Link>
+
+          <div className="flex items-center gap-3">
             <ThemeToggle />
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -153,53 +186,69 @@ export default function Header() {
           </div>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Mobile Navigation Menu */}
         {isMenuOpen && isMounted && (
-          <div className="md:hidden py-3 border-t border-gray-200 dark:border-gray-800">
-            {isAuthenticated ? (
-              <div className="space-y-1">
-                <Link
-                  href={`/${locale}/dashboard`}
-                  className="block px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {t('nav.dashboard')}
-                </Link>
-                <Link
-                  href={`/${locale}/settings`}
-                  className="block px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {t('nav.settings')}
-                </Link>
-                <button
-                  onClick={() => {
-                    handleLogout();
-                    setIsMenuOpen(false);
-                  }}
-                  className="w-full text-left px-3 py-2 text-sm font-medium text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg"
-                >
-                  {t('nav.logout')}
-                </button>
-              </div>
-            ) : (
-              <div className="space-y-1">
-                <Link
-                  href={`/${locale}/login`}
-                  className="block px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {t('nav.signIn')}
-                </Link>
-                <Link
-                  href={`/${locale}/register`}
-                  className="block px-3 py-2 text-sm font-medium text-white bg-[rgb(81,91,195)] hover:bg-[rgb(61,71,175)] rounded-lg"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {t('nav.getStarted')}
-                </Link>
-              </div>
-            )}
+          <div className="md:hidden py-3 border-t border-gray-200 dark:border-gray-800 px-4">
+            <div className="space-y-1">
+              <Link
+                href={`/${locale}/tasks`}
+                className="block px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Tapşırıqlar
+              </Link>
+              <Link
+                href={`/${locale}/professionals`}
+                className="block px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Peşəkarlar
+              </Link>
+              {isAuthenticated ? (
+                <>
+                  <Link
+                    href={`/${locale}/dashboard`}
+                    className="block px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {t('nav.dashboard')}
+                  </Link>
+                  <Link
+                    href={`/${locale}/settings`}
+                    className="block px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {t('nav.settings')}
+                  </Link>
+                  <button
+                    onClick={() => {
+                      handleLogout();
+                      setIsMenuOpen(false);
+                    }}
+                    className="w-full text-left px-3 py-2 text-sm font-medium text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg"
+                  >
+                    {t('nav.logout')}
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link
+                    href={`/${locale}/login`}
+                    className="block px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Daxil ol
+                  </Link>
+                  <Link
+                    href={`/${locale}/tasks/create`}
+                    className="block px-3 py-2 text-sm font-medium text-white bg-gray-900 hover:bg-gray-800 dark:bg-white dark:text-gray-900 rounded-lg"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Task aç
+                  </Link>
+                </>
+              )}
+            </div>
           </div>
         )}
       </nav>

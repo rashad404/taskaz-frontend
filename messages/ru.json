@@ -6,7 +6,10 @@
     "settings": "Настройки",
     "signIn": "Войти",
     "getStarted": "Начать",
-    "logout": "Выход"
+    "logout": "Выход",
+    "tasks": "Задачи",
+    "professionals": "Профессионалы",
+    "createTask": "Создать задачу"
   },
   "home": {
     "welcome": "Добро пожаловать в Task.az",

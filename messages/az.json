@@ -6,7 +6,10 @@
     "settings": "Parametrlər",
     "signIn": "Daxil ol",
     "getStarted": "Başla",
-    "logout": "Çıxış"
+    "logout": "Çıxış",
+    "tasks": "Tapşırıqlar",
+    "professionals": "Peşəkarlar",
+    "createTask": "Task aç"
   },
   "home": {
     "welcome": "Task.az-a xoş gəlmisiniz",

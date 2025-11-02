@@ -6,7 +6,10 @@
     "settings": "Settings",
     "signIn": "Sign In",
     "getStarted": "Get Started",
-    "logout": "Logout"
+    "logout": "Logout",
+    "tasks": "Tasks",
+    "professionals": "Professionals",
+    "createTask": "Post Task"
   },
   "home": {
     "welcome": "Welcome to Task.az",
