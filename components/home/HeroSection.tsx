@@ -86,7 +86,7 @@ export default function HeroSection({ locale }: HeroSectionProps) {
         className="absolute left-[308px] top-[210px] font-bold text-[48px] leading-[54px] bg-clip-text mb-8"
         style={{
           fontFamily: 'Inter, sans-serif',
-          backgroundImage: 'linear-gradient(90deg, #14b8a6 0%, #06b6d4 25%, #8b5cf6 75%, #ec4899 100%)',
+          backgroundImage: 'linear-gradient(90deg, #14b8a6 0%, #06b6d4 20%, #8b5cf6 50%, #ec4899 70%, #ec4899 100%)',
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent'
         }}
@@ -122,18 +122,18 @@ export default function HeroSection({ locale }: HeroSectionProps) {
         />
       </div>
 
-      {/* Search Box Background - White translucent */}
-      <div className="absolute left-1/2 top-[403px] -translate-x-1/2 w-[914px] h-[110px] bg-[rgba(255,255,255,0.3)] border border-solid border-white rounded-[80px]" />
+      {/* Search Box Background - White translucent with larger white border */}
+      <div className="absolute left-1/2 top-[400px] -translate-x-1/2 w-[930px] h-[116px] bg-[rgba(255,255,255,0.4)] border-[3px] border-solid border-white rounded-[80px]" />
 
       {/* Search Box - Main Input */}
       <form onSubmit={handleSearch} className="absolute left-1/2 top-[420px] -translate-x-1/2 w-[871px]">
-        <div className="bg-white dark:bg-gray-800 border border-solid border-[#e5e5e5] dark:border-gray-700 rounded-[64px] flex items-center justify-between px-[32px] py-[24px]" style={{ boxShadow: '0px 4px 20px 0px rgba(0, 0, 0, 0.08)' }}>
+        <div className="bg-white dark:bg-gray-800 border-[1.5px] border-solid border-[#d1d5db] dark:border-gray-700 rounded-[64px] flex items-center justify-between px-[32px] py-[24px]" style={{ boxShadow: '0px 4px 20px 0px rgba(0, 0, 0, 0.08)' }}>
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Hansı xidmət axtarırsınız?"
-            className="flex-1 bg-transparent outline-none font-normal text-[18px] leading-[24px] text-black dark:text-white placeholder:text-[#6b7280]"
+            className="flex-1 bg-transparent outline-none font-normal text-[18px] leading-[24px] text-black dark:text-white placeholder:text-[#1f2937]"
             style={{ fontFamily: 'Inter, sans-serif' }}
           />
           <button type="submit" className="ml-4 shrink-0 w-[28px] h-[28px]">
@@ -158,8 +158,8 @@ export default function HeroSection({ locale }: HeroSectionProps) {
               index === 0 ? 'w-[166px]' : 'flex-1'
             } ${
               index === currentSlide
-                ? 'bg-gradient-to-r from-[#06b6d4] to-[#3b82f6]'
-                : 'bg-[#cbcbcb]'
+                ? 'bg-gradient-to-r from-[#14b8a6] via-[#06b6d4] via-[#8b5cf6] to-[#ec4899]'
+                : 'bg-gradient-to-r from-[#e5e7eb] to-[#d1d5db]'
             }`}
           />
         ))}
