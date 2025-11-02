@@ -60,11 +60,11 @@ export default function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-[100] bg-white dark:bg-gray-900 border-b border-solid border-[rgba(0,0,0,0.1)] dark:border-gray-800">
+    <header className="sticky top-0 z-[100] bg-[#f5f8ff] dark:bg-gray-900">
       <StartupBar />
-      <nav className="relative">
+      <nav className="relative bg-[#f5f8ff] dark:bg-gray-900 min-h-[78px]">
         {/* Desktop Header - Exact Figma positioning */}
-        <div className={`hidden md:flex absolute left-1/2 top-0 -translate-x-1/2 w-[1200px] border-b-0 border-solid border-[rgba(0,0,0,0.1)] dark:border-gray-800 items-center justify-between px-0 py-[24px] transition-opacity duration-300 ${isMounted ? 'opacity-100' : 'opacity-0'}`}>
+        <div className={`hidden md:flex absolute left-1/2 top-0 -translate-x-1/2 w-[1200px] border-b border-solid border-[rgba(0,0,0,0.1)] dark:border-gray-800 items-center justify-between px-0 py-[24px] transition-opacity duration-300 ${isMounted ? 'opacity-100' : 'opacity-0'}`}>
           {/* Logo - 152x30px */}
           <Link href="/" className="shrink-0">
             <div className="w-[152px] h-[30px]">

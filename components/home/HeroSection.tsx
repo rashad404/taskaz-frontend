@@ -47,7 +47,7 @@ export default function HeroSection({ locale }: HeroSectionProps) {
   };
 
   return (
-    <section className="relative bg-[#f5f8ff] dark:bg-gray-900 h-[700px] overflow-hidden">
+    <section className="relative bg-[#f5f8ff] dark:bg-gray-900 h-[700px] overflow-hidden z-10">
       {/* Background Ellipse 4 - Purple gradient */}
       <div className="absolute left-[-277px] top-[137px] w-[491px] h-[492px]">
         <Image
