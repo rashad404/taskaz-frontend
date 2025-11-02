@@ -63,11 +63,11 @@ export default function Header() {
     <header className="sticky top-0 z-[100] bg-[#f5f8ff] dark:bg-gray-900">
       <StartupBar />
       <nav className="relative bg-[#f5f8ff] dark:bg-gray-900 min-h-[78px]">
-        {/* Desktop Header - Exact Figma positioning */}
-        <div className={`hidden md:flex absolute left-1/2 top-0 -translate-x-1/2 w-[1200px] border-b border-solid border-[rgba(0,0,0,0.1)] dark:border-gray-800 items-center justify-between px-0 py-[24px] transition-opacity duration-300 ${isMounted ? 'opacity-100' : 'opacity-0'}`}>
-          {/* Logo - 152x30px */}
+        {/* Desktop Header - Responsive */}
+        <div className={`hidden md:flex absolute left-1/2 top-0 -translate-x-1/2 w-full max-w-[1200px] px-4 md:px-8 lg:px-0 border-b border-solid border-[rgba(0,0,0,0.1)] dark:border-gray-800 items-center justify-between py-[24px] transition-opacity duration-300 ${isMounted ? 'opacity-100' : 'opacity-0'}`}>
+          {/* Logo */}
           <Link href="/" className="shrink-0">
-            <div className="w-[152px] h-[30px]">
+            <div className="w-[120px] md:w-[140px] lg:w-[152px] h-[24px] md:h-[28px] lg:h-[30px]">
               <Image
                 src="/assets/images/logo.svg"
                 alt="Task.az"
@@ -79,10 +79,10 @@ export default function Header() {
             </div>
           </Link>
 
-          {/* Center + Right section - 994px exact width */}
-          <div className="flex items-center justify-between w-[994px]">
+          {/* Center + Right section - Responsive */}
+          <div className="flex items-center justify-between flex-1 ml-4 md:ml-8 lg:ml-[54px]">
             {/* Left Navigation Links */}
-            <div className="flex items-center gap-[21px] font-semibold text-[16px] leading-[20px] text-black dark:text-white" style={{ fontFamily: 'Inter, sans-serif' }}>
+            <div className="flex items-center gap-[12px] md:gap-[16px] lg:gap-[21px] font-semibold text-[14px] md:text-[15px] lg:text-[16px] leading-[20px] text-black dark:text-white" style={{ fontFamily: 'Inter, sans-serif' }}>
               <Link
                 href={`/${locale}/tasks`}
                 className="shrink-0 hover:opacity-80 transition-opacity"
@@ -98,34 +98,34 @@ export default function Header() {
             </div>
 
             {/* Right Side - Auth & Actions */}
-            <div className="flex items-center gap-[20px]">
+            <div className="flex items-center gap-[12px] md:gap-[16px] lg:gap-[20px]">
               {isAuthenticated ? (
                 <>
                   <Link
                     href={`/${locale}/dashboard`}
-                    className="shrink-0 font-semibold text-[16px] leading-[20px] text-black dark:text-white hover:opacity-80 transition-opacity"
+                    className="shrink-0 font-semibold text-[14px] md:text-[15px] lg:text-[16px] leading-[20px] text-black dark:text-white hover:opacity-80 transition-opacity"
                     style={{ fontFamily: 'Inter, sans-serif' }}
                   >
                     {t('nav.dashboard')}
                   </Link>
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2 md:gap-3">
                     <Link
                       href={`/${locale}/settings`}
-                      className="w-8 h-8 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                      className="w-7 h-7 md:w-8 md:h-8 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
                     >
-                      <User className="w-4 h-4 text-gray-600 dark:text-gray-400" />
+                      <User className="w-3.5 h-3.5 md:w-4 md:h-4 text-gray-600 dark:text-gray-400" />
                     </Link>
                     <button
                       onClick={handleLogout}
                       className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
                     >
-                      <LogOut className="w-4 h-4" />
+                      <LogOut className="w-3.5 h-3.5 md:w-4 md:h-4" />
                     </button>
                   </div>
                 </>
               ) : (
                 <>
-                  <p className="shrink-0 font-semibold text-[16px] leading-[20px] text-black dark:text-white" style={{ fontFamily: 'Inter, sans-serif' }}>
+                  <p className="shrink-0 font-semibold text-[14px] md:text-[15px] lg:text-[16px] leading-[20px] text-black dark:text-white" style={{ fontFamily: 'Inter, sans-serif' }}>
                     <Link href={`/${locale}/login`} className="hover:opacity-80 transition-opacity">
                       Daxil ol
                     </Link>
@@ -133,10 +133,10 @@ export default function Header() {
                   <div className="flex items-center gap-[8px]">
                     <Link
                       href={`/${locale}/tasks/create`}
-                      className="flex items-center justify-center gap-[4px] bg-black dark:bg-white px-[15px] h-[40px] rounded-[8px] hover:opacity-90 transition-opacity"
+                      className="flex items-center justify-center gap-[3px] md:gap-[4px] bg-black dark:bg-white px-[12px] md:px-[15px] h-[36px] md:h-[40px] rounded-[8px] hover:opacity-90 transition-opacity"
                       style={{ boxShadow: '0px 2px 0px 0px rgba(5,145,255,0.1)' }}
                     >
-                      <div className="w-[24px] h-[22px] shrink-0">
+                      <div className="w-[20px] md:w-[24px] h-[18px] md:h-[22px] shrink-0">
                         <Image
                           src="/assets/images/plus-icon.svg"
                           alt=""
@@ -145,7 +145,7 @@ export default function Header() {
                           className="block max-w-none w-full h-full"
                         />
                       </div>
-                      <p className="shrink-0 font-normal text-[16px] leading-[24px] text-white dark:text-black" style={{ fontFamily: 'Inter, sans-serif' }}>
+                      <p className="shrink-0 font-normal text-[14px] md:text-[16px] leading-[20px] md:leading-[24px] text-white dark:text-black" style={{ fontFamily: 'Inter, sans-serif' }}>
                         Task aç
                       </p>
                     </Link>
