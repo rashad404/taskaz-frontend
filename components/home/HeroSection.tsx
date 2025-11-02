@@ -1,19 +1,30 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
+import { useSearch } from '@/lib/hooks/useSearch';
+import SearchResultItem from '@/components/search/SearchResultItem';
 
 interface HeroSectionProps {
   locale: string;
 }
 
 export default function HeroSection({ locale }: HeroSectionProps) {
-  const router = useRouter();
-  const [searchQuery, setSearchQuery] = useState('');
   const [currentSlide, setCurrentSlide] = useState(0);
   const [underlineWidth, setUnderlineWidth] = useState(372);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const textRef = useRef<HTMLParagraphElement>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  const searchDropdownRef = useRef<HTMLDivElement>(null);
+
+  const {
+    query,
+    setQuery,
+    results,
+    loading,
+    error,
+    saveToRecent,
+  } = useSearch();
 
   const categoryTexts = [
     'usta lazımdırsa',
@@ -39,12 +50,71 @@ export default function HeroSection({ locale }: HeroSectionProps) {
     }
   }, [currentSlide, categoryTexts]);
 
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (searchDropdownRef.current && !searchDropdownRef.current.contains(event.target as Node)) {
+        setIsSearchOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  // Calculate dropdown position
+  const [dropdownStyle, setDropdownStyle] = useState<React.CSSProperties>({});
+
+  const updateDropdownPosition = useCallback(() => {
+    if (searchInputRef.current && isSearchOpen) {
+      const rect = searchInputRef.current.getBoundingClientRect();
+      setDropdownStyle({
+        position: 'fixed',
+        top: `${rect.bottom + 8}px`,
+        left: `${rect.left}px`,
+        width: `${rect.width}px`,
+      });
+    }
+  }, [isSearchOpen]);
+
+  useEffect(() => {
+    updateDropdownPosition();
+  }, [isSearchOpen, query, updateDropdownPosition]);
+
+  // Update position on scroll and resize
+  useEffect(() => {
+    if (!isSearchOpen) return;
+
+    window.addEventListener('scroll', updateDropdownPosition, true);
+    window.addEventListener('resize', updateDropdownPosition);
+
+    return () => {
+      window.removeEventListener('scroll', updateDropdownPosition, true);
+      window.removeEventListener('resize', updateDropdownPosition);
+    };
+  }, [isSearchOpen, updateDropdownPosition]);
+
+  const handleInputChange = (value: string) => {
+    setQuery(value);
+    setIsSearchOpen(true);
+  };
+
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    if (searchQuery.trim()) {
-      router.push(`/${locale}/search?q=${encodeURIComponent(searchQuery)}`);
+    if (query.trim()) {
+      saveToRecent(query);
+      window.location.href = `/${locale}/search?q=${encodeURIComponent(query)}`;
     }
   };
+
+  const handleResultClick = (type: string, item: any) => {
+    saveToRecent(query);
+    setIsSearchOpen(false);
+    setQuery('');
+  };
+
+  const showResults = isSearchOpen && query.length >= 2;
+  const hasResults = results && (results.tasks.length > 0 || results.professionals.length > 0 || results.categories.length > 0);
 
   return (
     <section className="relative bg-[#f5f8ff] dark:bg-gray-900 h-[420px] md:h-[700px] overflow-hidden z-10">
@@ -210,31 +280,108 @@ export default function HeroSection({ locale }: HeroSectionProps) {
           </div>
         </div>
 
-        {/* Search Box Background - White translucent with larger white border */}
-        <div className="absolute left-0 right-0 md:left-[10%] md:right-[10%] lg:left-[15%] lg:right-[15%] xl:left-[220px] xl:right-auto xl:w-[1000px] top-[210px] md:top-[400px] h-[90px] md:h-[116px] bg-[rgba(255,255,255,0.4)] border-[2px] md:border-[3px] border-solid border-white rounded-[50px] md:rounded-[80px] mx-4 md:mx-0" />
+        {/* Search Box with Dropdown */}
+        <div ref={searchDropdownRef} className="absolute left-0 right-0 md:left-[12%] md:right-[12%] lg:left-[17%] lg:right-[17%] xl:left-[250px] xl:right-auto xl:w-[940px] top-[225px] md:top-[420px] mx-8 md:mx-0">
+          <form onSubmit={handleSearch}>
+            <div className="bg-white dark:bg-gray-800 border-[1.5px] border-solid border-[#d1d5db] dark:border-gray-700 rounded-[40px] md:rounded-[64px] flex items-center justify-between px-[20px] md:px-[32px] py-[14px] md:py-[24px]" style={{ boxShadow: '0px 4px 20px 0px rgba(0, 0, 0, 0.08)' }}>
+              <input
+                ref={searchInputRef}
+                type="text"
+                value={query}
+                onChange={(e) => handleInputChange(e.target.value)}
+                onFocus={() => setIsSearchOpen(true)}
+                placeholder="Hansı xidmət axtarırsınız?"
+                className="flex-1 bg-transparent outline-none font-normal text-[14px] md:text-[18px] leading-[20px] md:leading-[24px] text-black dark:text-white placeholder:text-[#1f2937]"
+                style={{ fontFamily: 'Inter, sans-serif' }}
+              />
+              <button type="submit" className="ml-2 md:ml-4 shrink-0 w-[20px] md:w-[28px] h-[20px] md:h-[28px]">
+                <Image
+                  src="/assets/images/search-icon.svg"
+                  alt="Search"
+                  width={28}
+                  height={28}
+                  className="block max-w-none w-full h-full"
+                />
+              </button>
+            </div>
+          </form>
 
-        {/* Search Box - Main Input */}
-        <form onSubmit={handleSearch} className="absolute left-0 right-0 md:left-[12%] md:right-[12%] lg:left-[17%] lg:right-[17%] xl:left-[250px] xl:right-auto xl:w-[940px] top-[225px] md:top-[420px] mx-8 md:mx-0">
-        <div className="bg-white dark:bg-gray-800 border-[1.5px] border-solid border-[#d1d5db] dark:border-gray-700 rounded-[40px] md:rounded-[64px] flex items-center justify-between px-[20px] md:px-[32px] py-[14px] md:py-[24px]" style={{ boxShadow: '0px 4px 20px 0px rgba(0, 0, 0, 0.08)' }}>
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Hansı xidmət axtarırsınız?"
-            className="flex-1 bg-transparent outline-none font-normal text-[14px] md:text-[18px] leading-[20px] md:leading-[24px] text-black dark:text-white placeholder:text-[#1f2937]"
-            style={{ fontFamily: 'Inter, sans-serif' }}
-          />
-          <button type="submit" className="ml-2 md:ml-4 shrink-0 w-[20px] md:w-[28px] h-[20px] md:h-[28px]">
-            <Image
-              src="/assets/images/search-icon.svg"
-              alt="Search"
-              width={28}
-              height={28}
-              className="block max-w-none w-full h-full"
-            />
-          </button>
+          {/* Search Dropdown Results */}
+          {showResults && (
+            <div
+              style={dropdownStyle}
+              className="z-[9999] bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 max-h-[500px] overflow-y-auto"
+            >
+              {!loading && !error && results && hasResults && (
+                <div className="py-2">
+                  {/* Tasks */}
+                  {results.tasks.length > 0 && (
+                    <div className="mb-4">
+                      <div className="px-4 py-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                        Tapşırıqlar ({results.tasks.length})
+                      </div>
+                      {results.tasks.map((task: any) => (
+                        <SearchResultItem
+                          key={`task-${task.id}`}
+                          type="task"
+                          item={task}
+                          locale={locale}
+                          onSelect={() => handleResultClick('task', task)}
+                        />
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Professionals */}
+                  {results.professionals.length > 0 && (
+                    <div className="mb-4">
+                      <div className="px-4 py-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                        Peşəkarlar ({results.professionals.length})
+                      </div>
+                      {results.professionals.map((professional: any) => (
+                        <SearchResultItem
+                          key={`professional-${professional.id}`}
+                          type="professional"
+                          item={professional}
+                          locale={locale}
+                          onSelect={() => handleResultClick('professional', professional)}
+                        />
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Categories */}
+                  {results.categories.length > 0 && (
+                    <div className="mb-2">
+                      <div className="px-4 py-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                        Kateqoriyalar ({results.categories.length})
+                      </div>
+                      {results.categories.map((category: any) => (
+                        <SearchResultItem
+                          key={`category-${category.id}`}
+                          type="category"
+                          item={category}
+                          locale={locale}
+                          onSelect={() => handleResultClick('category', category)}
+                        />
+                      ))}
+                    </div>
+                  )}
+
+                  {/* View All Link */}
+                  <div className="px-4 py-3 border-t border-gray-200 dark:border-gray-700">
+                    <button
+                      onClick={handleSearch}
+                      className="w-full text-center text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors"
+                    >
+                      Bütün nəticələrə bax →
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
         </div>
-      </form>
 
       {/* Progress Indicators */}
       <div className="absolute left-1/2 top-[335px] md:top-[565px] -translate-x-1/2 w-[calc(100%-40px)] md:w-[441px] flex gap-[6px] md:gap-[8px] items-center">
