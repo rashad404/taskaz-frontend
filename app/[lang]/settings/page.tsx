@@ -19,6 +19,7 @@ import {
   Star
 } from 'lucide-react';
 import { getStorageUrl } from '@/lib/utils/url';
+import { getLocalizedPath } from '@/lib/utils/locale';
 
 export default function SettingsPage() {
   const router = useRouter();
@@ -33,7 +34,7 @@ export default function SettingsPage() {
     const token = localStorage.getItem('token');
 
     if (!token) {
-      router.push(`/${locale}/login`);
+      router.push(getLocalizedPath(locale, '/login'));
       return;
     }
 
@@ -76,7 +77,7 @@ export default function SettingsPage() {
       title: 'Profil Məlumatları',
       description: 'Şəxsi məlumatlarınızı və profil şəklinizi dəyişdirin',
       icon: User,
-      href: `/${locale}/settings/profile`,
+      href: getLocalizedPath(locale, '/settings/profile'),
       color: 'text-indigo-600 dark:text-indigo-400',
       bgColor: 'bg-indigo-100 dark:bg-indigo-900/30'
     },
@@ -85,7 +86,7 @@ export default function SettingsPage() {
       title: 'Bildirişlər',
       description: 'Email, SMS və push bildirişlərini idarə edin',
       icon: Bell,
-      href: `/${locale}/settings/notifications`,
+      href: getLocalizedPath(locale, '/settings/notifications'),
       color: 'text-yellow-600 dark:text-yellow-400',
       bgColor: 'bg-yellow-100 dark:bg-yellow-900/30'
     },
@@ -94,7 +95,7 @@ export default function SettingsPage() {
       title: 'Təhlükəsizlik',
       description: 'Parol və hesab təhlükəsizliyi parametrləri',
       icon: Shield,
-      href: `/${locale}/settings/security`,
+      href: getLocalizedPath(locale, '/settings/security'),
       color: 'text-green-600 dark:text-green-400',
       bgColor: 'bg-green-100 dark:bg-green-900/30'
     },
@@ -103,7 +104,7 @@ export default function SettingsPage() {
       title: 'Mənim Tapşırıqlarım',
       description: 'Yaratdığınız və müraciət etdiyiniz tapşırıqlar',
       icon: Briefcase,
-      href: `/${locale}/my-tasks`,
+      href: getLocalizedPath(locale, '/my-tasks'),
       color: 'text-blue-600 dark:text-blue-400',
       bgColor: 'bg-blue-100 dark:bg-blue-900/30'
     },
@@ -112,7 +113,7 @@ export default function SettingsPage() {
       title: 'Mesajlar',
       description: 'Müştərilər və professionallərlə danışıqlar',
       icon: MessageSquare,
-      href: `/${locale}/conversations`,
+      href: getLocalizedPath(locale, '/conversations'),
       color: 'text-purple-600 dark:text-purple-400',
       bgColor: 'bg-purple-100 dark:bg-purple-900/30'
     },
@@ -121,7 +122,7 @@ export default function SettingsPage() {
       title: 'Ödənişlər',
       description: 'Ödəniş metodları və əməliyyat tarixçəsi',
       icon: CreditCard,
-      href: `/${locale}/settings/payments`,
+      href: getLocalizedPath(locale, '/settings/payments'),
       color: 'text-red-600 dark:text-red-400',
       bgColor: 'bg-red-100 dark:bg-red-900/30'
     }
@@ -136,7 +137,7 @@ export default function SettingsPage() {
           title: 'Peşəkar Profil',
           description: 'Peşəkar məlumatlarınızı və portfelinizi idarə edin',
           icon: Star,
-          href: `/${locale}/settings/professional`,
+          href: getLocalizedPath(locale, '/settings/professional'),
           color: 'text-amber-600 dark:text-amber-400',
           bgColor: 'bg-amber-100 dark:bg-amber-900/30'
         },
@@ -208,7 +209,7 @@ export default function SettingsPage() {
 
               {/* Edit Profile Button */}
               <Link
-                href={`/${locale}/settings/profile`}
+                href={getLocalizedPath(locale, '/settings/profile')}
                 className="w-full btn-primary py-2.5 px-4 text-center font-medium text-sm flex items-center justify-center gap-2"
               >
                 <Edit2 className="w-4 h-4" />

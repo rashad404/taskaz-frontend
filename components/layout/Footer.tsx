@@ -4,27 +4,28 @@ import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { Mail, Phone, MapPin } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { getLocalizedPath } from '@/lib/utils/locale';
 
 export default function Footer() {
   const t = useTranslations();
   const params = useParams();
-  const lang = params?.lang || 'az';
+  const lang = (params?.lang as string) || 'az';
   const currentYear = new Date().getFullYear();
 
   const footerLinks = {
     company: [
-      { name: t('footer.links.about'), href: `/${lang}/about` },
-      { name: t('footer.links.contact'), href: `/${lang}/contact` },
-      { name: t('footer.links.faq'), href: `/${lang}/faq` },
+      { name: t('footer.links.about'), href: getLocalizedPath(lang, '/about') },
+      { name: t('footer.links.contact'), href: getLocalizedPath(lang, '/contact') },
+      { name: t('footer.links.faq'), href: getLocalizedPath(lang, '/faq') },
     ],
     legal: [
-      { name: t('footer.links.terms'), href: `/${lang}/terms` },
-      { name: t('footer.links.privacy'), href: `/${lang}/privacy` },
+      { name: t('footer.links.terms'), href: getLocalizedPath(lang, '/terms') },
+      { name: t('footer.links.privacy'), href: getLocalizedPath(lang, '/privacy') },
     ],
     services: [
-      { name: t('nav.tasks'), href: `/${lang}/tasks` },
-      { name: t('nav.professionals'), href: `/${lang}/professionals` },
-      { name: t('nav.createTask'), href: `/${lang}/tasks/create` },
+      { name: t('nav.tasks'), href: getLocalizedPath(lang, '/tasks') },
+      { name: t('nav.professionals'), href: getLocalizedPath(lang, '/professionals') },
+      { name: t('nav.createTask'), href: getLocalizedPath(lang, '/tasks/create') },
     ],
   };
 
@@ -129,13 +130,13 @@ export default function Footer() {
             </p>
             <div className="flex items-center gap-6 text-sm">
               <Link
-                href={`/${lang}/terms`}
+                href={getLocalizedPath(lang, '/terms')}
                 className="text-gray-600 dark:text-gray-400 hover:text-[rgb(81,91,195)] transition-colors"
               >
                 {t('footer.links.terms')}
               </Link>
               <Link
-                href={`/${lang}/privacy`}
+                href={getLocalizedPath(lang, '/privacy')}
                 className="text-gray-600 dark:text-gray-400 hover:text-[rgb(81,91,195)] transition-colors"
               >
                 {t('footer.links.privacy')}

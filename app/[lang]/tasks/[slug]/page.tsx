@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import { getStorageUrl } from '@/lib/utils/url';
+import { getLocalizedPath } from '@/lib/utils/locale';
 import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
 import type { Metadata } from 'next';
@@ -167,18 +168,18 @@ function TaskDetailClient({ task, similarTasks, locale }: { task: Task; similarT
       <div className="max-w-7xl mx-auto">
         {/* Breadcrumb */}
         <nav className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 mb-6">
-          <Link href={`/${locale}`} className="hover:text-indigo-600 dark:hover:text-indigo-400">
+          <Link href={getLocalizedPath(locale, '/')} className="hover:text-indigo-600 dark:hover:text-indigo-400">
             Ana Səhifə
           </Link>
           <ChevronRight className="w-4 h-4" />
-          <Link href={`/${locale}/tasks`} className="hover:text-indigo-600 dark:hover:text-indigo-400">
+          <Link href={getLocalizedPath(locale, '/tasks')} className="hover:text-indigo-600 dark:hover:text-indigo-400">
             Tapşırıqlar
           </Link>
           <ChevronRight className="w-4 h-4" />
           {task.category && (
             <>
               <Link
-                href={`/${locale}/categories/${task.category.slug}`}
+                href={getLocalizedPath(locale, `/categories/${task.category.slug}`)}
                 className="hover:text-indigo-600 dark:hover:text-indigo-400"
               >
                 {task.category.name}
@@ -221,7 +222,7 @@ function TaskDetailClient({ task, similarTasks, locale }: { task: Task; similarT
                 {/* Category */}
                 {task.category && (
                   <Link
-                    href={`/${locale}/categories/${task.category.slug}`}
+                    href={getLocalizedPath(locale, `/categories/${task.category.slug}`)}
                     className="px-3 py-1 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 rounded-full text-xs font-medium hover:bg-indigo-200 dark:hover:bg-indigo-900/50 transition-colors"
                   >
                     {task.category.name}
@@ -366,7 +367,7 @@ function TaskDetailClient({ task, similarTasks, locale }: { task: Task; similarT
 
                   <div className="flex-1">
                     <Link
-                      href={`/${locale}/clients/${task.client.slug}`}
+                      href={getLocalizedPath(locale, `/clients/${task.client.slug}`)}
                       className="text-xl font-bold text-gray-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
                     >
                       {task.client.name}
@@ -492,7 +493,7 @@ function TaskDetailClient({ task, similarTasks, locale }: { task: Task; similarT
               </div>
               {task.category && (
                 <Link
-                  href={`/${locale}/categories/${task.category.slug}`}
+                  href={getLocalizedPath(locale, `/categories/${task.category.slug}`)}
                   className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 font-medium text-sm flex items-center gap-1"
                 >
                   Hamısına bax

@@ -21,6 +21,7 @@ import {
   LayoutDashboard,
   Menu
 } from 'lucide-react';
+import { getLocalizedPath } from '@/lib/utils/locale';
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -44,7 +45,7 @@ export default function DashboardPage() {
     const token = localStorage.getItem('token');
 
     if (!token) {
-      router.push(`/${locale}/login`);
+      router.push(getLocalizedPath(locale, '/login'));
       return;
     }
 
@@ -193,25 +194,25 @@ export default function DashboardPage() {
   const navigationItems = [
     {
       name: 'İdarə Paneli',
-      href: `/${locale}/dashboard`,
+      href: getLocalizedPath(locale, '/dashboard'),
       icon: LayoutDashboard,
       active: true
     },
     {
       name: 'Mənim Tapşırıqlarım',
-      href: `/${locale}/my-tasks`,
+      href: getLocalizedPath(locale, '/my-tasks'),
       icon: Briefcase,
       badge: stats.myTasks
     },
     {
       name: 'Mesajlar',
-      href: `/${locale}/conversations`,
+      href: getLocalizedPath(locale, '/conversations'),
       icon: MessageSquare,
       badge: stats.unreadMessages
     },
     ...(professionalStatus?.professional_status === 'approved' ? [{
       name: 'Peşəkar Profil',
-      href: `/${locale}/settings/professional`,
+      href: getLocalizedPath(locale, '/settings/professional'),
       icon: Star,
       isPro: true
     }] : [])
@@ -286,7 +287,7 @@ export default function DashboardPage() {
           {/* User Profile in Sidebar */}
           <div className="p-4 border-t border-gray-200 dark:border-gray-800">
             <Link
-              href={`/${locale}/settings`}
+              href={getLocalizedPath(locale, '/settings')}
               className="flex items-center gap-3 p-3 rounded-2xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
               onClick={() => setSidebarOpen(false)}
             >
@@ -336,7 +337,7 @@ export default function DashboardPage() {
             {/* Quick Actions */}
             <div className="mb-12 flex flex-wrap gap-4">
               <Link
-                href={`/${locale}/tasks/create`}
+                href={getLocalizedPath(locale, '/tasks/create')}
                 className="inline-flex items-center gap-2 btn-primary group"
               >
                 <Plus className="w-5 h-5" />
@@ -344,7 +345,7 @@ export default function DashboardPage() {
               </Link>
 
               <Link
-                href={`/${locale}/professionals`}
+                href={getLocalizedPath(locale, '/professionals')}
                 className="inline-flex items-center gap-2 btn-secondary group"
               >
                 <Search className="w-5 h-5" />
@@ -357,7 +358,7 @@ export default function DashboardPage() {
               <div className="mb-12">
             {/* Not Applied */}
             {professionalStatus.can_apply && !professionalStatus.professional_status && (
-              <Link href={`/${locale}/become-professional`}>
+              <Link href={getLocalizedPath(locale, '/become-professional')}>
                 <div className="group relative cursor-pointer">
                   <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 opacity-90 group-hover:opacity-100 transition-all duration-500" />
                   <div className="relative rounded-3xl p-8 text-white">
@@ -423,13 +424,13 @@ export default function DashboardPage() {
                     </p>
                     <div className="flex flex-wrap items-center gap-3 mt-4">
                       <Link
-                        href={`/${locale}/professionals/${user?.slug}`}
+                        href={getLocalizedPath(locale, `/professionals/${user?.slug}`)}
                         className="inline-flex items-center gap-2 text-green-700 dark:text-green-300 font-medium hover:text-green-900 dark:hover:text-green-100"
                       >
                         Profilə bax <ArrowRight className="w-4 h-4" />
                       </Link>
                       <Link
-                        href={`/${locale}/settings/professional`}
+                        href={getLocalizedPath(locale, '/settings/professional')}
                         className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-green-600 text-white font-medium hover:bg-green-700 transition-colors"
                       >
                         <Star className="w-4 h-4" />
@@ -456,7 +457,7 @@ export default function DashboardPage() {
                       Səbəb: {professionalStatus.rejected_reason || 'Göstərilməyib'}
                     </p>
                     <Link
-                      href={`/${locale}/become-professional`}
+                      href={getLocalizedPath(locale, '/become-professional')}
                       className="inline-flex items-center gap-2 mt-4 px-4 py-2 rounded-xl bg-red-600 text-white font-medium hover:bg-red-700 transition-colors"
                     >
                       Yenidən Müraciət Et <ArrowRight className="w-4 h-4" />
@@ -536,7 +537,7 @@ export default function DashboardPage() {
               Mənim Tapşırıqlarım
             </h2>
             <Link
-              href={`/${locale}/my-tasks`}
+              href={getLocalizedPath(locale, '/my-tasks')}
               className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 text-sm font-medium"
             >
               Hamısına bax →
@@ -561,7 +562,7 @@ export default function DashboardPage() {
                   İlk tapşırığınızı yaradın və ən yaxşı professionalləri tapın
                 </p>
                 <Link
-                  href={`/${locale}/tasks/create`}
+                  href={getLocalizedPath(locale, '/tasks/create')}
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl font-medium text-white bg-gradient-to-r from-indigo-500 to-purple-500 hover:shadow-lg hover:scale-105 transition-all duration-300"
                 >
                   <Plus className="w-5 h-5" />
@@ -572,7 +573,7 @@ export default function DashboardPage() {
               recentTasks.map((task) => (
                 <Link
                   key={task.id}
-                  href={`/${locale}/tasks/${task.slug}`}
+                  href={getLocalizedPath(locale, `/tasks/${task.slug}`)}
                   className="flex items-center gap-4 p-4 rounded-2xl bg-white/50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 hover:bg-white dark:hover:bg-gray-800 transition-all"
                 >
                   {/* Icon */}

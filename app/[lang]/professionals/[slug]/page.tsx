@@ -18,6 +18,7 @@ import ProfessionalCard from '@/components/professionals/ProfessionalCard';
 import ProfessionalDetailActions from '@/components/professionals/ProfessionalDetailActions';
 import ContactInfo from '@/components/professionals/ContactInfo';
 import { getStorageUrl } from '@/lib/utils/url';
+import { getLocalizedPath } from '@/lib/utils/locale';
 
 interface professionalPageProps {
   params: Promise<{ lang: string; slug: string }>;
@@ -142,11 +143,11 @@ function ProfessionalDetailClient({ professional, similarprofessionals, locale }
       <div className="max-w-7xl mx-auto">
         {/* Breadcrumb */}
         <nav className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 mb-6">
-          <Link href={`/${locale}`} className="hover:text-indigo-600 dark:hover:text-indigo-400">
+          <Link href={getLocalizedPath(locale, '/')} className="hover:text-indigo-600 dark:hover:text-indigo-400">
             Ana Səhifə
           </Link>
           <ChevronRight className="w-4 h-4" />
-          <Link href={`/${locale}/professionals`} className="hover:text-indigo-600 dark:hover:text-indigo-400">
+          <Link href={getLocalizedPath(locale, '/professionals')} className="hover:text-indigo-600 dark:hover:text-indigo-400">
             Peşəkarlar
           </Link>
           <ChevronRight className="w-4 h-4" />
@@ -336,7 +337,7 @@ function ProfessionalDetailClient({ professional, similarprofessionals, locale }
                 </p>
               </div>
               <Link
-                href={`/${locale}/professionals`}
+                href={getLocalizedPath(locale, '/professionals')}
                 className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 font-medium text-sm flex items-center gap-1"
               >
                 Hamısına bax

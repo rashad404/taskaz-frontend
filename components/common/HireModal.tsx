@@ -2,8 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { X, Briefcase, Plus, ArrowRight } from 'lucide-react';
+import { X, Briefcase, Plus, ArrowRight, CheckCircle, MessageCircle, FileText } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { getLocalizedPath } from '@/lib/utils/locale';
 
 interface HireModalProps {
   isOpen: boolean;
@@ -37,7 +38,7 @@ export default function HireModal({
       if (typeof window !== 'undefined') {
         sessionStorage.setItem('return_url', window.location.pathname);
       }
-      router.push(`/${locale}/login`);
+      router.push(getLocalizedPath(locale, '/login'));
       return;
     }
 
@@ -50,7 +51,7 @@ export default function HireModal({
     }
 
     // Redirect to task creation
-    router.push(`/${locale}/tasks/create`);
+    router.push(getLocalizedPath(locale, '/tasks/create'));
   };
 
   if (!isOpen || !mounted) return null;
@@ -78,88 +79,126 @@ export default function HireModal({
 
         {/* Content */}
         <div className="p-6 space-y-6">
-          {/* professional Info */}
-          <div className="p-4 bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-200 dark:border-indigo-800 rounded-2xl">
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold text-lg">
-                {professionalName.charAt(0)}
-              </div>
-              <div>
-                <p className="font-semibold text-gray-900 dark:text-white">
-                  {professionalName}
-                </p>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                  professional
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Explanation */}
-          <div className="space-y-4">
-            <div className="flex items-start gap-3">
-              <div className="w-6 h-6 rounded-full bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center flex-shrink-0 mt-1">
-                <span className="text-sm font-bold text-indigo-600 dark:text-indigo-400">1</span>
-              </div>
-              <div>
-                <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
-                  Tapşırıq Yaradın
-                </h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                  {professionalName} ilə işləmək üçün əvvəlcə tapşırıq yaratmalısınız. Tapşırığınızın detallarını, büdcəsini və tələblərini qeyd edin.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-3">
-              <div className="w-6 h-6 rounded-full bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center flex-shrink-0 mt-1">
-                <span className="text-sm font-bold text-indigo-600 dark:text-indigo-400">2</span>
-              </div>
-              <div>
-                <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
-                  professional Müraciət Edər
-                </h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                  Tapşırığınızı yaratdıqdan sonra, {professionalName} profilinizə keçib müraciət edə bilər və ya siz onunla birbaşa əlaqə saxlaya bilərsiniz.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-3">
-              <div className="w-6 h-6 rounded-full bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center flex-shrink-0 mt-1">
-                <span className="text-sm font-bold text-indigo-600 dark:text-indigo-400">3</span>
-              </div>
-              <div>
-                <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
-                  Müraciəti Qəbul Edin
-                </h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                  {professionalName}-dan müraciət aldıqdan sonra, onu qəbul edin və iş başlasın.
-                </p>
+          {/* Professional Info Card */}
+          <div className="relative overflow-hidden rounded-2xl">
+            <div className="absolute inset-0 bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 opacity-10"></div>
+            <div className="relative p-5 border border-indigo-200 dark:border-indigo-800/50">
+              <div className="flex items-center gap-4">
+                <div className="relative">
+                  <div className="absolute inset-0 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full blur-md opacity-50"></div>
+                  <div className="relative w-14 h-14 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold text-xl shadow-lg">
+                    {professionalName.charAt(0)}
+                  </div>
+                </div>
+                <div className="flex-1">
+                  <p className="font-bold text-lg text-gray-900 dark:text-white">
+                    {professionalName}
+                  </p>
+                  <p className="text-sm text-indigo-600 dark:text-indigo-400 font-medium">
+                    Təcrübəli Peşəkar
+                  </p>
+                </div>
+                <div className="hidden sm:block">
+                  <div className="px-4 py-2 rounded-full bg-indigo-100 dark:bg-indigo-900/30">
+                    <span className="text-sm font-semibold text-indigo-600 dark:text-indigo-400">İşə Götür</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Info Box */}
-          <div className="p-4 bg-gray-50 dark:bg-gray-800/50 rounded-2xl border border-gray-200 dark:border-gray-700">
-            <p className="text-sm text-gray-700 dark:text-gray-300">
-              <span className="font-semibold">Məsləhət:</span> Tapşırıq yaratdıqdan sonra, bu səhifəyə qayıdıb {professionalName} ilə mesaj göndərə bilərsiniz.
-            </p>
+          {/* How it Works Section */}
+          <div>
+            <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+              <div className="w-1 h-6 bg-gradient-to-b from-indigo-500 to-purple-500 rounded-full"></div>
+              Necə işləyir?
+            </h3>
+
+            <div className="space-y-3">
+              {/* Step 1 */}
+              <div className="group relative overflow-hidden rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800/50 hover:border-indigo-300 dark:hover:border-indigo-700 transition-all duration-300">
+                <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div className="relative p-4 flex items-start gap-4">
+                  <div className="relative flex-shrink-0">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-indigo-500/30">
+                      <FileText className="w-6 h-6 text-white" />
+                    </div>
+                    <div className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-white dark:bg-gray-900 flex items-center justify-center border-2 border-indigo-500">
+                      <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400">1</span>
+                    </div>
+                  </div>
+                  <div className="flex-1 pt-1">
+                    <h4 className="font-bold text-gray-900 dark:text-white mb-1.5">
+                      Tapşırıq Yaradın
+                    </h4>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                      Tapşırığınızın detallarını, büdcəsini və tələblərini dəqiq şəkildə qeyd edin
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Step 2 */}
+              <div className="group relative overflow-hidden rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800/50 hover:border-purple-300 dark:hover:border-purple-700 transition-all duration-300">
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div className="relative p-4 flex items-start gap-4">
+                  <div className="relative flex-shrink-0">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center shadow-lg shadow-purple-500/30">
+                      <MessageCircle className="w-6 h-6 text-white" />
+                    </div>
+                    <div className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-white dark:bg-gray-900 flex items-center justify-center border-2 border-purple-500">
+                      <span className="text-xs font-bold text-purple-600 dark:text-purple-400">2</span>
+                    </div>
+                  </div>
+                  <div className="flex-1 pt-1">
+                    <h4 className="font-bold text-gray-900 dark:text-white mb-1.5">
+                      Peşəkara Tapşırığı Göndərin
+                    </h4>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                      {professionalName} tapşırığınızı görüb müraciət edəcək və ya birbaşa əlaqə saxlaya bilərsiniz
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Step 3 */}
+              <div className="group relative overflow-hidden rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800/50 hover:border-green-300 dark:hover:border-green-700 transition-all duration-300">
+                <div className="absolute inset-0 bg-gradient-to-r from-green-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div className="relative p-4 flex items-start gap-4">
+                  <div className="relative flex-shrink-0">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center shadow-lg shadow-green-500/30">
+                      <CheckCircle className="w-6 h-6 text-white" />
+                    </div>
+                    <div className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-white dark:bg-gray-900 flex items-center justify-center border-2 border-green-500">
+                      <span className="text-xs font-bold text-green-600 dark:text-green-400">3</span>
+                    </div>
+                  </div>
+                  <div className="flex-1 pt-1">
+                    <h4 className="font-bold text-gray-900 dark:text-white mb-1.5">
+                      İş İcra Olunsun
+                    </h4>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                      Müraciəti qəbul edin və {professionalName} ilə işbirliyi başlasın
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Action Buttons */}
-          <div className="flex gap-3 pt-4">
+          <div className="flex flex-col sm:flex-row gap-3 pt-2">
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 px-6 py-3 rounded-2xl border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+              className="sm:flex-1 px-6 py-3.5 rounded-xl border-2 border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 font-semibold hover:bg-gray-50 dark:hover:bg-gray-800 transition-all"
             >
               Ləğv et
             </button>
             <button
               type="button"
               onClick={handleCreateTask}
-              className="flex-1 px-6 py-3 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold transition-all flex items-center justify-center gap-2"
+              className="sm:flex-1 px-6 py-3.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-bold transition-all flex items-center justify-center gap-2 shadow-lg shadow-indigo-500/30 hover:shadow-xl hover:shadow-indigo-500/40 hover:scale-[1.02]"
             >
               <Plus className="w-5 h-5" />
               Tapşırıq Yarat
