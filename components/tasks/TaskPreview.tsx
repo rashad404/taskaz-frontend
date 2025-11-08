@@ -16,7 +16,7 @@ export default function TaskPreview({ formData, onClose, onPublish, categoryName
 
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto">
-      <div className="flex items-center justify-center min-h-screen px-4 py-8">
+      <div className="flex items-start justify-center min-h-screen px-4 pt-20 pb-8">
         {/* Backdrop */}
         <div
           className="fixed inset-0 bg-black bg-opacity-50 transition-opacity"
@@ -24,7 +24,7 @@ export default function TaskPreview({ formData, onClose, onPublish, categoryName
         />
 
         {/* Modal */}
-        <div className="relative bg-white dark:bg-gray-900 rounded-3xl max-w-3xl w-full p-8 shadow-2xl">
+        <div className="relative bg-white dark:bg-gray-900 rounded-3xl max-w-3xl w-full p-8 shadow-2xl my-8">
           {/* Close button */}
           <button
             onClick={onClose}
