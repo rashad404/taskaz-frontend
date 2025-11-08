@@ -52,6 +52,7 @@ export default function TaskCreateForm({ locale }: TaskCreateFormProps) {
   const [districtId, setDistrictId] = useState<number | null>(null);
   const [settlementId, setSettlementId] = useState<number | null>(null);
   const [metroStationId, setMetroStationId] = useState<number | null>(null);
+  const [showDraftSaved, setShowDraftSaved] = useState(false);
 
   // Fetch categories
   useEffect(() => {
@@ -237,6 +238,12 @@ export default function TaskCreateForm({ locale }: TaskCreateFormProps) {
     setShowAuthModal(false);
     // User is now logged in, they can try to publish again
     // Form data is already saved in draft
+  };
+
+  const handleSaveDraft = () => {
+    saveDraft();
+    setShowDraftSaved(true);
+    setTimeout(() => setShowDraftSaved(false), 3000);
   };
 
   const selectedCategory = allCategories.find(c => c.id === formData.category_id);
@@ -590,7 +597,7 @@ export default function TaskCreateForm({ locale }: TaskCreateFormProps) {
           <div className="flex flex-col sm:flex-row gap-3">
             <button
               type="button"
-              onClick={saveDraft}
+              onClick={handleSaveDraft}
               className="flex-1 flex items-center justify-center gap-2 px-6 py-3 rounded-2xl border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors font-medium"
             >
               <Save className="w-4 h-4" />
@@ -640,6 +647,21 @@ export default function TaskCreateForm({ locale }: TaskCreateFormProps) {
         onSuccess={handleAuthSuccess}
         message={t('authRequired.message')}
       />
+
+      {/* Draft Saved Toast */}
+      {showDraftSaved && (
+        <div className="fixed bottom-8 right-8 z-50 transition-all duration-300 ease-out transform">
+          <div className="flex items-center gap-3 px-6 py-4 rounded-2xl bg-green-500 text-white shadow-lg backdrop-blur-sm">
+            <div className="flex items-center justify-center w-6 h-6 rounded-full bg-white/20">
+              <Save className="w-4 h-4" />
+            </div>
+            <div>
+              <p className="font-medium">Layihə saxlanıldı</p>
+              <p className="text-sm text-white/90">Dəyişikliklər uğurla yadda saxlanıldı</p>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
