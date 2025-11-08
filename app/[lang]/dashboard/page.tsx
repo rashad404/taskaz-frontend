@@ -17,7 +17,9 @@ import {
   AlertCircle,
   Star,
   ArrowRight,
-  X
+  X,
+  LayoutDashboard,
+  Menu
 } from 'lucide-react';
 
 export default function DashboardPage() {
@@ -36,6 +38,7 @@ export default function DashboardPage() {
   const [recentTasks, setRecentTasks] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [dismissedProApproval, setDismissedProApproval] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -187,41 +190,171 @@ export default function DashboardPage() {
     return null;
   }
 
+  const navigationItems = [
+    {
+      name: 'İdarə Paneli',
+      href: `/${locale}/dashboard`,
+      icon: LayoutDashboard,
+      active: true
+    },
+    {
+      name: 'Mənim Tapşırıqlarım',
+      href: `/${locale}/my-tasks`,
+      icon: Briefcase,
+      badge: stats.myTasks
+    },
+    {
+      name: 'Mesajlar',
+      href: `/${locale}/conversations`,
+      icon: MessageSquare,
+      badge: stats.unreadMessages
+    },
+    ...(professionalStatus?.professional_status === 'approved' ? [{
+      name: 'Peşəkar Profil',
+      href: `/${locale}/settings/professional`,
+      icon: Star,
+      isPro: true
+    }] : [])
+  ];
+
   return (
-    <div className="min-h-screen py-8 px-4 sm:px-6">
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2">
-            Xoş gəldiniz, {user.name}!
-          </h1>
-          <p className="text-gray-600 dark:text-gray-400">
-            İşlərinizi və professionallərinizi burada idarə edin
-          </p>
+    <div className="min-h-screen">
+      {/* Mobile sidebar backdrop */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
+      {/* Sidebar */}
+      <aside className={`fixed top-0 left-0 z-[110] h-screen w-64 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 transition-transform duration-300 lg:translate-x-0 ${
+        sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+      }`}>
+        <div className="flex flex-col h-full">
+          {/* Top spacer to match StartupBar height */}
+          <div className="bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+            <div className="py-2 px-6">
+              <div className="h-5"></div>
+            </div>
+          </div>
+
+          {/* Sidebar Header */}
+          <div className="px-6 py-[24px] border-b border-gray-200 dark:border-gray-800 flex items-center bg-[#f5f8ff] dark:bg-gray-900">
+            <div className="flex items-center justify-between w-full">
+              <h2 className="text-xl font-bold text-gray-900 dark:text-white">Menu</h2>
+              <button
+                onClick={() => setSidebarOpen(false)}
+                className="lg:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
+
+          {/* Navigation Items */}
+          <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
+            {navigationItems.map((item) => {
+              const Icon = item.icon;
+              return (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className={`flex items-center justify-between px-4 py-3 rounded-2xl transition-all ${
+                    item.active
+                      ? 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400'
+                      : item.isPro
+                      ? 'bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/50'
+                      : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+                  }`}
+                  onClick={() => setSidebarOpen(false)}
+                >
+                  <div className="flex items-center gap-3">
+                    <Icon className="w-5 h-5" />
+                    <span className="font-medium">{item.name}</span>
+                  </div>
+                  {item.badge !== undefined && item.badge > 0 && (
+                    <span className="px-2 py-1 text-xs font-bold rounded-full bg-indigo-600 text-white">
+                      {item.badge > 99 ? '99+' : item.badge}
+                    </span>
+                  )}
+                </Link>
+              );
+            })}
+          </nav>
+
+          {/* User Profile in Sidebar */}
+          <div className="p-4 border-t border-gray-200 dark:border-gray-800">
+            <Link
+              href={`/${locale}/settings`}
+              className="flex items-center gap-3 p-3 rounded-2xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              onClick={() => setSidebarOpen(false)}
+            >
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold">
+                {user.name?.charAt(0) || 'U'}
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
+                  {user.name}
+                </p>
+                <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
+                  Parametrlər
+                </p>
+              </div>
+            </Link>
+          </div>
         </div>
+      </aside>
 
-        {/* Quick Actions */}
-        <div className="mb-12 flex flex-wrap gap-4">
-          <Link
-            href={`/${locale}/tasks/create`}
-            className="inline-flex items-center gap-2 btn-primary group"
-          >
-            <Plus className="w-5 h-5" />
-            <span>Tapşırıq Yarat</span>
-          </Link>
+      {/* Main Content */}
+      <div className="lg:pl-64">
+        <div className="py-8 px-4 sm:px-6">
+          {/* Mobile Header with Menu Button */}
+          <div className="lg:hidden mb-6 flex items-center gap-4">
+            <button
+              onClick={() => setSidebarOpen(true)}
+              className="p-2 rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+            >
+              <Menu className="w-6 h-6" />
+            </button>
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+              İdarə Paneli
+            </h1>
+          </div>
 
-          <Link
-            href={`/${locale}/professionals`}
-            className="inline-flex items-center gap-2 btn-secondary group"
-          >
-            <Search className="w-5 h-5" />
-            <span>Peşəkar Tap</span>
-          </Link>
-        </div>
+          <div className="max-w-7xl mx-auto">
+            {/* Header - Desktop Only */}
+            <div className="mb-12 hidden lg:block">
+              <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2">
+                Xoş gəldiniz, {user.name}!
+              </h1>
+              <p className="text-gray-600 dark:text-gray-400">
+                İşlərinizi və professionallərinizi burada idarə edin
+              </p>
+            </div>
 
-        {/* Professional Status Widget */}
-        {professionalStatus && (
-          <div className="mb-12">
+            {/* Quick Actions */}
+            <div className="mb-12 flex flex-wrap gap-4">
+              <Link
+                href={`/${locale}/tasks/create`}
+                className="inline-flex items-center gap-2 btn-primary group"
+              >
+                <Plus className="w-5 h-5" />
+                <span>Tapşırıq Yarat</span>
+              </Link>
+
+              <Link
+                href={`/${locale}/professionals`}
+                className="inline-flex items-center gap-2 btn-secondary group"
+              >
+                <Search className="w-5 h-5" />
+                <span>Peşəkar Tap</span>
+              </Link>
+            </div>
+
+            {/* Professional Status Widget */}
+            {professionalStatus && (
+              <div className="mb-12">
             {/* Not Applied */}
             {professionalStatus.can_apply && !professionalStatus.professional_status && (
               <Link href={`/${locale}/become-professional`}>
@@ -331,12 +464,12 @@ export default function DashboardPage() {
                   </div>
                 </div>
               </div>
-            )}
-          </div>
-        )}
+              )}
+            </div>
+          )}
 
-        {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            {/* Stats Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
           {/* My Tasks */}
           <div className="rounded-3xl p-6 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-white/30 dark:border-gray-700/30">
             <div className="flex items-center justify-between mb-4">
@@ -392,15 +525,15 @@ export default function DashboardPage() {
             <div className="text-3xl font-bold text-gray-900 dark:text-white mb-1">
               {stats.unreadMessages}
             </div>
-            <div className="text-sm text-gray-600 dark:text-gray-400">Oxunmamış Mesajlar</div>
+              <div className="text-sm text-gray-600 dark:text-gray-400">Oxunmamış Mesajlar</div>
+            </div>
           </div>
-        </div>
 
-        {/* Recent Tasks */}
-        <div className="rounded-3xl p-8 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-white/30 dark:border-gray-700/30 mb-12">
+            {/* Recent Tasks */}
+            <div className="rounded-3xl p-8 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-white/30 dark:border-gray-700/30 mb-12">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-              Son Tapşırıqlar
+              Mənim Tapşırıqlarım
             </h2>
             <Link
               href={`/${locale}/my-tasks`}
@@ -472,77 +605,11 @@ export default function DashboardPage() {
                     {task.status === 'open' ? 'Açıq' : task.status === 'assigned' ? 'Təyin edilib' : 'Tamamlandı'}
                   </span>
                 </Link>
-              ))
-            )}
+                ))
+              )}
+            </div>
           </div>
-        </div>
-
-        {/* Quick Links */}
-        <div className={`grid grid-cols-1 ${professionalStatus?.professional_status === 'approved' ? 'md:grid-cols-3' : 'md:grid-cols-2'} gap-6`}>
-          <Link
-            href={`/${locale}/my-tasks`}
-            className="rounded-3xl p-6 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-white/30 dark:border-gray-700/30 hover:scale-105 transition-transform duration-300"
-          >
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-500 flex items-center justify-center">
-                <Briefcase className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1">
-                  Tapşırıqlarım
-                </h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                  Bütün tapşırıqlarınızı görün
-                </p>
-              </div>
-            </div>
-          </Link>
-
-          <Link
-            href={`/${locale}/conversations`}
-            className="rounded-3xl p-6 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-white/30 dark:border-gray-700/30 hover:scale-105 transition-transform duration-300"
-          >
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center relative">
-                <MessageSquare className="w-6 h-6 text-white" />
-                {stats.unreadMessages > 0 && (
-                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs font-bold rounded-full flex items-center justify-center">
-                    {stats.unreadMessages > 9 ? '9+' : stats.unreadMessages}
-                  </span>
-                )}
-              </div>
-              <div>
-                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1">
-                  Mesajlar
-                </h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                  Danışıqlarınız
-                </p>
-              </div>
-            </div>
-          </Link>
-
-          {/* Professional Link - Only show for approved professionals */}
-          {professionalStatus?.professional_status === 'approved' && (
-            <Link
-              href={`/${locale}/settings/professional`}
-              className="rounded-3xl p-6 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-white/30 dark:border-gray-700/30 hover:scale-105 transition-transform duration-300"
-            >
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-500 to-yellow-500 flex items-center justify-center">
-                  <Star className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1">
-                    Peşəkar Profil
-                  </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
-                    Peşəkar məlumatlarınızı idarə edin
-                  </p>
-                </div>
-              </div>
-            </Link>
-          )}
+          </div>
         </div>
       </div>
     </div>
