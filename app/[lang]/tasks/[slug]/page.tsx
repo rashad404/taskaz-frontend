@@ -24,11 +24,19 @@ interface TaskDetailPageProps {
   params: Promise<{ lang: string; slug: string }>;
 }
 
-async function getTask(slug: string) {
+async function getTask(slug: string, token?: string) {
   try {
+    const headers: HeadersInit = {};
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/tasks/${slug}`,
-      { cache: 'no-store' }
+      {
+        cache: 'no-store',
+        headers
+      }
     );
 
     if (!res.ok) return null;

@@ -179,22 +179,32 @@ export default function MyTasksPage() {
         ) : (
           <div className="grid grid-cols-1 gap-4">
             {filteredTasks.map((task) => (
-              <Link
+              <div
                 key={task.id}
-                href={`/${locale}/tasks/${task.slug}`}
                 className="rounded-3xl p-6 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-white/30 dark:border-gray-700/30 hover:border-indigo-200 dark:hover:border-indigo-800 transition-all group"
               >
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex-1">
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
-                      {task.title}
-                    </h3>
+                    <Link href={`/${locale}/tasks/${task.slug}`}>
+                      <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                        {task.title}
+                      </h3>
+                    </Link>
                     <p className="text-gray-600 dark:text-gray-400 line-clamp-2">
                       {stripHtml(task.description)}
                     </p>
                   </div>
-                  <div className="ml-4">
+                  <div className="ml-4 flex items-center gap-2">
                     {getStatusBadge(task.status)}
+                    <Link
+                      href={`/${locale}/tasks/${task.slug}/edit`}
+                      className="p-2 rounded-xl bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 transition-colors"
+                      title="Redaktə et"
+                    >
+                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                      </svg>
+                    </Link>
                   </div>
                 </div>
 
@@ -221,7 +231,7 @@ export default function MyTasksPage() {
                     </span>
                   )}
                 </div>
-              </Link>
+              </div>
             ))}
           </div>
         )}
