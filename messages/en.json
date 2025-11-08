@@ -307,7 +307,21 @@
     "help": "Help",
     "apiDocs": "API Docs",
     "privacy": "Privacy",
-    "terms": "Terms"
+    "terms": "Terms",
+    "description": "Azerbaijan's leading platform for connecting clients with skilled professionals. Find trusted service providers for all your needs.",
+    "location": "Baku, Azerbaijan",
+    "sections": {
+      "company": "Company",
+      "services": "Services",
+      "legal": "Legal"
+    },
+    "links": {
+      "about": "About",
+      "contact": "Contact",
+      "faq": "FAQ",
+      "terms": "Terms of Service",
+      "privacy": "Privacy Policy"
+    }
   },
   "metadata": {
     "title": "Task.az - Services and Professionals",
@@ -515,6 +529,359 @@
       "alreadyApproved": "You are already an approved professional",
       "generic": "An error occurred while submitting your application. Please try again.",
       "tryAgain": "Try Again"
+    }
+  },
+  "about": {
+    "meta": {
+      "title": "About Us - Task.az",
+      "description": "Learn about Task.az, Azerbaijan's leading platform for connecting clients with skilled professionals."
+    },
+    "hero": {
+      "title": "About Task.az",
+      "subtitle": "We're building Azerbaijan's most trusted platform for connecting talented professionals with clients who need their services."
+    },
+    "mission": {
+      "title": "Our Mission",
+      "description": "Our mission is to empower professionals and simplify the way people find trusted services in Azerbaijan. We believe in creating opportunities, building trust, and fostering a community where quality work is recognized and rewarded."
+    },
+    "stats": {
+      "users": "Active Users",
+      "completedTasks": "Completed Tasks",
+      "professionals": "Verified Professionals",
+      "categories": "Service Categories"
+    },
+    "values": {
+      "title": "Our Values",
+      "trust": {
+        "title": "Trust & Safety",
+        "description": "We prioritize secure payments and verified profiles to ensure safe transactions for everyone."
+      },
+      "community": {
+        "title": "Community First",
+        "description": "Building a supportive ecosystem where professionals and clients can thrive together."
+      },
+      "quality": {
+        "title": "Quality Service",
+        "description": "We maintain high standards through our rating system and professional verification process."
+      },
+      "innovation": {
+        "title": "Innovation",
+        "description": "Constantly improving our platform to provide the best experience for our users."
+      }
+    },
+    "story": {
+      "title": "Our Story",
+      "paragraph1": "Task.az was founded with a simple vision: to make it easy for people in Azerbaijan to find and hire skilled professionals for any task. We saw the challenges that both clients and professionals faced in connecting with each other, and we knew there had to be a better way.",
+      "paragraph2": "Starting in 2025, we've grown from a small team with a big idea to Azerbaijan's leading service marketplace. Today, thousands of professionals use our platform to showcase their skills and build their businesses, while clients find the perfect match for their projects.",
+      "paragraph3": "What sets us apart is our commitment to the local market. We understand the unique needs of Azerbaijan's service economy and have built features specifically designed for our community. From secure payment processing to verified professional profiles, every aspect of our platform is designed to create trust and facilitate successful collaborations."
+    },
+    "cta": {
+      "title": "Ready to Get Started?",
+      "description": "Join thousands of professionals and clients who trust Task.az for their service needs.",
+      "postTask": "Post a Task",
+      "browseProfessionals": "Browse Professionals"
+    }
+  },
+  "contact": {
+    "meta": {
+      "title": "Contact Us - Task.az",
+      "description": "Get in touch with Task.az. We're here to help with any questions or concerns."
+    },
+    "hero": {
+      "title": "Contact Us",
+      "subtitle": "Have a question or need assistance? We're here to help!"
+    },
+    "info": {
+      "email": {
+        "title": "Email",
+        "value": "info@task.az"
+      },
+      "phone": {
+        "title": "Phone",
+        "value": "+994 12 345 67 89"
+      },
+      "address": {
+        "title": "Address",
+        "value": "Baku, Azerbaijan"
+      },
+      "hours": {
+        "title": "Business Hours",
+        "value": "Monday - Friday: 9:00 AM - 6:00 PM"
+      }
+    },
+    "form": {
+      "title": "Send us a Message",
+      "name": "Name",
+      "namePlaceholder": "Your name",
+      "email": "Email",
+      "emailPlaceholder": "your@email.com",
+      "subject": "Subject",
+      "subjectPlaceholder": "Select a subject",
+      "subjects": {
+        "general": "General Inquiry",
+        "support": "Technical Support",
+        "partnership": "Partnership Opportunity",
+        "feedback": "Feedback"
+      },
+      "message": "Message",
+      "messagePlaceholder": "Tell us how we can help...",
+      "submit": "Send Message",
+      "sending": "Sending...",
+      "successMessage": "Thank you! Your message has been sent successfully. We'll get back to you soon.",
+      "errorMessage": "Sorry, there was an error sending your message. Please try again."
+    }
+  },
+  "faq": {
+    "meta": {
+      "title": "FAQ - Frequently Asked Questions - Task.az",
+      "description": "Find answers to common questions about using Task.az, posting tasks, and working as a professional."
+    },
+    "hero": {
+      "title": "Frequently Asked Questions",
+      "subtitle": "Find answers to common questions about Task.az",
+      "searchPlaceholder": "Search for questions..."
+    },
+    "categories": {
+      "general": "General",
+      "clients": "For Clients",
+      "professionals": "For Professionals"
+    },
+    "general": {
+      "q1": {
+        "question": "What is Task.az?",
+        "answer": "Task.az is Azerbaijan's leading platform connecting clients with skilled professionals. Whether you need home repairs, programming, tutoring, or any other service, Task.az helps you find verified professionals quickly and securely."
+      },
+      "q2": {
+        "question": "How does Task.az work?",
+        "answer": "Clients post tasks describing their needs and budget. Professionals then submit proposals to work on these tasks. Clients can review proposals, check professional profiles and ratings, and choose the best match for their project."
+      },
+      "q3": {
+        "question": "Is Task.az free to use?",
+        "answer": "Creating an account and browsing tasks is completely free. We charge a small service fee on completed transactions to maintain and improve our platform."
+      },
+      "q4": {
+        "question": "How do I create an account?",
+        "answer": "Click the 'Sign Up' button at the top of the page, fill in your details, and verify your email address. You can then start posting tasks or apply to become a professional."
+      },
+      "q5": {
+        "question": "Is my personal information safe?",
+        "answer": "Yes, we take data security seriously. All personal information is encrypted and stored securely. We never share your data with third parties without your consent. Read our Privacy Policy for more details."
+      }
+    },
+    "clients": {
+      "q1": {
+        "question": "How do I post a task?",
+        "answer": "After signing in, click 'Post Task' in the navigation menu. Fill in the task details including title, description, budget, and deadline. Once posted, professionals can start submitting proposals."
+      },
+      "q2": {
+        "question": "How do I choose the right professional?",
+        "answer": "Review each professional's profile, including their ratings, completed jobs, skills, and portfolio. Read reviews from previous clients. You can also communicate with professionals before hiring to ensure they're the right fit."
+      },
+      "q3": {
+        "question": "How does payment work?",
+        "answer": "We use a secure dual-confirmation payment system. Payment is held securely until both you and the professional confirm the work is completed satisfactorily. This protects both parties."
+      },
+      "q4": {
+        "question": "What if I'm not satisfied with the work?",
+        "answer": "Communication is key. First, discuss any issues with the professional. If you can't resolve it, contact our support team. We're here to mediate and ensure fair outcomes for all users."
+      },
+      "q5": {
+        "question": "Can I edit or cancel a task after posting?",
+        "answer": "Yes, you can edit task details before any professional starts working. If you need to cancel, do so as early as possible and communicate with any professionals who have submitted proposals."
+      }
+    },
+    "professionals": {
+      "q1": {
+        "question": "How do I become a professional on Task.az?",
+        "answer": "Sign in to your account and visit the 'Become a Professional' page. Fill out your profile with details about your skills, experience, and portfolio. Once approved, you can start applying to tasks."
+      },
+      "q2": {
+        "question": "How do I find tasks to work on?",
+        "answer": "Browse available tasks in your area of expertise. Use filters to find tasks that match your skills and location. You can also set up notifications for new tasks in specific categories."
+      },
+      "q3": {
+        "question": "How do I get paid?",
+        "answer": "After completing a task, both you and the client confirm completion. The payment is then released to your account. You can withdraw funds to your bank account according to our payment schedule."
+      },
+      "q4": {
+        "question": "What fees does Task.az charge?",
+        "answer": "We charge a service fee on completed transactions. The exact percentage depends on your account level and transaction volume. Higher-rated professionals with more completed jobs enjoy lower fees."
+      },
+      "q5": {
+        "question": "How can I improve my profile and get more work?",
+        "answer": "Complete your profile fully with skills, portfolio, and professional photos. Deliver quality work to earn 5-star ratings. Respond quickly to clients and maintain good communication. Build a strong reputation through excellent service."
+      }
+    },
+    "noResults": "No questions found matching your search.",
+    "stillHaveQuestions": {
+      "title": "Still have questions?",
+      "description": "Can't find the answer you're looking for? Our support team is here to help.",
+      "button": "Contact Support"
+    }
+  },
+  "terms": {
+    "meta": {
+      "title": "Terms of Service - Task.az",
+      "description": "Read Task.az Terms of Service and user agreement."
+    },
+    "hero": {
+      "title": "Terms of Service",
+      "lastUpdated": "Last Updated"
+    },
+    "intro": {
+      "title": "Introduction",
+      "content": "Welcome to Task.az. These Terms of Service govern your use of our platform. By accessing or using Task.az, you agree to be bound by these terms. Please read them carefully."
+    },
+    "section1": {
+      "title": "Acceptance of Terms",
+      "content": "By creating an account or using our services, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service and our Privacy Policy. If you do not agree, please do not use our platform.",
+      "point1": "You must be at least 18 years old to use Task.az",
+      "point2": "You are responsible for maintaining the security of your account",
+      "point3": "You agree to provide accurate and complete information"
+    },
+    "section2": {
+      "title": "User Accounts",
+      "content": "To use certain features of Task.az, you must create an account. You are responsible for:",
+      "point1": "Maintaining the confidentiality of your account credentials",
+      "point2": "All activities that occur under your account",
+      "point3": "Notifying us immediately of any unauthorized use",
+      "point4": "Ensuring your account information is accurate and up-to-date"
+    },
+    "section3": {
+      "title": "Services",
+      "content": "Task.az provides a platform for connecting clients with professionals. We facilitate transactions but are not party to the actual service agreements between users.",
+      "point1": "We do not employ professionals listed on our platform",
+      "point2": "We do not guarantee the quality of services provided",
+      "point3": "Users are responsible for their own agreements and arrangements"
+    },
+    "section4": {
+      "title": "Payment and Fees",
+      "content": "Our payment system is designed to protect both clients and professionals:",
+      "point1": "Service fees apply to completed transactions",
+      "point2": "Payments are held securely until work is confirmed complete",
+      "point3": "Refunds are handled on a case-by-case basis",
+      "point4": "Users must not attempt to circumvent our payment system"
+    },
+    "section5": {
+      "title": "User Conduct",
+      "content": "Users must conduct themselves professionally and ethically. Prohibited activities include:",
+      "point1": "Posting false or misleading information",
+      "point2": "Harassing or threatening other users",
+      "point3": "Attempting to defraud or scam others",
+      "point4": "Violating any applicable laws or regulations",
+      "point5": "Circumventing platform fees or payment systems"
+    },
+    "section6": {
+      "title": "Intellectual Property",
+      "content": "Task.az and its content are protected by intellectual property laws. You retain ownership of content you post, but grant us a license to use it for operating and promoting our platform."
+    },
+    "section7": {
+      "title": "Limitation of Liability",
+      "content": "Task.az is provided 'as is' without warranties. We are not liable for any damages arising from your use of our platform, including but not limited to direct, indirect, incidental, or consequential damages."
+    },
+    "section8": {
+      "title": "Termination",
+      "content": "We reserve the right to suspend or terminate accounts that violate these terms or for any reason at our discretion. Users may also close their accounts at any time."
+    },
+    "section9": {
+      "title": "Changes to Terms",
+      "content": "We may update these Terms of Service from time to time. We will notify users of significant changes. Continued use of the platform after changes constitutes acceptance of the new terms."
+    },
+    "section10": {
+      "title": "Governing Law",
+      "content": "These terms are governed by the laws of the Republic of Azerbaijan. Any disputes will be resolved in the courts of Baku, Azerbaijan."
+    },
+    "contact": {
+      "title": "Contact Us",
+      "content": "If you have questions about these Terms of Service, please contact us at:"
+    }
+  },
+  "privacy": {
+    "meta": {
+      "title": "Privacy Policy - Task.az",
+      "description": "Learn how Task.az collects, uses, and protects your personal information."
+    },
+    "hero": {
+      "title": "Privacy Policy",
+      "lastUpdated": "Last Updated"
+    },
+    "intro": {
+      "title": "Introduction",
+      "content": "At Task.az, we take your privacy seriously. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our platform. Please read this policy carefully."
+    },
+    "section1": {
+      "title": "Information We Collect",
+      "content": "We collect information that you provide directly to us and information automatically collected when you use our platform.",
+      "subtitle1": "Personal Information",
+      "personal1": "Name, email address, phone number",
+      "personal2": "Profile information, skills, and portfolio",
+      "personal3": "Payment information (processed securely by third-party providers)",
+      "personal4": "Communications between users on our platform",
+      "subtitle2": "Automatically Collected Information",
+      "auto1": "IP address, browser type, and device information",
+      "auto2": "Usage data, including pages viewed and features used",
+      "auto3": "Cookies and similar tracking technologies"
+    },
+    "section2": {
+      "title": "How We Use Your Information",
+      "content": "We use the collected information for various purposes:",
+      "point1": "To provide and maintain our services",
+      "point2": "To process transactions and send notifications",
+      "point3": "To improve and personalize user experience",
+      "point4": "To communicate with you about updates and offers",
+      "point5": "To detect and prevent fraud and abuse",
+      "point6": "To comply with legal obligations"
+    },
+    "section3": {
+      "title": "Information Sharing",
+      "content": "We may share your information in the following situations:",
+      "point1": "With other users as necessary to facilitate services",
+      "point2": "With service providers who assist in our operations",
+      "point3": "To comply with legal requirements or protect rights",
+      "point4": "In connection with a business transfer or acquisition"
+    },
+    "section4": {
+      "title": "Data Security",
+      "content": "We implement appropriate security measures to protect your information:",
+      "point1": "Encryption of sensitive data in transit and at rest",
+      "point2": "Regular security assessments and updates",
+      "point3": "Access controls and authentication requirements"
+    },
+    "section5": {
+      "title": "Your Rights",
+      "content": "You have certain rights regarding your personal information:",
+      "point1": "Access and receive a copy of your data",
+      "point2": "Correct inaccurate or incomplete information",
+      "point3": "Request deletion of your data",
+      "point4": "Opt-out of marketing communications",
+      "point5": "Withdraw consent where applicable"
+    },
+    "section6": {
+      "title": "Cookies",
+      "content": "We use cookies and similar technologies to:",
+      "point1": "Remember your preferences and settings",
+      "point2": "Understand how you use our platform",
+      "point3": "Provide relevant advertising"
+    },
+    "section7": {
+      "title": "Data Retention",
+      "content": "We retain your information for as long as necessary to provide services and comply with legal obligations. You can request deletion of your account at any time."
+    },
+    "section8": {
+      "title": "Third-Party Links",
+      "content": "Our platform may contain links to third-party websites. We are not responsible for the privacy practices of these external sites. Please review their privacy policies."
+    },
+    "section9": {
+      "title": "Children's Privacy",
+      "content": "Task.az is not intended for users under 18 years of age. We do not knowingly collect information from children. If you believe we have collected information from a child, please contact us."
+    },
+    "section10": {
+      "title": "Changes to Privacy Policy",
+      "content": "We may update this Privacy Policy periodically. We will notify you of significant changes by email or through our platform. Continued use after changes constitutes acceptance."
+    },
+    "contact": {
+      "title": "Contact Us",
+      "content": "If you have questions about this Privacy Policy, please contact us at:"
     }
   }
 }

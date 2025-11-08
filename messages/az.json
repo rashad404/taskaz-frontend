@@ -312,7 +312,21 @@
     "help": "Kömək",
     "apiDocs": "API Sənədləri",
     "privacy": "Məxfilik",
-    "terms": "Şərtlər"
+    "terms": "Şərtlər",
+    "description": "Azərbaycanda müştəriləri bacarıqlı peşəkarlarla birləşdirən aparıcı platforma. Bütün ehtiyaclarınız üçün etibarlı xidmət təminatçıları tapın.",
+    "location": "Bakı, Azərbaycan",
+    "sections": {
+      "company": "Şirkət",
+      "services": "Xidmətlər",
+      "legal": "Hüquqi"
+    },
+    "links": {
+      "about": "Haqqımızda",
+      "contact": "Əlaqə",
+      "faq": "Tez-tez soruşulan suallar",
+      "terms": "İstifadə Şərtləri",
+      "privacy": "Məxfilik Siyasəti"
+    }
   },
   "metadata": {
     "title": "Task.az - Xidmətlər və Ustalar",
@@ -630,6 +644,359 @@
       "alreadyApproved": "Siz artıq təsdiqlənmiş peşəkarsınız",
       "generic": "Müraciət göndərilərkən xəta baş verdi. Yenidən cəhd edin.",
       "tryAgain": "Yenidən Cəhd Et"
+    }
+  },
+  "about": {
+    "meta": {
+      "title": "Haqqımızda - Task.az",
+      "description": "Task.az haqqında məlumat - Azərbaycanda müştəriləri bacarıqlı peşəkarlarla birləşdirən aparıcı platforma."
+    },
+    "hero": {
+      "title": "Task.az Haqqında",
+      "subtitle": "Biz istedadlı peşəkarları onların xidmətlərinə ehtiyacı olan müştərilərlə birləşdirən Azərbaycanın ən etibarlı platformasını qururuq."
+    },
+    "mission": {
+      "title": "Missiyamız",
+      "description": "Missiyamız peşəkarlara imkan yaratmaq və Azərbaycanda insanların etibarlı xidmətlər tapmasını asanlaşdırmaqdır. Biz fürsətlər yaratmağa, etibar qurmağa və keyfiyyətli işin tanınıb mükafatlandırıldığı icma formalaşdırmağa inanırıq."
+    },
+    "stats": {
+      "users": "Aktiv İstifadəçilər",
+      "completedTasks": "Tamamlanmış Tapşırıqlar",
+      "professionals": "Təsdiqlənmiş Peşəkarlar",
+      "categories": "Xidmət Kateqoriyaları"
+    },
+    "values": {
+      "title": "Dəyərlərimiz",
+      "trust": {
+        "title": "Etibar və Təhlükəsizlik",
+        "description": "Hamı üçün təhlükəsiz əməliyyatlar təmin etmək üçün təhlükəsiz ödənişlərə və təsdiqlənmiş profillərə prioritet veririk."
+      },
+      "community": {
+        "title": "İcma Prioritetdir",
+        "description": "Peşəkarların və müştərilərin birlikdə inkişaf edə biləcəyi dəstəkləyici ekosistem qururuq."
+      },
+      "quality": {
+        "title": "Keyfiyyətli Xidmət",
+        "description": "Reytinq sistemimiz və peşəkar təsdiqləmə prosesimizlə yüksək standartları saxlayırıq."
+      },
+      "innovation": {
+        "title": "İnnovasiya",
+        "description": "İstifadəçilərimizə ən yaxşı təcrübəni təqdim etmək üçün platformamızı daim təkmilləşdiririk."
+      }
+    },
+    "story": {
+      "title": "Hekayəmiz",
+      "paragraph1": "Task.az sadə bir vizyonla yaradıldı: Azərbaycanda insanların istənilən tapşırıq üçün bacarıqlı peşəkarları tapmasını və işə götürməsini asanlaşdırmaq. Həm müştərilərin, həm də peşəkarların bir-biri ilə əlaqə qurarkən üzləşdikləri çətinlikləri gördük və daha yaxşı yol olmalı olduğunu bildik.",
+      "paragraph2": "2025-ci ildən başlayaraq, böyük ideya ilə kiçik komandadan Azərbaycanın aparıcı xidmət bazarına çevrildik. Bu gün minlərlə peşəkar öz bacarıqlarını nümayiş etdirmək və biznesini qurmaq üçün platformamızdan istifadə edir, müştərilər isə layihələri üçün mükəmməl uyğunluq tapırlar.",
+      "paragraph3": "Bizi fərqləndirən yerli bazara olan öhdəliyimizdir. Azərbaycanın xidmət iqtisadiyyatının unikal ehtiyaclarını başa düşürük və xüsusi olaraq icmamız üçün nəzərdə tutulmuş xüsusiyyətlər qurmuşuq. Təhlükəsiz ödəniş emalından tutmuş təsdiqlənmiş peşəkar profillərinə qədər, platformamızın hər bir aspekti etibar yaratmaq və uğurlu əməkdaşlıqları asanlaşdırmaq üçün hazırlanmışdır."
+    },
+    "cta": {
+      "title": "Başlamağa Hazırsınız?",
+      "description": "Xidmət ehtiyacları üçün Task.az-a etibar edən minlərlə peşəkar və müştəriyə qoşulun.",
+      "postTask": "Tapşırıq Yerləşdir",
+      "browseProfessionals": "Peşəkarlara Bax"
+    }
+  },
+  "contact": {
+    "meta": {
+      "title": "Əlaqə - Task.az",
+      "description": "Task.az ilə əlaqə saxlayın. Hər hansı sual və ya narahatlığınız üçün buradayıq."
+    },
+    "hero": {
+      "title": "Bizimlə Əlaqə",
+      "subtitle": "Sualınız və ya köməyə ehtiyacınız var? Biz sizə kömək etmək üçün buradayıq!"
+    },
+    "info": {
+      "email": {
+        "title": "E-poçt",
+        "value": "info@task.az"
+      },
+      "phone": {
+        "title": "Telefon",
+        "value": "+994 12 345 67 89"
+      },
+      "address": {
+        "title": "Ünvan",
+        "value": "Bakı, Azərbaycan"
+      },
+      "hours": {
+        "title": "İş Saatları",
+        "value": "Bazar ertəsi - Cümə: 09:00 - 18:00"
+      }
+    },
+    "form": {
+      "title": "Bizə Mesaj Göndərin",
+      "name": "Ad",
+      "namePlaceholder": "Adınız",
+      "email": "E-poçt",
+      "emailPlaceholder": "sizin@email.com",
+      "subject": "Mövzu",
+      "subjectPlaceholder": "Mövzu seçin",
+      "subjects": {
+        "general": "Ümumi Sorğu",
+        "support": "Texniki Dəstək",
+        "partnership": "Tərəfdaşlıq Təklifi",
+        "feedback": "Rəy"
+      },
+      "message": "Mesaj",
+      "messagePlaceholder": "Bizə necə kömək edə biləcəyimizi yazın...",
+      "submit": "Mesaj Göndər",
+      "sending": "Göndərilir...",
+      "successMessage": "Təşəkkür edirik! Mesajınız uğurla göndərildi. Tezliklə sizinlə əlaqə saxlayacağıq.",
+      "errorMessage": "Təəssüf ki, mesajınızı göndərərkən xəta baş verdi. Zəhmət olmasa yenidən cəhd edin."
+    }
+  },
+  "faq": {
+    "meta": {
+      "title": "Tez-tez soruşulan suallar - Task.az",
+      "description": "Task.az istifadəsi, tapşırıqların yerləşdirilməsi və peşəkar kimi işləmək haqqında ümumi suallara cavablar tapın."
+    },
+    "hero": {
+      "title": "Tez-tez Soruşulan Suallar",
+      "subtitle": "Task.az haqqında ümumi suallara cavablar tapın",
+      "searchPlaceholder": "Sualları axtarın..."
+    },
+    "categories": {
+      "general": "Ümumi",
+      "clients": "Müştərilər Üçün",
+      "professionals": "Peşəkarlar Üçün"
+    },
+    "general": {
+      "q1": {
+        "question": "Task.az nədir?",
+        "answer": "Task.az Azərbaycanda müştəriləri bacarıqlı peşəkarlarla birləşdirən aparıcı platformadır. Ev təmiri, proqramlaşdırma, dərslik və ya hər hansı başqa xidmətə ehtiyacınız olub-olmamasından asılı olmayaraq, Task.az sizə təsdiqlənmiş peşəkarları tez və təhlükəsiz tapmağa kömək edir."
+      },
+      "q2": {
+        "question": "Task.az necə işləyir?",
+        "answer": "Müştərilər öz ehtiyaclarını və büdcələrini təsvir edən tapşırıqlar yerləşdirir. Peşəkarlar sonra bu tapşırıqlar üzrə təkliflər təqdim edir. Müştərilər təklifləri nəzərdən keçirə, peşəkar profilləri və reytinqləri yoxlaya və layihələri üçün ən uyğunu seçə bilərlər."
+      },
+      "q3": {
+        "question": "Task.az istifadəsi pulsuzmu?",
+        "answer": "Hesab yaratmaq və tapşırıqlara baxmaq tamamilə pulsuz. Platformamızı saxlamaq və təkmilləşdirmək üçün tamamlanmış əməliyyatlarda kiçik xidmət haqqı tuturuq."
+      },
+      "q4": {
+        "question": "Hesab necə yaradılır?",
+        "answer": "Səhifənin yuxarısındakı 'Qeydiyyat' düyməsinə klikləyin, məlumatlarınızı doldurun və e-poçt ünvanınızı təsdiqləyin. Sonra tapşırıqlar yerləşdirməyə başlaya və ya peşəkar olmaq üçün müraciət edə bilərsiniz."
+      },
+      "q5": {
+        "question": "Şəxsi məlumatlarım təhlükəsizdir?",
+        "answer": "Bəli, biz məlumat təhlükəsizliyinə ciddi yanaşırıq. Bütün şəxsi məlumatlar şifrələnir və təhlükəsiz saxlanılır. Razılığınız olmadan məlumatlarınızı heç vaxt üçüncü tərəflərlə paylaşmırıq. Daha ətraflı məlumat üçün Məxfilik Siyasətimizi oxuyun."
+      }
+    },
+    "clients": {
+      "q1": {
+        "question": "Tapşırıq necə yerləşdirilir?",
+        "answer": "Hesabınıza daxil olduqdan sonra naviqasiya menyusunda 'Tapşırıq Yerləşdir' düyməsinə klikləyin. Başlıq, təsvir, büdcə və son tarix daxil olmaqla tapşırıq təfərrüatlarını doldurun. Yerləşdirildikdən sonra peşəkarlar təkliflər göndərməyə başlaya bilərlər."
+      },
+      "q2": {
+        "question": "Düzgün peşəkarı necə seçim?",
+        "answer": "Hər peşəkarın reytinqləri, tamamlanmış işləri, bacarıqları və portfeli daxil olmaqla profilini nəzərdən keçirin. Əvvəlki müştərilərin rəylərini oxuyun. Düzgün uyğun olduqlarına əmin olmaq üçün işə götürməzdən əvvəl peşəkarlarla ünsiyyət qura bilərsiniz."
+      },
+      "q3": {
+        "question": "Ödəniş necə işləyir?",
+        "answer": "Biz təhlükəsiz ikili təsdiqləmə ödəniş sistemindən istifadə edirik. Ödəniş siz və peşəkar işin qənaətbəxş şəkildə tamamlandığını təsdiq edənə qədər təhlükəsiz saxlanılır. Bu hər iki tərəfi qoruyur."
+      },
+      "q4": {
+        "question": "İşdən razı qalmasam nə olacaq?",
+        "answer": "Ünsiyyət əsasdır. Əvvəlcə hər hansı problemləri peşəkarla müzakirə edin. Həll edə bilməsəniz, dəstək komandamızla əlaqə saxlayın. Biz vasitəçilik etmək və bütün istifadəçilər üçün ədalətli nəticələr təmin etmək üçün buradayıq."
+      },
+      "q5": {
+        "question": "Yerləşdirdikdən sonra tapşırığı redaktə və ya ləğv edə bilərəmmi?",
+        "answer": "Bəli, hər hansı peşəkar işə başlamazdan əvvəl tapşırıq təfərrüatlarını redaktə edə bilərsiniz. Ləğv etməli olsanız, bunu mümkün qədər tez edin və təklif göndərmiş peşəkarlarla əlaqə saxlayın."
+      }
+    },
+    "professionals": {
+      "q1": {
+        "question": "Task.az-da peşəkar necə olum?",
+        "answer": "Hesabınıza daxil olun və 'Peşəkar Ol' səhifəsinə daxil olun. Bacarıqlarınız, təcrübəniz və porfeliniz haqqında məlumatlarla profilinizi doldurun. Təsdiqlənəndən sonra tapşırıqlara müraciət etməyə başlaya bilərsiniz."
+      },
+      "q2": {
+        "question": "Üzərində işləyəcəyim tapşırıqları necə tapım?",
+        "answer": "Təxəssüs sahənizdə mövcud tapşırıqlara baxın. Bacarıqlarınıza və yerləşdiyiniz yerə uyğun tapşırıqlar tapmaq üçün filtrlərdən istifadə edin. Xüsusi kateqoriyalarda yeni tapşırıqlar üçün bildirişlər də qura bilərsiniz."
+      },
+      "q3": {
+        "question": "Ödənişimi necə alıram?",
+        "answer": "Tapşırığı tamamladıqdan sonra həm siz, həm də müştəri tamamlanmanı təsdiq edir. Ödəniş sonra hesabınıza buraxılır. Ödəniş cədvəlimizə uyğun olaraq vəsaiti bank hesabınıza çıxara bilərsiniz."
+      },
+      "q4": {
+        "question": "Task.az hansı haqları tutur?",
+        "answer": "Tamamlanmış əməliyyatlarda xidmət haqqı tuturuq. Dəqiq faiz hesab səviyyəniz və əməliyyat həcmindən asılıdır. Daha çox tamamlanmış işləri olan yüksək reytinqli peşəkarlar daha aşağı haqlardan faydalanır."
+      },
+      "q5": {
+        "question": "Profilimi necə təkmilləşdirib daha çox iş əldə edə bilərəm?",
+        "answer": "Bacarıqlar, portfel və peşəkar fotoşəkillərlə profilinizi tam doldurun. 5 ulduzlu reytinqlər qazanmaq üçün keyfiyyətli iş görün. Müştərilərə tez cavab verin və yaxşı ünsiyyət saxlayın. Əla xidmət vasitəsilə güclü reputasiya qurun."
+      }
+    },
+    "noResults": "Axtarışınıza uyğun sual tapılmadı.",
+    "stillHaveQuestions": {
+      "title": "Hələ də suallarınız var?",
+      "description": "Axtardığınız cavabı tapa bilmirsiz? Dəstək komandamız sizə kömək etmək üçün buradadır.",
+      "button": "Dəstəyə Müraciət Edin"
+    }
+  },
+  "terms": {
+    "meta": {
+      "title": "İstifadə Şərtləri - Task.az",
+      "description": "Task.az İstifadə Şərtləri və istifadəçi müqaviləsini oxuyun."
+    },
+    "hero": {
+      "title": "İstifadə Şərtləri",
+      "lastUpdated": "Son Yenilənmə"
+    },
+    "intro": {
+      "title": "Giriş",
+      "content": "Task.az-a xoş gəlmisiniz. Bu İstifadə Şərtləri platformamızdan istifadənizi tənzimləyir. Task.az-a daxil olduqda və ya istifadə etdikdə bu şərtlərlə bağlı olmağa razılıq verirsiniz. Zəhmət olmasa onları diqqətlə oxuyun."
+    },
+    "section1": {
+      "title": "Şərtlərin Qəbul Edilməsi",
+      "content": "Hesab yaratdıqda və ya xidmətlərimizdən istifadə etdikdə bu İstifadə Şərtləri və Məxfilik Siyasətimizlə bağlı olmağa razı olduğunuzu qəbul edirsiniz. Razı deyilsinizsə, zəhmət olmasa platformamızdan istifadə etməyin.",
+      "point1": "Task.az istifadə etmək üçün ən azı 18 yaşında olmalısınız",
+      "point2": "Hesabınızın təhlükəsizliyini saxlamağa cavabdehsiniz",
+      "point3": "Dəqiq və tam məlumat verməyə razılıq verirsiniz"
+    },
+    "section2": {
+      "title": "İstifadəçi Hesabları",
+      "content": "Task.az-ın müəyyən xüsusiyyətlərindən istifadə etmək üçün hesab yaratmalısınız. Siz məsuliyyət daşıyırsınız:",
+      "point1": "Hesab məlumatlarınızın məxfiliyini saxlamaq",
+      "point2": "Hesabınız altında baş verən bütün fəaliyyətlər",
+      "point3": "Hər hansı icazəsiz istifadə haqqında dərhal bizə məlumat vermək",
+      "point4": "Hesab məlumatlarınızın dəqiq və aktual olmasını təmin etmək"
+    },
+    "section3": {
+      "title": "Xidmətlər",
+      "content": "Task.az müştəriləri peşəkarlarla birləşdirən platforma təqdim edir. Biz əməliyyatları asanlaşdırırıq, lakin istifadəçilər arasındakı faktiki xidmət müqavilələrində tərəf deyilik.",
+      "point1": "Platformamızda siyahıya alınmış peşəkarları işə götürmürük",
+      "point2": "Təqdim olunan xidmətlərin keyfiyyətinə zəmanət vermirik",
+      "point3": "İstifadəçilər öz müqavilə və tərtibatlarına görə məsuliyyət daşıyırlar"
+    },
+    "section4": {
+      "title": "Ödəniş və Haqlar",
+      "content": "Ödəniş sistemimiz həm müştəriləri, həm də peşəkarları qorumaq üçün nəzərdə tutulub:",
+      "point1": "Tamamlanmış əməliyyatlarda xidmət haqları tətbiq olunur",
+      "point2": "Ödənişlər iş tamamlandı təsdiq olunanadək təhlükəsiz saxlanılır",
+      "point3": "Geri qaytarmalar hər bir halda ayrıca nəzərdən keçirilir",
+      "point4": "İstifadəçilər ödəniş sistemimizi atlamağa cəhd etməməlidirlər"
+    },
+    "section5": {
+      "title": "İstifadəçi Davranışı",
+      "content": "İstifadəçilər peşəkar və etik şəkildə davranmalıdırlar. Qadağan olunan fəaliyyətlərə daxildir:",
+      "point1": "Yanlış və ya aldadıcı məlumat yerləşdirmək",
+      "point2": "Digər istifadəçilərə təcavüz və ya təhdid",
+      "point3": "Başqalarını aldatmağa və ya fırıldaqçılıq etməyə cəhd",
+      "point4": "Hər hansı tətbiq olunan qanun və ya qaydaları pozmaq",
+      "point5": "Platforma haqlarını və ya ödəniş sistemlərini atlamaq"
+    },
+    "section6": {
+      "title": "Əqli Mülkiyyət",
+      "content": "Task.az və onun məzmunu əqli mülkiyyət qanunları ilə qorunur. Yerləşdirdiyiniz məzmunun sahibliyi sizə aiddir, lakin platformamızı idarə etmək və tanıtmaq üçün bizə lisenziya verirsiniz."
+    },
+    "section7": {
+      "title": "Məsuliyyətin Məhdudlaşdırılması",
+      "content": "Task.az 'olduğu kimi' zəmanətsiz təqdim olunur. Birbaşa, dolayı, təsadüfi və ya nəticə zərərləri daxil olmaqla, lakin bununla məhdudlaşmayaraq, platformamızdan istifadənizdən irəli gələn hər hansı zərərə görə məsuliyyət daşımırıq."
+    },
+    "section8": {
+      "title": "Xitam",
+      "content": "Bu şərtləri pozan və ya istənilən səbəbə görə öz mülahizəmizə əsasən hesabları dayandırmaq və ya ləğv etmək hüququnu özümüzdə saxlayırıq. İstifadəçilər də istənilən vaxt hesablarını bağlaya bilərlər."
+    },
+    "section9": {
+      "title": "Şərtlərdə Dəyişikliklər",
+      "content": "Bu İstifadə Şərtlərini vaxtaşırı yeniləyə bilərik. İstifadəçiləri əhəmiyyətli dəyişikliklər barədə məlumatlandıracağıq. Dəyişikliklərdən sonra platformadan davam edən istifadə yeni şərtlərin qəbul edilməsi deməkdir."
+    },
+    "section10": {
+      "title": "Tətbiq Olunan Qanun",
+      "content": "Bu şərtlər Azərbaycan Respublikasının qanunları ilə tənzimlənir. Hər hansı mübahisələr Bakı, Azərbaycan məhkəmələrində həll olunacaq."
+    },
+    "contact": {
+      "title": "Bizimlə Əlaqə",
+      "content": "Bu İstifadə Şərtləri haqqında suallarınız varsa, bizimlə əlaqə saxlayın:"
+    }
+  },
+  "privacy": {
+    "meta": {
+      "title": "Məxfilik Siyasəti - Task.az",
+      "description": "Task.az-ın şəxsi məlumatlarınızı necə topladığını, istifadə etdiyini və qoruduğunu öyrənin."
+    },
+    "hero": {
+      "title": "Məxfilik Siyasəti",
+      "lastUpdated": "Son Yenilənmə"
+    },
+    "intro": {
+      "title": "Giriş",
+      "content": "Task.az-da məxfiliyinizi ciddi qəbul edirik. Bu Məxfilik Siyasəti platformamızdan istifadə etdiyiniz zaman məlumatlarınızı necə topladığımızı, istifadə etdiyimizi, açıqladığımızı və qoruduğumuzu izah edir. Zəhmət olmasa bu siyasəti diqqətlə oxuyun."
+    },
+    "section1": {
+      "title": "Topladığımız Məlumatlar",
+      "content": "Birbaşa bizə təqdim etdiyiniz məlumatları və platformamızdan istifadə etdiyiniz zaman avtomatik toplanan məlumatları toplayırıq.",
+      "subtitle1": "Şəxsi Məlumatlar",
+      "personal1": "Ad, e-poçt ünvanı, telefon nömrəsi",
+      "personal2": "Profil məlumatları, bacarıqlar və portfel",
+      "personal3": "Ödəniş məlumatları (üçüncü tərəf təminatçıları tərəfindən təhlükəsiz emal edilir)",
+      "personal4": "Platformamızda istifadəçilər arasında ünsiyyətlər",
+      "subtitle2": "Avtomatik Toplanan Məlumatlar",
+      "auto1": "IP ünvanı, brauzer növü və cihaz məlumatları",
+      "auto2": "Baxılan səhifələr və istifadə olunan xüsusiyyətlər daxil olmaqla istifadə məlumatları",
+      "auto3": "Cookie-lər və oxşar izləmə texnologiyaları"
+    },
+    "section2": {
+      "title": "Məlumatlarınızı Necə İstifadə Edirik",
+      "content": "Toplanan məlumatları müxtəlif məqsədlər üçün istifadə edirik:",
+      "point1": "Xidmətlərimizi təqdim etmək və saxlamaq",
+      "point2": "Əməliyyatları emal etmək və bildirişlər göndərmək",
+      "point3": "İstifadəçi təcrübəsini təkmilləşdirmək və fərdiləşdirmək",
+      "point4": "Yeniləmələr və təkliflər haqqında sizinlə ünsiyyət saxlamaq",
+      "point5": "Fırıldaqçılıq və sui-istifadəni aşkar etmək və qarşısını almaq",
+      "point6": "Hüquqi öhdəliklərə əməl etmək"
+    },
+    "section3": {
+      "title": "Məlumat Paylaşımı",
+      "content": "Məlumatlarınızı aşağıdakı hallarda paylaşa bilərik:",
+      "point1": "Xidmətləri asanlaşdırmaq üçün lazım olduqda digər istifadəçilərlə",
+      "point2": "Əməliyyatlarımızda kömək edən xidmət təminatçıları ilə",
+      "point3": "Hüquqi tələblərə cavab vermək və ya hüquqları qorumaq üçün",
+      "point4": "Biznes köçürmə və ya satınalma ilə əlaqədar"
+    },
+    "section4": {
+      "title": "Məlumat Təhlükəsizliyi",
+      "content": "Məlumatlarınızı qorumaq üçün müvafiq təhlükəsizlik tədbirləri həyata keçiririk:",
+      "point1": "Tranzitdə və dinclikdə həssas məlumatların şifrələnməsi",
+      "point2": "Müntəzəm təhlükəsizlik qiymətləndirmələri və yeniləmələr",
+      "point3": "Giriş nəzarəti və autentifikasiya tələbləri"
+    },
+    "section5": {
+      "title": "Hüquqlarınız",
+      "content": "Şəxsi məlumatlarınızla bağlı müəyyən hüquqlarınız var:",
+      "point1": "Məlumatlarınıza giriş və nüsxəsini almaq",
+      "point2": "Yanlış və ya natamam məlumatları düzəltmək",
+      "point3": "Məlumatlarınızın silinməsini tələb etmək",
+      "point4": "Marketinq ünsiyyətlərindən imtina etmək",
+      "point5": "Tətbiq olunduqda razılığı geri götürmək"
+    },
+    "section6": {
+      "title": "Cookie-lər",
+      "content": "Aşağıdakılar üçün cookie-lər və oxşar texnologiyalardan istifadə edirik:",
+      "point1": "Seçim və parametrlərinizi xatırlamaq",
+      "point2": "Platformamızdan necə istifadə etdiyinizi anlamaq",
+      "point3": "Müvafiq reklamları təqdim etmək"
+    },
+    "section7": {
+      "title": "Məlumatın Saxlanması",
+      "content": "Məlumatlarınızı xidmətləri təqdim etmək və hüquqi öhdəliklərə əməl etmək üçün lazım olduğu müddətdə saxlayırıq. İstənilən vaxt hesabınızın silinməsini tələb edə bilərsiniz."
+    },
+    "section8": {
+      "title": "Üçüncü Tərəf Keçidləri",
+      "content": "Platformamız üçüncü tərəf vebsaytlarına keçidlər ehtiva edə bilər. Xarici saytların məxfilik təcrübələrinə görə məsuliyyət daşımırıq. Zəhmət olmasa onların məxfilik siyasətlərini nəzərdən keçirin."
+    },
+    "section9": {
+      "title": "Uşaqların Məxfiliyi",
+      "content": "Task.az 18 yaşdan aşağı istifadəçilər üçün nəzərdə tutulmayıb. Uşaqlardan bilərəkdən məlumat toplamırıq. Uşaqdan məlumat topladığımıza inanırsınızsa, zəhmət olmasa bizimlə əlaqə saxlayın."
+    },
+    "section10": {
+      "title": "Məxfilik Siyasətində Dəyişikliklər",
+      "content": "Bu Məxfilik Siyasətini dövri olaraq yeniləyə bilərik. Əhəmiyyətli dəyişikliklər barədə e-poçt və ya platformamız vasitəsilə sizi məlumatlandıracağıq. Dəyişikliklərdən sonra davam edən istifadə qəbul etmək deməkdir."
+    },
+    "contact": {
+      "title": "Bizimlə Əlaqə",
+      "content": "Bu Məxfilik Siyasəti haqqında suallarınız varsa, bizimlə əlaqə saxlayın:"
     }
   }
 }
