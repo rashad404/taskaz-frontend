@@ -16,7 +16,8 @@ import {
   Loader2,
   AlertCircle,
   Star,
-  ArrowRight
+  ArrowRight,
+  X
 } from 'lucide-react';
 
 export default function DashboardPage() {
@@ -34,6 +35,7 @@ export default function DashboardPage() {
   const [professionalStatus, setProfessionalStatus] = useState<any>(null);
   const [recentTasks, setRecentTasks] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [dismissedProApproval, setDismissedProApproval] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -53,6 +55,34 @@ export default function DashboardPage() {
         if (userRes.ok) {
           const userData = await userRes.json();
           setUser(userData.data);
+        }
+
+        // Fetch announcement statuses from API
+        const announcementsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/announcements`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+
+        if (announcementsRes.ok) {
+          const announcementsData = await announcementsRes.json();
+          const professionalApprovalStatus = announcementsData.data?.professional_approval;
+
+          if (professionalApprovalStatus?.dismissed) {
+            setDismissedProApproval(true);
+            // Sync to localStorage for instant UX on next load
+            localStorage.setItem('dismissedProApproval', 'true');
+          } else {
+            // Check localStorage as fallback for instant UX
+            const dismissed = localStorage.getItem('dismissedProApproval');
+            if (dismissed === 'true') {
+              setDismissedProApproval(true);
+            }
+          }
+        } else {
+          // Fallback to localStorage if API fails
+          const dismissed = localStorage.getItem('dismissedProApproval');
+          if (dismissed === 'true') {
+            setDismissedProApproval(true);
+          }
         }
 
         // Fetch my tasks
@@ -119,6 +149,31 @@ export default function DashboardPage() {
 
     fetchData();
   }, [router, locale]);
+
+  const handleDismissProApproval = async () => {
+    const token = localStorage.getItem('token');
+
+    // Instant UI update
+    setDismissedProApproval(true);
+    localStorage.setItem('dismissedProApproval', 'true');
+
+    // Background sync to database
+    if (token) {
+      try {
+        await fetch(`${process.env.NEXT_PUBLIC_API_URL}/announcements/dismiss`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ type: 'professional_approval' })
+        });
+      } catch (error) {
+        console.error('Failed to sync dismissal to server:', error);
+        // Don't revert UI state - user already dismissed it locally
+      }
+    }
+  };
 
   if (isLoading) {
     return (
@@ -213,9 +268,16 @@ export default function DashboardPage() {
             )}
 
             {/* Approved */}
-            {professionalStatus.professional_status === 'approved' && (
-              <div className="rounded-3xl p-6 bg-green-50 dark:bg-green-900/20 border-2 border-green-200 dark:border-green-800">
-                <div className="flex items-start gap-4">
+            {professionalStatus.professional_status === 'approved' && !dismissedProApproval && (
+              <div className="rounded-3xl p-6 bg-green-50 dark:bg-green-900/20 border-2 border-green-200 dark:border-green-800 relative">
+                <button
+                  onClick={handleDismissProApproval}
+                  className="absolute top-4 right-4 p-1 rounded-lg hover:bg-green-100 dark:hover:bg-green-900/50 transition-colors"
+                  aria-label="Bağla"
+                >
+                  <X className="w-5 h-5 text-green-600 dark:text-green-400" />
+                </button>
+                <div className="flex items-start gap-4 pr-8">
                   <div className="w-12 h-12 rounded-xl bg-green-100 dark:bg-green-900/50 flex items-center justify-center flex-shrink-0">
                     <CheckCircle className="w-6 h-6 text-green-600 dark:text-green-400" />
                   </div>
