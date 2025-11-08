@@ -34,22 +34,123 @@ export default function RichTextEditor({
         heading: {
           levels: [2, 3],
         },
+        // Disable extensions we don't want
+        blockquote: false,
+        code: false,
+        codeBlock: false,
+        horizontalRule: false,
+        strike: false,
+        // Disable hardBreak to prevent unwanted line breaks
+        hardBreak: false,
       }),
       Placeholder.configure({
         placeholder,
       }),
     ],
+    // Parse options to strip unwanted tags during initial content setting
+    parseOptions: {
+      preserveWhitespace: false,
+    },
     content: value || '',
     editorProps: {
       attributes: {
         class: 'prose dark:prose-invert max-w-none focus:outline-none min-h-[200px] px-4 py-3',
       },
+      // Handle paste events to strip unwanted formatting
+      transformPastedHTML(html) {
+        // Create a temporary div to parse the HTML
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = html;
+
+        // Function to clean a node and its children
+        const cleanNode = (node: Node): Node | null => {
+          if (node.nodeType === Node.TEXT_NODE) {
+            return node.cloneNode(true);
+          }
+
+          if (node.nodeType === Node.ELEMENT_NODE) {
+            const element = node as HTMLElement;
+            const tagName = element.tagName.toLowerCase();
+
+            // Allowed tags: ONLY p, b, strong, i, em, h2, h3, ul, ol, li, br
+            // Explicitly excluding: a, span, div, font, img, video, script, style, etc.
+            const allowedTags = ['p', 'b', 'strong', 'i', 'em', 'h2', 'h3', 'ul', 'ol', 'li', 'br'];
+
+            if (allowedTags.includes(tagName)) {
+              // Create a clean version of the allowed tag
+              const cleanElement = document.createElement(tagName);
+
+              // Recursively clean children
+              Array.from(element.childNodes).forEach(child => {
+                const cleanedChild = cleanNode(child);
+                if (cleanedChild) {
+                  cleanElement.appendChild(cleanedChild);
+                }
+              });
+
+              return cleanElement;
+            } else {
+              // For disallowed tags, extract their text content
+              const fragment = document.createDocumentFragment();
+              Array.from(element.childNodes).forEach(child => {
+                const cleanedChild = cleanNode(child);
+                if (cleanedChild) {
+                  fragment.appendChild(cleanedChild);
+                }
+              });
+              return fragment;
+            }
+          }
+
+          return null;
+        };
+
+        // Clean the pasted content
+        const cleanedDiv = document.createElement('div');
+        Array.from(tempDiv.childNodes).forEach(child => {
+          const cleanedChild = cleanNode(child);
+          if (cleanedChild) {
+            cleanedDiv.appendChild(cleanedChild);
+          }
+        });
+
+        return cleanedDiv.innerHTML;
+      },
     },
     onUpdate: ({ editor }) => {
       const html = editor.getHTML();
-      onChange(html === '<p></p>' ? '' : html);
+
+      // Additional sanitization on output to ensure no unwanted tags slip through
+      const sanitizedHtml = sanitizeHTML(html);
+
+      onChange(sanitizedHtml === '<p></p>' ? '' : sanitizedHtml);
     },
   });
+
+  // Function to sanitize HTML output
+  const sanitizeHTML = (html: string): string => {
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = html;
+
+    // Remove all anchor tags and replace with their text content
+    const links = tempDiv.querySelectorAll('a');
+    links.forEach(link => {
+      const textNode = document.createTextNode(link.textContent || '');
+      link.parentNode?.replaceChild(textNode, link);
+    });
+
+    // Remove any other disallowed elements
+    const disallowedTags = ['span', 'div', 'font', 'img', 'video', 'audio', 'script', 'style', 'iframe', 'object', 'embed'];
+    disallowedTags.forEach(tag => {
+      const elements = tempDiv.querySelectorAll(tag);
+      elements.forEach(el => {
+        const textNode = document.createTextNode(el.textContent || '');
+        el.parentNode?.replaceChild(textNode, el);
+      });
+    });
+
+    return tempDiv.innerHTML;
+  };
 
   // Update editor content when value changes externally
   useEffect(() => {
