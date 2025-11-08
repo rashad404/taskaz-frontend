@@ -15,7 +15,8 @@ import {
   Phone,
   MapPin,
   Edit2,
-  Loader2
+  Loader2,
+  Star
 } from 'lucide-react';
 import { getStorageUrl } from '@/lib/utils/url';
 
@@ -26,6 +27,7 @@ export default function SettingsPage() {
 
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [isProfessional, setIsProfessional] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -45,6 +47,7 @@ export default function SettingsPage() {
       .then(data => {
         if (data.status === 'success') {
           setUser(data.data);
+          setIsProfessional(data.data.professional_status === 'approved');
         }
       })
       .catch(err => {
@@ -67,7 +70,7 @@ export default function SettingsPage() {
     return null;
   }
 
-  const settingsMenu = [
+  const baseSettingsMenu = [
     {
       id: 'profile',
       title: 'Profil Məlumatları',
@@ -123,6 +126,23 @@ export default function SettingsPage() {
       bgColor: 'bg-red-100 dark:bg-red-900/30'
     }
   ];
+
+  // Add professional settings if user is an approved professional
+  const settingsMenu = isProfessional
+    ? [
+        baseSettingsMenu[0], // Profile
+        {
+          id: 'professional',
+          title: 'Peşəkar Profil',
+          description: 'Peşəkar məlumatlarınızı və portfelinizi idarə edin',
+          icon: Star,
+          href: `/${locale}/settings/professional`,
+          color: 'text-amber-600 dark:text-amber-400',
+          bgColor: 'bg-amber-100 dark:bg-amber-900/30'
+        },
+        ...baseSettingsMenu.slice(1) // Rest of the menu
+      ]
+    : baseSettingsMenu;
 
   return (
     <div className="min-h-screen py-8 px-4 sm:px-6">

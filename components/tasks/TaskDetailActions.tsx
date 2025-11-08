@@ -24,30 +24,25 @@ export default function TaskDetailActions({ task }: TaskDetailActionsProps) {
     // Check ownership by calling API with auth token
     const checkOwnership = async () => {
       const token = localStorage.getItem('token');
-      console.log('Token exists:', !!token);
       if (!token) {
-        console.log('No token, setting isOwner to false');
         setIsOwner(false);
         return;
       }
 
       try {
-        const url = `${process.env.NEXT_PUBLIC_API_URL}/tasks/${task.slug}`;
-        console.log('Fetching task from:', url);
-        const response = await fetch(url, {
-          headers: {
-            'Authorization': `Bearer ${token}`
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/tasks/${task.slug}`,
+          {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            }
           }
-        });
+        );
 
-        console.log('Response status:', response.status);
         if (response.ok) {
           const data = await response.json();
-          console.log('Task data:', data);
-          console.log('is_owner from API:', data.data?.is_owner);
           setIsOwner(data.data?.is_owner || false);
         } else {
-          console.error('Response not OK:', response.status);
           setIsOwner(false);
         }
       } catch (error) {

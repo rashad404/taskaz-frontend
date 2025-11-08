@@ -55,13 +55,47 @@ export default function ProfessionalApplicationForm({ locale }: ProfessionalAppl
   const [districtId, setDistrictId] = useState<number | null>(null);
   const [settlementId, setSettlementId] = useState<number | null>(null);
   const [metroStationId, setMetroStationId] = useState<number | null>(null);
+  const [professionalStatus, setProfessionalStatus] = useState<string | null>(null);
+  const [checkingStatus, setCheckingStatus] = useState(true);
 
-  // Check authentication
+  // Check authentication and professional status
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      setShowAuthModal(true);
-    }
+    const checkStatus = async () => {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        setShowAuthModal(true);
+        setCheckingStatus(false);
+        return;
+      }
+
+      // Fetch current professional status from API
+      try {
+        const response = await apiClient.get('/professional/status');
+        if (response.data.status === 'success') {
+          setProfessionalStatus(response.data.data.professional_status);
+
+          // Also update localStorage user data
+          const user = JSON.parse(localStorage.getItem('user') || '{}');
+          user.professional_status = response.data.data.professional_status;
+          localStorage.setItem('user', JSON.stringify(user));
+        }
+      } catch (error: any) {
+        console.error('Failed to fetch professional status:', error);
+        // Fallback to localStorage if API call fails
+        try {
+          const user = JSON.parse(localStorage.getItem('user') || '{}');
+          if (user.professional_status) {
+            setProfessionalStatus(user.professional_status);
+          }
+        } catch (e) {
+          console.error('Failed to parse user data:', e);
+        }
+      }
+
+      setCheckingStatus(false);
+    };
+
+    checkStatus();
   }, []);
 
   // Update location field when city is selected (for validation)
@@ -94,7 +128,19 @@ export default function ProfessionalApplicationForm({ locale }: ProfessionalAppl
     setApiError(null);
 
     try {
-      const response = await apiClient.post('/professional/apply', formData);
+      // Prepare data for API - remove location field and add city IDs
+      const submitData = {
+        bio: formData.bio,
+        city_id: cityId,
+        district_id: districtId,
+        settlement_id: settlementId,
+        metro_station_id: metroStationId,
+        skills: formData.skills,
+        hourly_rate: formData.hourly_rate ? parseFloat(formData.hourly_rate) : 0,
+        portfolio_items: formData.portfolio_items || []
+      };
+
+      const response = await apiClient.post('/professional/apply', submitData);
 
       if (response.data.status === 'success') {
         setSuccessMessage(true);
@@ -106,11 +152,18 @@ export default function ProfessionalApplicationForm({ locale }: ProfessionalAppl
       }
     } catch (error: any) {
       console.error('Failed to submit application:', error);
+      console.error('Error response:', error.response?.data);
+      console.error('Validation errors:', error.response?.data?.errors);
 
       // If 401, show auth modal
       if (error.response?.status === 401) {
         setShowAuthModal(true);
         setApiError(null);
+      } else if (error.response?.data?.errors) {
+        // Show validation errors
+        const validationErrors = error.response.data.errors;
+        const errorMessages = Object.values(validationErrors).flat().join(', ');
+        setApiError(errorMessages);
       } else if (error.response?.data?.message) {
         setApiError(error.response.data.message);
       } else {
@@ -120,6 +173,73 @@ export default function ProfessionalApplicationForm({ locale }: ProfessionalAppl
       setSubmitting(false);
     }
   };
+
+  // Show loading state while checking status
+  if (checkingStatus) {
+    return (
+      <div className="max-w-2xl mx-auto py-20 text-center">
+        <Loader2 className="w-8 h-8 animate-spin text-indigo-600 mx-auto" />
+      </div>
+    );
+  }
+
+  // Show message if already approved
+  if (professionalStatus === 'approved') {
+    return (
+      <div className="max-w-2xl mx-auto">
+        <div className="rounded-3xl p-12 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-white/30 dark:border-gray-700/30 text-center">
+          <div className="w-20 h-20 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center mx-auto mb-6">
+            <CheckCircle2 className="w-10 h-10 text-white" />
+          </div>
+          <h2 className="text-3xl font-bold mb-4">
+            <span className="gradient-text">Siz artıq təsdiqlənmiş peşəkarsınız</span>
+          </h2>
+          <p className="text-gray-600 dark:text-gray-300 mb-6">
+            Artıq peşəkar kimi qeydiyyatdan keçmisiniz və profiliniz təsdiqlənib.
+          </p>
+          <div className="flex gap-4 justify-center">
+            <button
+              onClick={() => router.push(`/${locale}/settings/professional`)}
+              className="btn-primary"
+            >
+              Profili İdarə Et
+            </button>
+            <button
+              onClick={() => router.push(`/${locale}/dashboard`)}
+              className="btn-secondary"
+            >
+              İdarə Paneli
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Show message if pending
+  if (professionalStatus === 'pending') {
+    return (
+      <div className="max-w-2xl mx-auto">
+        <div className="rounded-3xl p-12 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-white/30 dark:border-gray-700/30 text-center">
+          <div className="w-20 h-20 rounded-full bg-gradient-to-br from-yellow-500 to-orange-500 flex items-center justify-center mx-auto mb-6">
+            <Loader2 className="w-10 h-10 text-white" />
+          </div>
+          <h2 className="text-3xl font-bold mb-4">
+            <span className="gradient-text">Müraciətiniz nəzərdən keçirilir</span>
+          </h2>
+          <p className="text-gray-600 dark:text-gray-300 mb-6">
+            Peşəkar müraciətiniz artıq göndərilib və nəzərdən keçirilir. Qərar verildikdə sizə bildiriş göndəriləcək.
+          </p>
+          <button
+            onClick={() => router.push(`/${locale}/dashboard`)}
+            className="btn-primary"
+          >
+            İdarə Panelinə Qayıt
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   if (successMessage) {
     return (

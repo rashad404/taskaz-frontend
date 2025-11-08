@@ -28,6 +28,7 @@ export default function ProfessionalsListing({ locale, initialFilters }: Profess
     per_page: 20,
     total: 0,
   });
+  const [isProfessional, setIsProfessional] = useState(false);
 
   // Build filters from URL params
   const buildFilters = (): ProfessionalFilters => {
@@ -54,6 +55,23 @@ export default function ProfessionalsListing({ locale, initialFilters }: Profess
 
     return filters;
   };
+
+  // Check if user is an approved professional
+  useEffect(() => {
+    const checkProfessionalStatus = () => {
+      try {
+        const user = localStorage.getItem('user');
+        if (user) {
+          const userData = JSON.parse(user);
+          setIsProfessional(userData.professional_status === 'approved');
+        }
+      } catch (error) {
+        console.error('Failed to parse user data:', error);
+      }
+    };
+
+    checkProfessionalStatus();
+  }, []);
 
   // Fetch professionals
   useEffect(() => {
@@ -144,13 +162,15 @@ export default function ProfessionalsListing({ locale, initialFilters }: Profess
               </p>
             </div>
 
-            {/* Become a Professional CTA */}
-            <Link href={`/${locale}/become-professional`}>
+            {/* Become a Professional CTA or Manage Profile */}
+            <Link href={isProfessional ? `/${locale}/settings/professional` : `/${locale}/become-professional`}>
               <div className="group relative cursor-pointer">
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 opacity-90 group-hover:opacity-100 transition-all duration-500" />
                 <div className="relative flex items-center gap-3 px-6 py-4 text-white">
                   <Star className="w-5 h-5" />
-                  <span className="font-semibold whitespace-nowrap">Peşəkar Olun</span>
+                  <span className="font-semibold whitespace-nowrap">
+                    {isProfessional ? 'Profili İdarə Et' : 'Peşəkar Olun'}
+                  </span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </div>
               </div>
