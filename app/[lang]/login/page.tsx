@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { CheckSquare, Mail, Lock, ArrowRight, Sparkles } from 'lucide-react';
+import { Mail, Lock, ArrowRight } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
 export default function LoginPage() {
@@ -69,23 +69,6 @@ export default function LoginPage() {
       </div>
 
       <div className="w-full max-w-md px-6 py-12">
-        {/* Logo */}
-        <Link href="/" className="flex items-center justify-center gap-2 mb-8">
-          <div className="relative">
-            <div className="relative w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 p-[1px]">
-              <div className="w-full h-full rounded-2xl bg-white dark:bg-gray-900 flex items-center justify-center">
-                <div className="relative">
-                  <CheckSquare className="w-6 h-6 text-indigo-600 dark:text-indigo-400" strokeWidth={2} fill="none" />
-                  <div className="absolute inset-0 w-6 h-6">
-                    <CheckSquare className="w-6 h-6 text-purple-500 opacity-50" strokeWidth={2} fill="none" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <span className="gradient-text text-2xl font-bold">task.az</span>
-        </Link>
-
         {/* Welcome Text */}
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
