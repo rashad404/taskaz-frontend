@@ -17,6 +17,7 @@ import {
   AlertCircle
 } from 'lucide-react';
 import LocationSelector from '@/components/common/LocationSelector';
+import DashboardLayout from '@/components/layout/DashboardLayout';
 import dynamic from 'next/dynamic';
 
 const RichTextEditor = dynamic(() => import('@/components/ui/RichTextEditor'), {
@@ -231,7 +232,7 @@ export default function ProfessionalSettingsPage() {
   }
 
   return (
-    <div className="min-h-screen py-8 px-4 sm:px-6">
+    <DashboardLayout activePage="professional" title="Peşəkar Profil">
       <div className="max-w-4xl mx-auto">
         {/* Back Button */}
         <Link
@@ -515,6 +516,6 @@ export default function ProfessionalSettingsPage() {
           </div>
         </form>
       </div>
-    </div>
+    </DashboardLayout>
   );
 }

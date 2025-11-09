@@ -1,5 +1,6 @@
 'use client';
 import { getStorageUrl } from '@/lib/utils/url';
+import DashboardLayout from '@/components/layout/DashboardLayout';
 
 import { useEffect, useState } from 'react';
 import { useRouter, useParams } from 'next/navigation';
@@ -140,16 +141,13 @@ export default function ConversationsPage() {
     }
   };
 
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-indigo-600" />
-      </div>
-    );
-  }
-
   return (
-    <div className="min-h-screen py-8 px-4 sm:px-6">
+    <DashboardLayout activePage="conversations" title="Mesajlar">
+      {loading ? (
+        <div className="flex items-center justify-center min-h-[400px]">
+          <Loader2 className="w-8 h-8 animate-spin text-indigo-600" />
+        </div>
+      ) : (
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8">
@@ -364,7 +362,7 @@ export default function ConversationsPage() {
             </div>
           </div>
         )}
-      </div>
-    </div>
+      )}
+    </DashboardLayout>
   );
 }

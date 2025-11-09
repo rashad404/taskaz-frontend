@@ -15,6 +15,7 @@ import {
   Filter
 } from 'lucide-react';
 import TaskStatusBadge from '@/components/tasks/TaskStatusBadge';
+import DashboardLayout from '@/components/layout/DashboardLayout';
 
 export default function MyTasksPage() {
   const router = useRouter();
@@ -60,16 +61,13 @@ export default function MyTasksPage() {
     ? tasks
     : tasks.filter(task => task.status === filter);
 
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-indigo-600" />
-      </div>
-    );
-  }
-
   return (
-    <div className="min-h-screen py-8 px-4 sm:px-6">
+    <DashboardLayout activePage="my-tasks" title="Mənim Tapşırıqlarım">
+      {loading ? (
+        <div className="flex items-center justify-center min-h-[400px]">
+          <Loader2 className="w-8 h-8 animate-spin text-indigo-600" />
+        </div>
+      ) : (
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8 flex items-center justify-between">
@@ -221,6 +219,7 @@ export default function MyTasksPage() {
           </div>
         )}
       </div>
-    </div>
+      )}
+    </DashboardLayout>
   );
 }
