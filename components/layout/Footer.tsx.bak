@@ -13,8 +13,12 @@ export default function Footer() {
   const lang = (params?.lang as string) || 'az';
   const currentYear = new Date().getFullYear();
 
-  // Check if we're on a dashboard page (all dashboard pages are under /dashboard)
-  const isDashboardPage = pathname?.includes('/dashboard');
+  // Check if we're on a dashboard-style page (with sidebar)
+  const isDashboardPage = pathname?.includes('/dashboard') ||
+    pathname?.includes('/dashboard/tasks') ||
+    pathname?.includes('/dashboard/applications') ||
+    pathname?.includes('/conversations') ||
+    pathname?.includes('/settings');
 
   const footerLinks = {
     company: [

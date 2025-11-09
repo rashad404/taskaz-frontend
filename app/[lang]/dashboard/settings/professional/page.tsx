@@ -17,7 +17,6 @@ import {
   AlertCircle
 } from 'lucide-react';
 import LocationSelector from '@/components/common/LocationSelector';
-import DashboardLayout from '@/components/layout/DashboardLayout';
 import dynamic from 'next/dynamic';
 
 const RichTextEditor = dynamic(() => import('@/components/ui/RichTextEditor'), {
@@ -232,7 +231,7 @@ export default function ProfessionalSettingsPage() {
   }
 
   return (
-    <DashboardLayout activePage="professional" title="Peşəkar Profil">
+    
       <div className="max-w-4xl mx-auto">
         {/* Back Button */}
         <Link
@@ -245,9 +244,9 @@ export default function ProfessionalSettingsPage() {
 
         {/* Header */}
         <div className="mb-8">
-          <div className="flex items-center gap-3 mb-2">
+          <div className="flex items-center gap-3 mb-1">
             <Star className="w-8 h-8 text-indigo-600" />
-            <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
               Peşəkar Profil
             </h1>
           </div>
@@ -281,7 +280,7 @@ export default function ProfessionalSettingsPage() {
           <div className="space-y-6">
             {/* Bio */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 <div className="flex items-center gap-2">
                   <FileText className="w-4 h-4" />
                   Haqqında *
@@ -325,7 +324,7 @@ export default function ProfessionalSettingsPage() {
 
             {/* Skills */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 <div className="flex items-center gap-2">
                   <Briefcase className="w-4 h-4" />
                   Bacarıqlar *
@@ -379,7 +378,7 @@ export default function ProfessionalSettingsPage() {
 
             {/* Hourly Rate */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 <div className="flex items-center gap-2">
                   <DollarSign className="w-4 h-4" />
                   Saatlıq Qiymət (AZN) *
@@ -424,7 +423,7 @@ export default function ProfessionalSettingsPage() {
                             {item.title}
                           </h4>
                           {item.description && (
-                            <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                            <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">
                               {item.description}
                             </p>
                           )}
@@ -516,6 +515,7 @@ export default function ProfessionalSettingsPage() {
           </div>
         </form>
       </div>
-    </DashboardLayout>
+    
   );
 }
+

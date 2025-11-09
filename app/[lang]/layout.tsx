@@ -4,6 +4,7 @@ import { getMessages } from 'next-intl/server';
 import { i18n, type Locale } from "@/i18n-config";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import DashboardLayoutWrapper from "@/components/layout/DashboardLayoutWrapper";
 
 interface LangLayoutProps {
   children: React.ReactNode;
@@ -26,13 +27,9 @@ export default async function LangLayout({
 
   return (
     <NextIntlClientProvider messages={messages}>
-      <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors flex flex-col">
-        <Header />
-        <main className="flex-grow">
-          {children}
-        </main>
-        <Footer />
-      </div>
+      <DashboardLayoutWrapper lang={lang}>
+        {children}
+      </DashboardLayoutWrapper>
     </NextIntlClientProvider>
   );
 }
