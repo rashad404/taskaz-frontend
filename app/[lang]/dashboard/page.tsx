@@ -43,19 +43,18 @@ export default function DashboardPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-
-    if (!token) {
-      router.push(getLocalizedPath(locale, '/login'));
-      return;
-    }
-
     // Fetch user data
     const fetchData = async () => {
       try {
         const userRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user`, {
-          headers: { 'Authorization': `Bearer ${token}` }
+          credentials: 'include' // Use cookies for auth
         });
+
+        if (userRes.status === 401) {
+          // Not authenticated - redirect to login
+          router.push(getLocalizedPath(locale, '/login'));
+          return;
+        }
 
         if (userRes.ok) {
           const userData = await userRes.json();
@@ -64,7 +63,7 @@ export default function DashboardPage() {
 
         // Fetch announcement statuses from API
         const announcementsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/announcements`, {
-          headers: { 'Authorization': `Bearer ${token}` }
+          credentials: 'include'
         });
 
         if (announcementsRes.ok) {
@@ -92,7 +91,7 @@ export default function DashboardPage() {
 
         // Fetch my tasks
         const tasksRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/my-tasks`, {
-          headers: { 'Authorization': `Bearer ${token}` }
+          credentials: 'include'
         });
 
         if (tasksRes.ok) {
@@ -103,7 +102,7 @@ export default function DashboardPage() {
 
         // Fetch my applications
         const appsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/my-applications`, {
-          headers: { 'Authorization': `Bearer ${token}` }
+          credentials: 'include'
         });
 
         if (appsRes.ok) {
@@ -113,7 +112,7 @@ export default function DashboardPage() {
 
         // Fetch contracts
         const contractsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/contracts`, {
-          headers: { 'Authorization': `Bearer ${token}` }
+          credentials: 'include'
         });
 
         if (contractsRes.ok) {
@@ -128,7 +127,7 @@ export default function DashboardPage() {
 
         // Fetch unread messages count
         const messagesRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/messages/unread-count`, {
-          headers: { 'Authorization': `Bearer ${token}` }
+          credentials: 'include'
         });
 
         if (messagesRes.ok) {
@@ -138,7 +137,7 @@ export default function DashboardPage() {
 
         // Fetch professional status
         const professionalRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/professional/status`, {
-          headers: { 'Authorization': `Bearer ${token}` }
+          credentials: 'include'
         });
 
         if (professionalRes.ok) {
@@ -156,27 +155,23 @@ export default function DashboardPage() {
   }, [router, locale]);
 
   const handleDismissProApproval = async () => {
-    const token = localStorage.getItem('token');
-
     // Instant UI update
     setDismissedProApproval(true);
     localStorage.setItem('dismissedProApproval', 'true');
 
     // Background sync to database
-    if (token) {
-      try {
-        await fetch(`${process.env.NEXT_PUBLIC_API_URL}/announcements/dismiss`, {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ type: 'professional_approval' })
-        });
-      } catch (error) {
-        console.error('Failed to sync dismissal to server:', error);
-        // Don't revert UI state - user already dismissed it locally
-      }
+    try {
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/announcements/dismiss`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({ type: 'professional_approval' })
+      });
+    } catch (error) {
+      console.error('Failed to sync dismissal to server:', error);
+      // Don't revert UI state - user already dismissed it locally
     }
   };
 
