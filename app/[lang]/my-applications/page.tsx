@@ -28,20 +28,19 @@ export default function MyApplicationsPage() {
   };
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-
-    if (!token) {
-      router.push(`/${locale}/login`);
-      return;
-    }
-
     // Fetch my applications
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/my-applications`, {
-      headers: { 'Authorization': `Bearer ${token}` }
+      credentials: 'include'
     })
-      .then(res => res.json())
+      .then(res => {
+        if (res.status === 401) {
+          router.push(`/${locale}/login`);
+          return null;
+        }
+        return res.json();
+      })
       .then(data => {
-        if (data.status === 'success') {
+        if (data && data.status === 'success') {
           setApplications(data.data?.data || []);
         }
       })

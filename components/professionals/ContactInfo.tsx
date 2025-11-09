@@ -17,7 +17,6 @@ export default function ContactInfo({ email, phone, locale = 'az' }: ContactInfo
 
   useEffect(() => {
     setMounted(true);
-    const token = localStorage.getItem('token');
     setIsAuthenticated(!!token);
   }, []);
 

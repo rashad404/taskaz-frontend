@@ -16,20 +16,20 @@ export default function TaskEditPage() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-
-    if (!token) {
-      router.push(`/${locale}/login`);
-      return;
-    }
 
     // Fetch task details
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/tasks/${slug}`, {
-      headers: { 'Authorization': `Bearer ${token}` }
+      credentials: 'include'
     })
-      .then(res => res.json())
+      .then(res => {
+        if (res.status === 401) {
+          router.push(`/${locale}/login`);
+          return null;
+        }
+        return res.json();
+      })
       .then(data => {
-        if (data.status === 'success') {
+        if (data && data.status === 'success') {
           // Check if user owns this task (backend provides is_owner flag)
           if (!data.data.is_owner) {
             setError('Yalnız öz tapşırığınızı redaktə edə bilərsiniz');

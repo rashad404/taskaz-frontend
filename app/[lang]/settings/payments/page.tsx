@@ -55,20 +55,20 @@ export default function PaymentsSettingsPage() {
   });
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-
-    if (!token) {
-      router.push(`/${locale}/login`);
-      return;
-    }
 
     // Fetch payment methods
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/payment-methods`, {
-      headers: { 'Authorization': `Bearer ${token}` }
+      credentials: 'include'
     })
-      .then(res => res.json())
+      .then(res => {
+        if (res.status === 401) {
+          router.push(`/${locale}/login`);
+          return null;
+        }
+        return res.json();
+      })
       .then(data => {
-        if (data.status === 'success') {
+        if (data && data.status === 'success') {
           setPaymentMethods(data.data || []);
         }
       })
@@ -85,11 +85,9 @@ export default function PaymentsSettingsPage() {
       return;
     }
 
-    try {
-      const token = localStorage.getItem('token');
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/payment-methods/${id}`, {
+    try {      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/payment-methods/${id}`, {
         method: 'DELETE',
-        headers: { 'Authorization': `Bearer ${token}` }
+        credentials: 'include'
       });
 
       if (response.ok) {
@@ -105,11 +103,9 @@ export default function PaymentsSettingsPage() {
   };
 
   const handleSetDefault = async (id: number) => {
-    try {
-      const token = localStorage.getItem('token');
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/payment-methods/${id}/set-default`, {
+    try {      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/payment-methods/${id}/set-default`, {
         method: 'POST',
-        headers: { 'Authorization': `Bearer ${token}` }
+        credentials: 'include'
       });
 
       if (response.ok) {

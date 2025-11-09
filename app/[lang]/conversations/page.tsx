@@ -31,20 +31,19 @@ export default function ConversationsPage() {
   const [currentUser, setCurrentUser] = useState<any>(null);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-
-    if (!token) {
-      router.push(`/${locale}/login`);
-      return;
-    }
-
     // Fetch current user
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/user`, {
-      headers: { 'Authorization': `Bearer ${token}` }
+      credentials: 'include'
     })
-      .then(res => res.json())
+      .then(res => {
+        if (res.status === 401) {
+          router.push(`/${locale}/login`);
+          return null;
+        }
+        return res.json();
+      })
       .then(data => {
-        if (data.status === 'success') {
+        if (data && data.status === 'success') {
           setCurrentUser(data.data);
         }
       })
@@ -52,11 +51,17 @@ export default function ConversationsPage() {
 
     // Fetch conversations
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/conversations`, {
-      headers: { 'Authorization': `Bearer ${token}` }
+      credentials: 'include'
     })
-      .then(res => res.json())
+      .then(res => {
+        if (res.status === 401) {
+          router.push(`/${locale}/login`);
+          return null;
+        }
+        return res.json();
+      })
       .then(data => {
-        if (data.status === 'success') {
+        if (data && data.status === 'success') {
           setConversations(data.data || []);
         }
       })
@@ -72,13 +77,11 @@ export default function ConversationsPage() {
     setSelectedTask(task);
     setLoadingMessages(true);
 
-    const token = localStorage.getItem('token');
-
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/tasks/${task.id}/messages`,
         {
-          headers: { 'Authorization': `Bearer ${token}` }
+          credentials: 'include'
         }
       );
 
@@ -101,8 +104,6 @@ export default function ConversationsPage() {
 
     setSending(true);
 
-    const token = localStorage.getItem('token');
-
     // Find the other user in the conversation
     const lastMessage = messages[messages.length - 1];
     const receiverId = lastMessage?.sender_id === currentUser.id
@@ -113,9 +114,9 @@ export default function ConversationsPage() {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/messages`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
+          'Content-Type': 'application/json'
         },
+        credentials: 'include',
         body: JSON.stringify({
           task_id: selectedTask.id,
           receiver_id: receiverId || selectedTask.user_id,

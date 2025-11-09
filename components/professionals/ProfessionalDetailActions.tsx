@@ -18,9 +18,7 @@ export default function ProfessionalDetailActions({ professional, locale = 'az' 
 
   useEffect(() => {
     // Check ownership by calling API with auth token
-    const checkOwnership = async () => {
-      const token = localStorage.getItem('token');
-      if (!token) {
+    const checkOwnership = async () => {      if (!token) {
         setIsOwner(false);
         return;
       }
@@ -29,9 +27,7 @@ export default function ProfessionalDetailActions({ professional, locale = 'az' 
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_API_URL}/professionals/${professional.slug}`,
           {
-            headers: {
-              'Authorization': `Bearer ${token}`
-            }
+            credentials: 'include'
           }
         );
 

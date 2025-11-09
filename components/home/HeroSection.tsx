@@ -267,8 +267,8 @@ export default function HeroSection({ locale }: HeroSectionProps) {
   };
 
   return (
-    <section className="relative bg-[#f5f8ff] dark:bg-gray-900 h-[420px] md:h-[700px] overflow-hidden z-10">
-      <div className="container mx-auto px-4 md:px-8 lg:px-16 xl:px-0 max-w-[1440px] h-full relative">
+    <section className="relative bg-[#f5f8ff] dark:bg-gray-900 h-[420px] md:h-[700px] overflow-hidden z-10 px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl h-full relative">
         {/* Background Ellipse 4 - Purple gradient */}
         <div className="absolute left-[-15%] top-[137px] w-[491px] h-[492px] hidden md:block">
           <Image

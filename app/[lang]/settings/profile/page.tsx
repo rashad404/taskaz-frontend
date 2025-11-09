@@ -43,20 +43,20 @@ export default function ProfileSettingsPage() {
   });
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-
-    if (!token) {
-      router.push(`/${locale}/login`);
-      return;
-    }
 
     // Fetch user data
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/user`, {
-      headers: { 'Authorization': `Bearer ${token}` }
+      credentials: 'include'
     })
-      .then(res => res.json())
+      .then(res => {
+        if (res.status === 401) {
+          router.push(`/${locale}/login`);
+          return null;
+        }
+        return res.json();
+      })
       .then(data => {
-        if (data.status === 'success') {
+        if (data && data.status === 'success') {
           setUser(data.data);
           setFormData({
             name: data.data.name || '',
@@ -110,10 +110,7 @@ export default function ProfileSettingsPage() {
     setErrors({});
     setSaving(true);
 
-    try {
-      const token = localStorage.getItem('token');
-
-      // Use FormData for file upload
+    try {      // Use FormData for file upload
       const formDataToSend = new FormData();
       formDataToSend.append('_method', 'PUT'); // Laravel method spoofing for file uploads
       formDataToSend.append('name', formData.name);
@@ -140,9 +137,7 @@ export default function ProfileSettingsPage() {
 
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user`, {
         method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`
-        },
+        credentials: 'include',
         body: formDataToSend
       });
 

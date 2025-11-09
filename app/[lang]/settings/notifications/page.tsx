@@ -28,18 +28,18 @@ export default function NotificationSettingsPage() {
   });
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-
-    if (!token) {
-      router.push(`/${locale}/login`);
-      return;
-    }
 
     // Fetch user data including notification preferences
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/user`, {
-      headers: { 'Authorization': `Bearer ${token}` }
+      credentials: 'include'
     })
-      .then(res => res.json())
+      .then(res => {
+        if (res.status === 401) {
+          router.push(`/${locale}/login`);
+          return null;
+        }
+        return res.json();
+      })
       .then(data => {
         if (data.status === 'success' && data.data) {
           const prefs = data.data.notification_preferences || {};
@@ -63,15 +63,9 @@ export default function NotificationSettingsPage() {
     setMessage({ type: '', text: '' });
     setSaving(true);
 
-    try {
-      const token = localStorage.getItem('token');
-
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user`, {
+    try {      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user`, {
         method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
+        credentials: 'include',
         body: JSON.stringify({
           notification_preferences: {
             email: settings.email,

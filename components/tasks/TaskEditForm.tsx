@@ -197,8 +197,6 @@ export default function TaskEditForm({ locale, task }: TaskEditFormProps) {
 
   const handleSubmit = async () => {
     if (!validate()) return;
-
-    const token = localStorage.getItem('token');
     if (!token) {
       router.push(`/${locale}/login`);
       return;
@@ -241,9 +239,7 @@ export default function TaskEditForm({ locale, task }: TaskEditFormProps) {
 
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tasks/${task.id}`, {
         method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
+        credentials: 'include',
         body: formDataToSend,
       });
 

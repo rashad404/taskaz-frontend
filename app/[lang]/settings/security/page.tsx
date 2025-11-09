@@ -63,12 +63,6 @@ export default function SecuritySettingsPage() {
     setLoading(true);
 
     try {
-      const token = localStorage.getItem('token');
-
-      if (!token) {
-        router.push(`/${locale}/login`);
-        return;
-      }
 
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/change-password`, {
         method: 'POST',

@@ -61,19 +61,13 @@ export default function ProfessionalSettingsPage() {
   });
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-
-    if (!token) {
-      router.push(`/${locale}/login`);
-      return;
-    }
 
     // Fetch user data and professional status
     const fetchData = async () => {
       try {
         // Check professional status first
         const statusRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/professional/status`, {
-          headers: { 'Authorization': `Bearer ${token}` }
+          credentials: 'include'
         });
 
         if (statusRes.ok) {
@@ -91,7 +85,7 @@ export default function ProfessionalSettingsPage() {
 
         // Fetch user data
         const userRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user`, {
-          headers: { 'Authorization': `Bearer ${token}` }
+          credentials: 'include'
         });
 
         if (userRes.ok) {
@@ -162,10 +156,7 @@ export default function ProfessionalSettingsPage() {
     setErrors({});
     setSaving(true);
 
-    try {
-      const token = localStorage.getItem('token');
-
-      const submitData = {
+    try {      const submitData = {
         bio: formData.bio,
         city_id: cityId,
         district_id: districtId,
@@ -178,10 +169,7 @@ export default function ProfessionalSettingsPage() {
 
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/professional/update`, {
         method: 'PUT',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        },
+        credentials: 'include',
         body: JSON.stringify(submitData)
       });
 

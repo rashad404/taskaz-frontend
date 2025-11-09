@@ -22,9 +22,7 @@ export default function TaskDetailActions({ task }: TaskDetailActionsProps) {
 
   useEffect(() => {
     // Check ownership by calling API with auth token
-    const checkOwnership = async () => {
-      const token = localStorage.getItem('token');
-      if (!token) {
+    const checkOwnership = async () => {      if (!token) {
         setIsOwner(false);
         return;
       }
@@ -33,9 +31,7 @@ export default function TaskDetailActions({ task }: TaskDetailActionsProps) {
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_API_URL}/tasks/${task.slug}`,
           {
-            headers: {
-              'Authorization': `Bearer ${token}`
-            }
+            credentials: 'include'
           }
         );
 

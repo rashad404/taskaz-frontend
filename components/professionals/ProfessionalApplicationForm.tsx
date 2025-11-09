@@ -60,9 +60,7 @@ export default function ProfessionalApplicationForm({ locale }: ProfessionalAppl
 
   // Check authentication and professional status
   useEffect(() => {
-    const checkStatus = async () => {
-      const token = localStorage.getItem('token');
-      if (!token) {
+    const checkStatus = async () => {      if (!token) {
         setShowAuthModal(true);
         setCheckingStatus(false);
         return;

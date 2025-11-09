@@ -128,9 +128,7 @@ export default function TaskCreateForm({ locale }: TaskCreateFormProps) {
   const handleSubmit = async () => {
     if (!validate()) return;
 
-    // Check if user is authenticated before making API call
-    const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
-    if (!token) {
+    // Check if user is authenticated before making API call    if (!token) {
       // Save draft and show auth modal instead of making API call
       saveDraft();
       setShowAuthModal(true);

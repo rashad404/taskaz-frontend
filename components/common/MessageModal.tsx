@@ -38,10 +38,7 @@ export default function MessageModal({
     setError('');
     setLoading(true);
 
-    try {
-      const token = localStorage.getItem('token');
-
-      if (!token) {
+    try {      if (!token) {
         // Store current page for redirect after login
         if (typeof window !== 'undefined') {
           sessionStorage.setItem('return_url', window.location.pathname);
@@ -59,10 +56,10 @@ export default function MessageModal({
 
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/messages`, {
         method: 'POST',
-        headers: {
+        headers: {headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
+          '__REMOVE__': 
+        }},
         body: JSON.stringify({
           task_id: taskId,
           receiver_id: receiverId,

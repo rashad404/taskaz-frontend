@@ -102,7 +102,7 @@ export default function CategoriesGrid({ locale }: CategoriesGridProps) {
   }
 
   return (
-    <section className="px-6 py-16 relative">
+    <section className="px-4 sm:px-6 lg:px-8 py-16 relative">
       {/* Section Header */}
       <div className="max-w-7xl mx-auto mb-12">
         <div className="text-center">

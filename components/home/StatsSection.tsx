@@ -75,7 +75,7 @@ export default function StatsSection({ locale }: StatsSectionProps) {
   ];
 
   return (
-    <section className="px-6 py-16 relative">
+    <section className="px-4 sm:px-6 lg:px-8 py-16 relative">
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-50/50 to-transparent dark:via-purple-900/10" />
 

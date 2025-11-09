@@ -31,22 +31,19 @@ export default function SettingsPage() {
   const [isProfessional, setIsProfessional] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-
-    if (!token) {
-      router.push(getLocalizedPath(locale, '/login'));
-      return;
-    }
-
     // Fetch user data
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/user`, {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
+      credentials: 'include'
     })
-      .then(res => res.json())
+      .then(res => {
+        if (res.status === 401) {
+          router.push(getLocalizedPath(locale, '/login'));
+          return null;
+        }
+        return res.json();
+      })
       .then(data => {
-        if (data.status === 'success') {
+        if (data && data.status === 'success') {
           setUser(data.data);
           setIsProfessional(data.data.professional_status === 'approved');
         }

@@ -69,7 +69,7 @@ export default function HowItWorksSection({ locale }: HowItWorksSectionProps) {
   const steps = activeTab === 'client' ? clientSteps : professionalSteps;
 
   return (
-    <section className="px-6 py-16 relative">
+    <section className="px-4 sm:px-6 lg:px-8 py-16 relative">
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-indigo-50/30 to-transparent dark:via-indigo-900/10" />
 

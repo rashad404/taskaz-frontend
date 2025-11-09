@@ -30,15 +30,7 @@ export default function HireModal({
   }, []);
 
   const handleCreateTask = () => {
-    // Check if user is authenticated
-    const token = localStorage.getItem('token');
-
-    if (!token) {
-      // Store current page for redirect after login
-      if (typeof window !== 'undefined') {
-        sessionStorage.setItem('return_url', window.location.pathname);
-      }
-      router.push(getLocalizedPath(locale, '/login'));
+    // Check if user is authenticatedrouter.push(getLocalizedPath(locale, '/login'));
       return;
     }
 
