@@ -56,10 +56,10 @@ export default function MessageModal({
 
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/messages`, {
         method: 'POST',
-        headers: {headers: {
-          'Content-Type': 'application/json',
-          '__REMOVE__': 
-        }},
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        credentials: 'include',
         body: JSON.stringify({
           task_id: taskId,
           receiver_id: receiverId,

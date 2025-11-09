@@ -362,6 +362,7 @@ export default function ConversationsPage() {
             </div>
           </div>
         )}
+      </div>
       )}
     </DashboardLayout>
   );

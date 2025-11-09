@@ -128,14 +128,6 @@ export default function TaskCreateForm({ locale }: TaskCreateFormProps) {
   const handleSubmit = async () => {
     if (!validate()) return;
 
-    // Check if user is authenticated before making API call    if (!token) {
-      // Save draft and show auth modal instead of making API call
-      saveDraft();
-      setShowAuthModal(true);
-      setShowPreview(false);
-      return;
-    }
-
     setSubmitting(true);
     setApiError(null);
 
@@ -183,9 +175,7 @@ export default function TaskCreateForm({ locale }: TaskCreateFormProps) {
       // Send multipart form data
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tasks`, {
         method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
+        credentials: 'include',
         body: formDataToSend,
       });
 

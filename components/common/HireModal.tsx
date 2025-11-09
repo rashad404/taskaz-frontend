@@ -30,10 +30,6 @@ export default function HireModal({
   }, []);
 
   const handleCreateTask = () => {
-    // Check if user is authenticatedrouter.push(getLocalizedPath(locale, '/login'));
-      return;
-    }
-
     // Store professional info for later use (could be used to pre-fill or suggest)
     if (typeof window !== 'undefined') {
       sessionStorage.setItem('suggested_professional', JSON.stringify({
