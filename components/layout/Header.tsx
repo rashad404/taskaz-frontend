@@ -112,6 +112,24 @@ export default function Header() {
                   >
                     {t('nav.dashboard')}
                   </Link>
+                  <Link
+                    href={getLocalizedPath(locale, '/tasks/create')}
+                    className="flex items-center justify-center gap-[3px] md:gap-[4px] bg-black dark:bg-white px-[12px] md:px-[15px] h-[36px] md:h-[40px] rounded-[8px] hover:opacity-90 transition-opacity"
+                    style={{ boxShadow: '0px 2px 0px 0px rgba(5,145,255,0.1)' }}
+                  >
+                    <div className="w-[20px] md:w-[24px] h-[18px] md:h-[22px] shrink-0">
+                      <Image
+                        src="/assets/images/plus-icon.svg"
+                        alt=""
+                        width={24}
+                        height={22}
+                        className="block max-w-none w-full h-full"
+                      />
+                    </div>
+                    <p className="shrink-0 font-normal text-[14px] md:text-[16px] leading-[20px] md:leading-[24px] text-white dark:text-black" style={{ fontFamily: 'Inter, sans-serif' }}>
+                      Task aç
+                    </p>
+                  </Link>
                   <div className="flex items-center gap-2 md:gap-3">
                     <Link
                       href={getLocalizedPath(locale, '/settings')}
@@ -216,6 +234,13 @@ export default function Header() {
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {t('nav.dashboard')}
+                  </Link>
+                  <Link
+                    href={getLocalizedPath(locale, '/tasks/create')}
+                    className="block px-3 py-2 text-sm font-medium text-white bg-gray-900 hover:bg-gray-800 dark:bg-white dark:text-gray-900 rounded-lg"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Task aç
                   </Link>
                   <Link
                     href={getLocalizedPath(locale, '/settings')}

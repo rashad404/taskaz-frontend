@@ -22,6 +22,7 @@ import {
   Menu
 } from 'lucide-react';
 import { getLocalizedPath } from '@/lib/utils/locale';
+import TaskStatusBadge from '@/components/tasks/TaskStatusBadge';
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -596,15 +597,7 @@ export default function DashboardPage() {
                   </div>
 
                   {/* Status */}
-                  <span className={`px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap ${
-                    task.status === 'open'
-                      ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300'
-                      : task.status === 'assigned'
-                      ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300'
-                      : 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300'
-                  }`}>
-                    {task.status === 'open' ? 'Açıq' : task.status === 'assigned' ? 'Təyin edilib' : 'Tamamlandı'}
-                  </span>
+                  <TaskStatusBadge task={task} className="whitespace-nowrap" />
                 </Link>
                 ))
               )}

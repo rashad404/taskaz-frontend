@@ -14,6 +14,7 @@ import {
   Wallet,
   Filter
 } from 'lucide-react';
+import TaskStatusBadge from '@/components/tasks/TaskStatusBadge';
 
 export default function MyTasksPage() {
   const router = useRouter();
@@ -59,21 +60,6 @@ export default function MyTasksPage() {
   const filteredTasks = filter === 'all'
     ? tasks
     : tasks.filter(task => task.status === filter);
-
-  const getStatusBadge = (status: string) => {
-    const badges = {
-      open: { bg: 'bg-green-100 dark:bg-green-900/30', text: 'text-green-800 dark:text-green-300', label: 'Açıq' },
-      assigned: { bg: 'bg-blue-100 dark:bg-blue-900/30', text: 'text-blue-800 dark:text-blue-300', label: 'Təyin edilib' },
-      completed: { bg: 'bg-gray-100 dark:bg-gray-700', text: 'text-gray-800 dark:text-gray-300', label: 'Tamamlandı' },
-      cancelled: { bg: 'bg-red-100 dark:bg-red-900/30', text: 'text-red-800 dark:text-red-300', label: 'Ləğv edildi' }
-    };
-    const badge = badges[status as keyof typeof badges] || badges.open;
-    return (
-      <span className={`px-3 py-1 rounded-full text-xs font-medium ${badge.bg} ${badge.text}`}>
-        {badge.label}
-      </span>
-    );
-  };
 
   if (loading) {
     return (
@@ -195,7 +181,7 @@ export default function MyTasksPage() {
                     </p>
                   </div>
                   <div className="ml-4 flex items-center gap-2">
-                    {getStatusBadge(task.status)}
+                    <TaskStatusBadge task={task} />
                     <Link
                       href={`/${locale}/tasks/${task.slug}/edit`}
                       className="p-2 rounded-xl bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 transition-colors"

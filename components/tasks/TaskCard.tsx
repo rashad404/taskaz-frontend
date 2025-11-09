@@ -6,6 +6,7 @@ import { MapPin, Clock, Wallet, Eye, Calendar } from 'lucide-react';
 import type { Task } from '@/lib/types/marketplace';
 import { formatDistanceToNow } from 'date-fns';
 import { az, enUS, ru } from 'date-fns/locale';
+import TaskStatusBadge from './TaskStatusBadge';
 
 interface TaskCardProps {
   task: Task;
@@ -50,17 +51,7 @@ export default function TaskCard({ task, locale }: TaskCardProps) {
         <div className="h-full rounded-3xl p-6 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-white/30 dark:border-gray-700/30 transition-all duration-500 group-hover:scale-[1.02] group-hover:shadow-xl">
           {/* Status Badge */}
           <div className="flex items-center justify-between mb-4">
-            <span
-              className={`px-3 py-1 rounded-full text-xs font-medium ${
-                task.status === 'open'
-                  ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
-                  : task.status === 'assigned'
-                  ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400'
-                  : 'bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400'
-              }`}
-            >
-              {t(`status.${task.status}`)}
-            </span>
+            <TaskStatusBadge task={task} />
 
             <div className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400">
               <Eye className="w-3 h-3" />

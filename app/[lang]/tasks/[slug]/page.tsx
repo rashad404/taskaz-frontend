@@ -20,7 +20,9 @@ import TaskCard from '@/components/tasks/TaskCard';
 import TaskDetailActions from '@/components/tasks/TaskDetailActions';
 import ShareButton from '@/components/tasks/ShareButton';
 import TaskAttachments from '@/components/tasks/TaskAttachments';
+import TaskStatusBadge from '@/components/tasks/TaskStatusBadge';
 import { getImageUrl } from '@/lib/utils';
+import { getDaysLeft } from '@/lib/utils/task';
 
 interface TaskDetailPageProps {
   params: Promise<{ lang: string; slug: string }>;
@@ -149,20 +151,7 @@ function TaskDetailClient({ task, similarTasks, locale }: { task: Task; similarT
     }
   };
 
-  const getDaysLeft = () => {
-    if (!task.deadline) return null;
-    try {
-      const deadline = new Date(task.deadline);
-      const today = new Date();
-      const diffTime = deadline.getTime() - today.getTime();
-      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-      return diffDays;
-    } catch {
-      return null;
-    }
-  };
-
-  const daysLeft = getDaysLeft();
+  const daysLeft = getDaysLeft(task.deadline);
 
   return (
     <div className="min-h-screen py-8 px-4 sm:px-6">
@@ -208,17 +197,7 @@ function TaskDetailClient({ task, similarTasks, locale }: { task: Task; similarT
               {/* Meta Info */}
               <div className="flex flex-wrap items-center gap-3 mb-6">
                 {/* Status Badge */}
-                <span
-                  className={`px-3 py-1 rounded-full text-xs font-medium ${
-                    task.status === 'open'
-                      ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
-                      : task.status === 'assigned'
-                      ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400'
-                      : 'bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400'
-                  }`}
-                >
-                  {task.status === 'open' ? 'Açıq' : task.status === 'assigned' ? 'Təyin Edilib' : 'Bağlı'}
-                </span>
+                <TaskStatusBadge task={task} />
 
                 {/* Category */}
                 {task.category && (
@@ -261,8 +240,15 @@ function TaskDetailClient({ task, similarTasks, locale }: { task: Task; similarT
                 {task.deadline && (
                   <div>
                     <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">Son Tarix</p>
-                    <p className="text-sm font-semibold text-gray-900 dark:text-white">
+                    <p className={`text-sm font-semibold ${
+                      daysLeft !== null && daysLeft < 0
+                        ? 'text-red-600 dark:text-red-400'
+                        : 'text-gray-900 dark:text-white'
+                    }`}>
                       {daysLeft !== null && daysLeft > 0 ? `${daysLeft} gün qalıb` : daysLeft === 0 ? 'Bu gün' : 'Bitib'}
+                    </p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+                      {format(new Date(task.deadline), 'dd MMM yyyy', { locale: dateLocale })}
                     </p>
                   </div>
                 )}
@@ -361,15 +347,26 @@ function TaskDetailClient({ task, similarTasks, locale }: { task: Task; similarT
                 </div>
 
                 {task.deadline && (
-                  <div className="mb-6 p-4 bg-orange-50 dark:bg-orange-900/20 rounded-2xl">
-                    <div className="flex items-center gap-2 text-orange-700 dark:text-orange-400">
+                  <div className={`mb-6 p-4 rounded-2xl ${
+                    daysLeft !== null && daysLeft < 0
+                      ? 'bg-red-50 dark:bg-red-900/20'
+                      : 'bg-orange-50 dark:bg-orange-900/20'
+                  }`}>
+                    <div className={`flex items-center gap-2 ${
+                      daysLeft !== null && daysLeft < 0
+                        ? 'text-red-700 dark:text-red-400'
+                        : 'text-orange-700 dark:text-orange-400'
+                    }`}>
                       <Calendar className="w-5 h-5" />
-                      <div>
+                      <div className="flex-1">
                         <p className="text-xs font-medium">Son Tarix</p>
                         <p className="text-sm font-bold">
                           {daysLeft !== null && daysLeft >= 0
                             ? `${daysLeft} gün qalıb`
                             : 'Müddəti bitib'}
+                        </p>
+                        <p className="text-xs mt-1 opacity-80">
+                          {format(new Date(task.deadline), 'dd MMMM yyyy', { locale: dateLocale })}
                         </p>
                       </div>
                     </div>
