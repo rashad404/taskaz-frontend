@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
+import { useParams, usePathname } from 'next/navigation';
 import { Mail, Phone, MapPin } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { getLocalizedPath } from '@/lib/utils/locale';
@@ -9,8 +9,16 @@ import { getLocalizedPath } from '@/lib/utils/locale';
 export default function Footer() {
   const t = useTranslations();
   const params = useParams();
+  const pathname = usePathname();
   const lang = (params?.lang as string) || 'az';
   const currentYear = new Date().getFullYear();
+
+  // Check if we're on a dashboard-style page (with sidebar)
+  const isDashboardPage = pathname?.includes('/dashboard') ||
+    pathname?.includes('/my-tasks') ||
+    pathname?.includes('/my-applications') ||
+    pathname?.includes('/conversations') ||
+    pathname?.includes('/settings');
 
   const footerLinks = {
     company: [
@@ -30,7 +38,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-gray-50 dark:bg-gray-900/50 border-t border-gray-200 dark:border-gray-800 mt-auto px-4 sm:px-6 lg:px-8">
+    <footer className={`bg-gray-50 dark:bg-gray-900/50 border-t border-gray-200 dark:border-gray-800 mt-auto px-4 sm:px-6 lg:px-8 transition-all duration-300 ${isDashboardPage ? 'lg:ml-64' : ''}`}>
       <div className="mx-auto max-w-7xl py-12">
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
