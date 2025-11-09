@@ -153,101 +153,105 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           </div>
         </div>
 
-        {/* Subcategories Grid - Show if this is a parent category */}
-        {category.children && category.children.length > 0 && (
-          <div className="mb-16">
-            <h2 className="text-3xl font-bold mb-8">
-              <span className="gradient-text">Alt Kateqoriyalar</span>
-            </h2>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {category.children.map((subcategory: any) => (
-                <Link
-                  key={subcategory.id}
-                  href={`/${lang}/categories/${subcategory.slug}`}
-                  className="group relative cursor-pointer"
-                >
-                  <div className="h-full rounded-3xl p-6 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-white/30 dark:border-gray-700/30 transition-all duration-500 group-hover:scale-[1.05] group-hover:shadow-xl">
-                    <h3 className="text-base font-semibold text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
-                      {subcategory.name}
-                    </h3>
-                  </div>
+        {/* Main Content with Sidebar Layout */}
+        <div className="flex flex-col lg:flex-row gap-8">
+          {/* Left Sidebar - Subcategories */}
+          {category.children && category.children.length > 0 && (
+            <aside className="lg:w-80 flex-shrink-0">
+              <div className="sticky top-24">
+                <div className="rounded-3xl bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-white/30 dark:border-gray-700/30 p-6">
+                  <h2 className="text-xl font-bold mb-6">
+                    <span className="gradient-text">Alt Kateqoriyalar</span>
+                  </h2>
+                  <nav className="space-y-2">
+                    {category.children.map((subcategory: any) => (
+                      <Link
+                        key={subcategory.id}
+                        href={`/${lang}/categories/${subcategory.slug}`}
+                        className="group relative block"
+                      >
+                        <div className="rounded-2xl p-4 bg-gray-50/50 dark:bg-gray-800/50 border border-transparent hover:border-indigo-200 dark:hover:border-indigo-800 transition-all duration-300 hover:bg-white dark:hover:bg-gray-800 hover:shadow-md">
+                          <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                            {subcategory.name}
+                          </h3>
+                        </div>
+                      </Link>
+                    ))}
+                  </nav>
+                </div>
+              </div>
+            </aside>
+          )}
 
-                  {/* Shine effect on hover */}
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-                    <div className="absolute top-0 -left-full w-1/2 h-full bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 group-hover:left-full transition-all duration-1000" />
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-        )}
+          {/* Main Content - Tasks */}
+          <div className="flex-1 min-w-0">
+            {tasks.length > 0 ? (
+              <div>
+                <h2 className="text-3xl font-bold mb-8">
+                  <span className="gradient-text">Aktiv Tapşırıqlar</span>
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                  {tasks.map((task: any) => (
+                    <Link
+                      key={task.id}
+                      href={`/${lang}/tasks/${task.slug}`}
+                      className="group relative h-full cursor-pointer"
+                    >
+                      {/* Glass Card */}
+                      <div className="h-full rounded-3xl p-6 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-white/30 dark:border-gray-700/30 transition-all duration-500 group-hover:scale-[1.02] group-hover:shadow-xl">
+                        {/* Status Badge and Views */}
+                        <div className="flex items-center justify-between mb-4">
+                          {task.status && (
+                            <span className="px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400">
+                              Aktiv
+                            </span>
+                          )}
+                          {task.is_remote && (
+                            <span className="px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">
+                              Remote
+                            </span>
+                          )}
+                        </div>
 
-        {/* Tasks Section */}
-        {tasks.length > 0 ? (
-          <div>
-            <h2 className="text-3xl font-bold mb-8">
-              <span className="gradient-text">Aktiv Tapşırıqlar</span>
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {tasks.map((task: any) => (
-                <Link
-                  key={task.id}
-                  href={`/${lang}/tasks/${task.slug}`}
-                  className="group relative h-full cursor-pointer"
-                >
-                  {/* Glass Card */}
-                  <div className="h-full rounded-3xl p-6 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-white/30 dark:border-gray-700/30 transition-all duration-500 group-hover:scale-[1.02] group-hover:shadow-xl">
-                    {/* Status Badge and Views */}
-                    <div className="flex items-center justify-between mb-4">
-                      {task.status && (
-                        <span className="px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400">
-                          Aktiv
-                        </span>
-                      )}
-                      {task.is_remote && (
-                        <span className="px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">
-                          Remote
-                        </span>
-                      )}
-                    </div>
+                        {/* Title */}
+                        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 line-clamp-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                          {task.title}
+                        </h3>
 
-                    {/* Title */}
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 line-clamp-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
-                      {task.title}
-                    </h3>
+                        {/* Description */}
+                        <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">
+                          {stripHtml(task.description)}
+                        </p>
 
-                    {/* Description */}
-                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">
-                      {stripHtml(task.description)}
-                    </p>
-
-                    {/* Budget */}
-                    {task.budget_amount && (
-                      <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
-                        <span className="text-lg font-bold text-indigo-600 dark:text-indigo-400">
-                          {task.budget_amount} AZN
-                        </span>
+                        {/* Budget */}
+                        {task.budget_amount && (
+                          <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
+                            <span className="text-lg font-bold text-indigo-600 dark:text-indigo-400">
+                              {task.budget_amount} AZN
+                            </span>
+                          </div>
+                        )}
                       </div>
-                    )}
-                  </div>
 
-                  {/* Shine effect on hover */}
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-                    <div className="absolute top-0 -left-full w-1/2 h-full bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 group-hover:left-full transition-all duration-1000" />
-                  </div>
-                </Link>
-              ))}
-            </div>
+                      {/* Shine effect on hover */}
+                      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
+                        <div className="absolute top-0 -left-full w-1/2 h-full bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 group-hover:left-full transition-all duration-1000" />
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <div className="text-center py-12">
+                <div className="rounded-3xl bg-gray-50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 p-12">
+                  <p className="text-gray-600 dark:text-gray-400 text-lg">
+                    Bu kateqoriyada hələ tapşırıq yoxdur
+                  </p>
+                </div>
+              </div>
+            )}
           </div>
-        ) : (
-          <div className="text-center py-12">
-            <div className="rounded-3xl bg-gray-50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 p-12">
-              <p className="text-gray-600 dark:text-gray-400 text-lg">
-                Bu kateqoriyada hələ tapşırıq yoxdur
-              </p>
-            </div>
-          </div>
-        )}
+        </div>
       </div>
     </div>
   );

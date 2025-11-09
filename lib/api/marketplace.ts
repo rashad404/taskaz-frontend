@@ -31,16 +31,8 @@ const apiClient = axios.create({
   },
 });
 
-// Add token to requests if available
-apiClient.interceptors.request.use((config) => {
-  if (typeof window !== 'undefined') {
-    const token = localStorage.getItem('token');
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-  }
-  return config;
-});
+// Cookies are automatically included with withCredentials: true
+// No need to manually add Authorization header
 
 // Categories API
 export const categoriesApi = {

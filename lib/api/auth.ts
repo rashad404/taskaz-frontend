@@ -45,7 +45,6 @@ export interface AuthResponse {
   message?: string;
   data?: {
     user: User;
-    token: string;
     return_url?: string;
   };
 }
@@ -54,16 +53,22 @@ class AuthService {
   // Email/Password Authentication
   async register(data: RegisterData): Promise<AuthResponse> {
     const response = await apiClient.post('/auth/register', data);
-    if (response.data.data?.token) {
-      this.setToken(response.data.data.token);
+    // Token is now in httpOnly cookie - trigger auth state change
+    if (response.data.status === 'success') {
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new Event('authStateChanged'));
+      }
     }
     return response.data;
   }
 
   async login(credentials: LoginCredentials): Promise<AuthResponse> {
     const response = await apiClient.post('/auth/login', credentials);
-    if (response.data.data?.token) {
-      this.setToken(response.data.data.token);
+    // Token is now in httpOnly cookie - trigger auth state change
+    if (response.data.status === 'success') {
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new Event('authStateChanged'));
+      }
     }
     return response.data;
   }
@@ -76,8 +81,11 @@ class AuthService {
 
   async verifyOTP(data: OTPVerify): Promise<AuthResponse> {
     const response = await apiClient.post('/auth/otp/verify', data);
-    if (response.data.data?.token) {
-      this.setToken(response.data.data.token);
+    // Token is now in httpOnly cookie - trigger auth state change
+    if (response.data.status === 'success') {
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new Event('authStateChanged'));
+      }
     }
     return response.data;
   }
@@ -107,37 +115,23 @@ class AuthService {
   async logout(): Promise<void> {
     try {
       await apiClient.post('/auth/logout');
+      // httpOnly cookie will be cleared by the server
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new Event('authStateChanged'));
+      }
     } catch (error) {
       // Ignore errors
     }
-    this.clearToken();
   }
 
-  // Token Management
-  setToken(token: string) {
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('token', token);
-      localStorage.setItem('auth_time', Date.now().toString());
+  // User Management - Check auth status by calling API
+  async isAuthenticated(): Promise<boolean> {
+    try {
+      const user = await this.getCurrentUser();
+      return !!user;
+    } catch (error) {
+      return false;
     }
-  }
-
-  getToken(): string | null {
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem('token');
-    }
-    return null;
-  }
-
-  clearToken() {
-    if (typeof window !== 'undefined') {
-      localStorage.removeItem('token');
-      localStorage.removeItem('auth_time');
-      localStorage.removeItem('user');
-    }
-  }
-
-  isAuthenticated(): boolean {
-    return !!this.getToken();
   }
 
   // Store return URL for after authentication

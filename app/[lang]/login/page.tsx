@@ -26,18 +26,14 @@ export default function LoginPage() {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         },
+        credentials: 'include', // Important: Include cookies
         body: JSON.stringify({ email, password })
       });
 
       const data = await response.json();
 
       if (response.ok && data.status === 'success') {
-        // Store auth token
-        if (data.data?.token) {
-          localStorage.setItem('token', data.data.token);
-        }
-
-        // Dispatch event to notify Header
+        // Token is now in httpOnly cookie - just dispatch auth state change
         if (typeof window !== 'undefined') {
           window.dispatchEvent(new Event('authStateChanged'));
         }

@@ -9,6 +9,7 @@ import { useTranslations } from 'next-intl';
 import StartupBar from '@/components/common/StartupBar';
 import Image from 'next/image';
 import { getLocalizedPath } from '@/lib/utils/locale';
+import authService from '@/lib/api/auth';
 
 export default function Header() {
   const t = useTranslations();
@@ -25,12 +26,17 @@ export default function Header() {
   // Check if we're on the dashboard page
   const isDashboard = pathname?.includes('/dashboard');
 
-  const checkAuth = () => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      setIsAuthenticated(true);
-      setUser({ name: 'User', email: 'user@example.com' });
-    } else {
+  const checkAuth = async () => {
+    try {
+      const currentUser = await authService.getCurrentUser();
+      if (currentUser) {
+        setIsAuthenticated(true);
+        setUser(currentUser);
+      } else {
+        setIsAuthenticated(false);
+        setUser(null);
+      }
+    } catch (error) {
       setIsAuthenticated(false);
       setUser(null);
     }
@@ -51,15 +57,10 @@ export default function Header() {
     };
   }, [pathname]);
 
-  const handleLogout = () => {
-    localStorage.removeItem('token');
+  const handleLogout = async () => {
+    await authService.logout();
     setIsAuthenticated(false);
     setUser(null);
-
-    if (typeof window !== 'undefined') {
-      window.dispatchEvent(new Event('authStateChanged'));
-    }
-
     router.push('/');
   };
 

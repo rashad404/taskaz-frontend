@@ -59,6 +59,7 @@ export default function AuthModal({
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         },
+        credentials: 'include', // Important: Include cookies in request
         body: JSON.stringify({
           email: loginEmail,
           password: loginPassword
@@ -68,12 +69,7 @@ export default function AuthModal({
       const data = await response.json();
 
       if (response.ok && data.status === 'success') {
-        // Store auth token
-        if (data.data?.token) {
-          localStorage.setItem('token', data.data.token);
-        }
-
-        // Dispatch custom event to notify Header and other components
+        // Token is now in httpOnly cookie - just dispatch auth state change
         if (typeof window !== 'undefined') {
           window.dispatchEvent(new Event('authStateChanged'));
         }
@@ -128,6 +124,7 @@ export default function AuthModal({
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         },
+        credentials: 'include', // Important: Include cookies in request
         body: JSON.stringify({
           name: registerName,
           email: registerEmail,
@@ -139,12 +136,7 @@ export default function AuthModal({
       const data = await response.json();
 
       if (response.ok && data.status === 'success') {
-        // Store auth token
-        if (data.data?.token) {
-          localStorage.setItem('token', data.data.token);
-        }
-
-        // Dispatch custom event to notify Header and other components
+        // Token is now in httpOnly cookie - just dispatch auth state change
         if (typeof window !== 'undefined') {
           window.dispatchEvent(new Event('authStateChanged'));
         }

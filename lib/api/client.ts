@@ -6,31 +6,17 @@ const apiClient = axios.create({
     'Content-Type': 'application/json',
     'Accept': 'application/json',
   },
-  withCredentials: false, // Disable credentials for API calls since we're not using CSRF
+  withCredentials: true, // Enable credentials to send cookies
 });
-
-apiClient.interceptors.request.use(
-  (config) => {
-    // Add auth token if available
-    const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
 
 apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      // Handle unauthorized access
+      // Handle unauthorized access - user needs to re-login
       if (typeof window !== 'undefined') {
-        localStorage.removeItem('token');
-        // Redirect to login or show auth modal
+        // Trigger auth state change event
+        window.dispatchEvent(new Event('authStateChanged'));
       }
     }
     return Promise.reject(error);

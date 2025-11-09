@@ -206,6 +206,12 @@ export default function DashboardPage() {
       badge: stats.myTasks
     },
     {
+      name: 'Müraciətlərim',
+      href: getLocalizedPath(locale, '/my-applications'),
+      icon: FileText,
+      badge: stats.applications
+    },
+    {
       name: 'Mesajlar',
       href: getLocalizedPath(locale, '/conversations'),
       icon: MessageSquare,
@@ -471,11 +477,11 @@ export default function DashboardPage() {
           )}
 
             {/* Stats Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
           {/* My Tasks */}
-          <div className="rounded-3xl p-6 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-white/30 dark:border-gray-700/30">
+          <Link href={getLocalizedPath(locale, '/my-tasks')} className="rounded-3xl p-6 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-white/30 dark:border-gray-700/30 hover:border-blue-300 dark:hover:border-blue-700 transition-all cursor-pointer group">
             <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center group-hover:scale-110 transition-transform">
                 <Briefcase className="w-6 h-6 text-white" />
               </div>
               <TrendingUp className="w-5 h-5 text-blue-500" />
@@ -484,12 +490,12 @@ export default function DashboardPage() {
               {stats.myTasks}
             </div>
             <div className="text-sm text-gray-600 dark:text-gray-400">Mənim Tapşırıqlarım</div>
-          </div>
+          </Link>
 
           {/* Applications */}
-          <div className="rounded-3xl p-6 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-white/30 dark:border-gray-700/30">
+          <Link href={getLocalizedPath(locale, '/my-applications')} className="rounded-3xl p-6 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-white/30 dark:border-gray-700/30 hover:border-purple-300 dark:hover:border-purple-700 transition-all cursor-pointer group">
             <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center group-hover:scale-110 transition-transform">
                 <FileText className="w-6 h-6 text-white" />
               </div>
             </div>
@@ -497,25 +503,12 @@ export default function DashboardPage() {
               {stats.applications}
             </div>
             <div className="text-sm text-gray-600 dark:text-gray-400">Müraciətlərim</div>
-          </div>
-
-          {/* Active Contracts */}
-          <div className="rounded-3xl p-6 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-white/30 dark:border-gray-700/30">
-            <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center">
-                <CheckCircle className="w-6 h-6 text-white" />
-              </div>
-            </div>
-            <div className="text-3xl font-bold text-gray-900 dark:text-white mb-1">
-              {stats.activeContracts}
-            </div>
-            <div className="text-sm text-gray-600 dark:text-gray-400">Aktiv İşlər</div>
-          </div>
+          </Link>
 
           {/* Messages */}
-          <div className="rounded-3xl p-6 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-white/30 dark:border-gray-700/30">
+          <Link href={getLocalizedPath(locale, '/conversations')} className="rounded-3xl p-6 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-white/30 dark:border-gray-700/30 hover:border-orange-300 dark:hover:border-orange-700 transition-all cursor-pointer group">
             <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center relative">
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center relative group-hover:scale-110 transition-transform">
                 <MessageSquare className="w-6 h-6 text-white" />
                 {stats.unreadMessages > 0 && (
                   <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs font-bold rounded-full flex items-center justify-center">
@@ -528,7 +521,7 @@ export default function DashboardPage() {
               {stats.unreadMessages}
             </div>
               <div className="text-sm text-gray-600 dark:text-gray-400">Oxunmamış Mesajlar</div>
-            </div>
+            </Link>
           </div>
 
             {/* Recent Tasks */}
