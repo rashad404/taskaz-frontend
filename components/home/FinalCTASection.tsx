@@ -22,7 +22,7 @@ export default function FinalCTASection({ locale }: FinalCTASectionProps) {
             <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-indigo-500 to-purple-500 opacity-90 group-hover:opacity-100 transition-all duration-500" />
 
             {/* Content */}
-            <div className="relative rounded-3xl p-12 text-white">
+            <div className="relative rounded-3xl p-12 text-white h-full flex flex-col">
               {/* Icon */}
               <div className="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-xl flex items-center justify-center mb-6 transition-transform duration-300 group-hover:scale-110">
                 <Briefcase className="w-8 h-8 text-white" strokeWidth={2} />
@@ -34,7 +34,7 @@ export default function FinalCTASection({ locale }: FinalCTASectionProps) {
               </h3>
 
               {/* Description */}
-              <p className="text-white/90 mb-8 text-lg">
+              <p className="text-white/90 mb-8 text-lg flex-grow">
                 {t('clients.description')}
               </p>
 
@@ -57,7 +57,7 @@ export default function FinalCTASection({ locale }: FinalCTASectionProps) {
             <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-emerald-500 to-teal-500 opacity-90 group-hover:opacity-100 transition-all duration-500" />
 
             {/* Content */}
-            <div className="relative rounded-3xl p-12 text-white">
+            <div className="relative rounded-3xl p-12 text-white h-full flex flex-col">
               {/* Icon */}
               <div className="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-xl flex items-center justify-center mb-6 transition-transform duration-300 group-hover:scale-110">
                 <Wallet className="w-8 h-8 text-white" strokeWidth={2} />
@@ -69,7 +69,7 @@ export default function FinalCTASection({ locale }: FinalCTASectionProps) {
               </h3>
 
               {/* Description */}
-              <p className="text-white/90 mb-8 text-lg">
+              <p className="text-white/90 mb-8 text-lg flex-grow">
                 {t('professionals.description')}
               </p>
 
@@ -92,7 +92,7 @@ export default function FinalCTASection({ locale }: FinalCTASectionProps) {
             <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-purple-500 via-pink-500 to-orange-500 opacity-90 group-hover:opacity-100 transition-all duration-500" />
 
             {/* Content */}
-            <div className="relative rounded-3xl p-12 text-white">
+            <div className="relative rounded-3xl p-12 text-white h-full flex flex-col">
               {/* Icon */}
               <div className="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-xl flex items-center justify-center mb-6 transition-transform duration-300 group-hover:scale-110">
                 <Star className="w-8 h-8 text-white" strokeWidth={2} />
@@ -104,7 +104,7 @@ export default function FinalCTASection({ locale }: FinalCTASectionProps) {
               </h3>
 
               {/* Description */}
-              <p className="text-white/90 mb-8 text-lg">
+              <p className="text-white/90 mb-8 text-lg flex-grow">
                 Özünüzü göstərin və qazanmağa başlayın
               </p>
 
