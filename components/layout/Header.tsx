@@ -23,8 +23,12 @@ export default function Header() {
 
   const locale = (params?.lang as string) || 'az';
 
-  // Check if we're on the dashboard page
-  const isDashboard = pathname?.includes('/dashboard');
+  // Check if we're on a dashboard-style page (with sidebar)
+  const isDashboardPage = pathname?.includes('/dashboard') ||
+    pathname?.includes('/my-tasks') ||
+    pathname?.includes('/my-applications') ||
+    pathname?.includes('/conversations') ||
+    pathname?.includes('/settings');
 
   const checkAuth = async () => {
     try {
@@ -65,11 +69,11 @@ export default function Header() {
   };
 
   return (
-    <header className={`sticky top-0 z-[100] bg-[#f5f8ff] dark:bg-gray-900 transition-all duration-300 ${isDashboard ? 'lg:ml-64' : ''}`}>
+    <header className={`sticky top-0 z-[100] bg-[#f5f8ff] dark:bg-gray-900 transition-all duration-300 ${isDashboardPage ? 'lg:ml-64' : ''}`}>
       <StartupBar />
-      <nav className="relative bg-[#f5f8ff] dark:bg-gray-900 min-h-[78px] border-b border-solid border-[rgba(0,0,0,0.1)] dark:border-gray-800 px-4 sm:px-6 lg:px-8">
+      <nav className={`relative bg-[#f5f8ff] dark:bg-gray-900 ${isDashboardPage ? 'h-[78px]' : 'min-h-[78px]'} border-b border-solid border-[rgba(0,0,0,0.1)] dark:border-gray-800 px-4 sm:px-6 lg:px-8`}>
         {/* Desktop Header - Responsive */}
-        <div className={`hidden md:flex absolute left-1/2 top-0 -translate-x-1/2 w-full max-w-7xl items-center justify-between py-[24px] transition-opacity duration-300 ${isMounted ? 'opacity-100' : 'opacity-0'}`}>
+        <div className={`hidden md:flex ${isDashboardPage ? 'lg:static lg:max-w-none lg:mx-0 lg:h-full' : 'absolute left-1/2 top-0 -translate-x-1/2'} w-full max-w-7xl items-center justify-between py-[24px] transition-opacity duration-300 ${isMounted ? 'opacity-100' : 'opacity-0'}`}>
           {/* Logo */}
           <Link href="/" className="shrink-0">
             <div className="w-[120px] md:w-[140px] lg:w-[152px] h-[24px] md:h-[28px] lg:h-[30px]">
