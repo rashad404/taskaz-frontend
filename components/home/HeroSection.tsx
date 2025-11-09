@@ -11,8 +11,10 @@ interface HeroSectionProps {
 
 export default function HeroSection({ locale }: HeroSectionProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [previousSlide, setPreviousSlide] = useState(0);
   const [underlineWidth, setUnderlineWidth] = useState(372);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const textRef = useRef<HTMLParagraphElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const searchDropdownRef = useRef<HTMLDivElement>(null);
@@ -89,13 +91,30 @@ export default function HeroSection({ locale }: HeroSectionProps) {
     },
   ];
 
-  // Auto-rotate every 3 seconds
+  // Preload all slide images on mount
+  useEffect(() => {
+    slides.forEach((slide) => {
+      const img = new window.Image();
+      img.src = slide.image;
+    });
+  }, []);
+
+  // Auto-rotate every 3 seconds with crossfade transition
   useEffect(() => {
     const interval = setInterval(() => {
+      setPreviousSlide(currentSlide);
+      setIsTransitioning(true);
+
+      // Change slide immediately and let CSS handle the crossfade
       setCurrentSlide((prev) => (prev + 1) % slides.length);
+
+      // Reset transition state after animation completes
+      setTimeout(() => {
+        setIsTransitioning(false);
+      }, 400); // 400ms to allow transition to complete
     }, 3000);
     return () => clearInterval(interval);
-  }, [slides.length]);
+  }, [currentSlide, slides.length]);
 
   // Update underline width when text changes
   useEffect(() => {
@@ -171,6 +190,82 @@ export default function HeroSection({ locale }: HeroSectionProps) {
   const showResults = isSearchOpen && query.length >= 2;
   const hasResults = results && (results.tasks.length > 0 || results.professionals.length > 0 || results.categories.length > 0);
 
+  // Helper function to render a slide
+  const renderSlide = (slideIndex: number, isCurrent: boolean) => {
+    const slide = slides[slideIndex];
+    const opacity = isCurrent ? (isTransitioning ? 'opacity-0' : 'opacity-100') : (isTransitioning ? 'opacity-100' : 'opacity-0');
+
+    return (
+      <div key={`slide-${slideIndex}-${isCurrent ? 'current' : 'previous'}`} className="absolute inset-0">
+        {/* Hero Image */}
+        <div className="absolute right-0 md:right-[8%] lg:right-[12%] xl:right-[308px] top-[30px] md:top-[122px] w-[200px] md:w-[250px] lg:w-[302px] h-[200px] md:h-[250px] lg:h-[302px] z-0">
+          <div className="relative w-full h-full">
+            <Image
+              src={slide.image}
+              alt="Professional"
+              width={302}
+              height={302}
+              className={`block max-w-none w-full h-full object-cover object-center transition-opacity duration-400 ${opacity}`}
+              priority={slideIndex === 0}
+            />
+          </div>
+        </div>
+
+        {/* Text Elements */}
+        {slide.lines.map((line, index) => {
+          const isGradientLine = line.gradient;
+
+          return (
+            <div key={`text-${index}`}>
+              {isGradientLine ? (
+                <>
+                  <p
+                    ref={isCurrent && isGradientLine ? textRef : null}
+                    className={`absolute left-0 md:left-[20%] lg:left-[22%] xl:left-[308px] top-[65px] md:top-[211px] font-bold text-[24px] md:text-[40px] lg:text-[48px] leading-[32px] md:leading-[52px] lg:leading-[54px] bg-clip-text max-w-[calc(100%-20px)] z-10 transition-opacity duration-400 ${opacity}`}
+                    style={{
+                      fontFamily: 'Inter, sans-serif',
+                      backgroundImage: 'linear-gradient(90deg, #14b8a6 0%, #06b6d4 30%, #8b5cf6 50%, #ec4899 60%, #ec4899 100%)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent'
+                    }}
+                  >
+                    {line.text}
+                  </p>
+                  <div
+                    className={`absolute left-0 md:left-[20%] lg:left-[22%] xl:left-[308px] top-[118px] md:top-[265px] h-[10px] md:h-[18px] flex items-center justify-start transition-opacity duration-400 z-10 ${opacity}`}
+                    style={{ width: `${isCurrent ? underlineWidth : 372}px` }}
+                  >
+                    <div className="flex-none w-full" style={{ transform: 'rotate(358.703deg)' }}>
+                      <Image
+                        src="/assets/images/gradient-underline.svg"
+                        alt=""
+                        width={isCurrent ? underlineWidth : 372}
+                        height={18}
+                        className="block w-full h-auto"
+                      />
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <div
+                  className={`absolute left-0 md:left-[20%] lg:left-[22%] xl:left-[308px] ${
+                    index === 0 ? 'top-[30px] md:top-[149px]' :
+                    index === 2 ? 'top-[145px] md:top-[273px]' :
+                    index === 3 ? 'top-[180px] md:top-[335px]' :
+                    'top-[145px] md:top-[273px]'
+                  } w-[calc(100%-200px)] md:w-auto font-bold text-[24px] md:text-[40px] lg:text-[48px] leading-[32px] md:leading-[52px] lg:leading-[62px] text-black dark:text-white z-10 transition-opacity duration-400 ${opacity}`}
+                  style={{ fontFamily: 'Inter, sans-serif' }}
+                >
+                  {line.text}
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    );
+  };
+
   return (
     <section className="relative bg-[#f5f8ff] dark:bg-gray-900 h-[420px] md:h-[700px] overflow-hidden z-10">
       <div className="container mx-auto px-4 md:px-8 lg:px-16 xl:px-0 max-w-[1440px] h-full relative">
@@ -198,19 +293,14 @@ export default function HeroSection({ locale }: HeroSectionProps) {
 
         {/* Content Container */}
         <div className="relative h-full">
-          {/* Hero Image Container with Info Cards - Lower z-index */}
-          <div className="absolute right-0 md:right-[8%] lg:right-[12%] xl:right-[308px] top-[30px] md:top-[122px] w-[200px] md:w-[250px] lg:w-[302px] h-[200px] md:h-[250px] lg:h-[302px] z-0">
-            {/* Hero Image */}
-            <div className="relative w-full h-full">
-              <Image
-                src={slides[currentSlide].image}
-                alt="Professional"
-                width={302}
-                height={302}
-                className="block max-w-none w-full h-full object-cover object-center transition-opacity duration-500"
-                priority
-              />
-            </div>
+          {/* Render previous slide (fading out) */}
+          {isTransitioning && previousSlide !== currentSlide && renderSlide(previousSlide, false)}
+
+          {/* Render current slide (fading in) */}
+          {renderSlide(currentSlide, true)}
+
+          {/* Static Info Cards - remain visible during transitions */}
+          <div className="absolute right-0 md:right-[8%] lg:right-[12%] xl:right-[308px] top-[30px] md:top-[122px] w-[200px] md:w-[250px] lg:w-[302px] h-[200px] md:h-[250px] lg:h-[302px] z-20 pointer-events-none">
 
             {/* Mesaj göndər Card - positioned relative to worker image */}
             <div className="hidden lg:block absolute left-[179px] top-[102px] w-[234px]">
@@ -287,69 +377,6 @@ export default function HeroSection({ locale }: HeroSectionProps) {
               </div>
             </div>
           </div>
-
-          {/* Text Elements - Higher z-index to appear above hero image */}
-          {slides[currentSlide].lines.map((line, index) => {
-            // Calculate positions based on line index
-            const positions = [
-              { mobile: 30, desktop: 149 },   // Line 1
-              { mobile: 65, desktop: 211 },   // Line 2
-              { mobile: 145, desktop: 273 },  // Line 3
-              { mobile: 180, desktop: 335 },  // Line 4 (if exists)
-            ];
-
-            const isGradientLine = line.gradient;
-            const pos = positions[index] || positions[positions.length - 1];
-
-            return (
-              <div key={index}>
-                {/* Text Line */}
-                {isGradientLine ? (
-                  <>
-                    <p
-                      ref={textRef}
-                      className="absolute left-0 md:left-[20%] lg:left-[22%] xl:left-[308px] top-[65px] md:top-[211px] font-bold text-[24px] md:text-[40px] lg:text-[48px] leading-[32px] md:leading-[52px] lg:leading-[54px] bg-clip-text max-w-[calc(100%-20px)] z-10 transition-opacity duration-500"
-                      style={{
-                        fontFamily: 'Inter, sans-serif',
-                        backgroundImage: 'linear-gradient(90deg, #14b8a6 0%, #06b6d4 30%, #8b5cf6 50%, #ec4899 60%, #ec4899 100%)',
-                        WebkitBackgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent'
-                      }}
-                    >
-                      {line.text}
-                    </p>
-                    {/* Gradient underline decoration */}
-                    <div
-                      className="absolute left-0 md:left-[20%] lg:left-[22%] xl:left-[308px] top-[118px] md:top-[265px] h-[10px] md:h-[18px] flex items-center justify-start transition-all duration-300 z-10"
-                      style={{ width: `${underlineWidth}px` }}
-                    >
-                      <div className="flex-none w-full" style={{ transform: 'rotate(358.703deg)' }}>
-                        <Image
-                          src="/assets/images/gradient-underline.svg"
-                          alt=""
-                          width={underlineWidth}
-                          height={18}
-                          className="block w-full h-auto"
-                        />
-                      </div>
-                    </div>
-                  </>
-                ) : (
-                  <div
-                    className={`absolute left-0 md:left-[20%] lg:left-[22%] xl:left-[308px] ${
-                      index === 0 ? 'top-[30px] md:top-[149px]' :
-                      index === 2 ? 'top-[145px] md:top-[273px]' :
-                      index === 3 ? 'top-[180px] md:top-[335px]' :
-                      'top-[145px] md:top-[273px]'
-                    } w-[calc(100%-200px)] md:w-auto font-bold text-[24px] md:text-[40px] lg:text-[48px] leading-[32px] md:leading-[52px] lg:leading-[62px] text-black dark:text-white z-10 transition-opacity duration-500`}
-                    style={{ fontFamily: 'Inter, sans-serif' }}
-                  >
-                    {line.text}
-                  </div>
-                )}
-              </div>
-            );
-          })}
         </div>
 
         {/* Search Box with Dropdown */}
