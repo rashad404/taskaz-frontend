@@ -133,7 +133,7 @@ export default function Header() {
                   </Link>
                   <div className="flex items-center gap-2 md:gap-3">
                     <Link
-                      href={getLocalizedPath(locale, '/settings')}
+                      href={getLocalizedPath(locale, '/dashboard/settings')}
                       className="w-7 h-7 md:w-8 md:h-8 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
                     >
                       <User className="w-3.5 h-3.5 md:w-4 md:h-4 text-gray-600 dark:text-gray-400" />
@@ -244,7 +244,7 @@ export default function Header() {
                     Task aç
                   </Link>
                   <Link
-                    href={getLocalizedPath(locale, '/settings')}
+                    href={getLocalizedPath(locale, '/dashboard/settings')}
                     className="block px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg"
                     onClick={() => setIsMenuOpen(false)}
                   >

@@ -107,7 +107,7 @@ export default function SecuritySettingsPage() {
       <div className="max-w-4xl mx-auto">
         {/* Back Button */}
         <Link
-          href={`/${locale}/settings`}
+          href={`/${locale}/dashboard/settings`}
           className="inline-flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white mb-6 transition-colors"
         >
           <ChevronLeft className="w-5 h-5" />

@@ -7,7 +7,6 @@ import {
   User,
   Bell,
   Shield,
-  CreditCard,
   Briefcase,
   MessageSquare,
   ChevronRight,
@@ -74,7 +73,7 @@ export default function SettingsPage() {
       title: 'Profil Məlumatları',
       description: 'Şəxsi məlumatlarınızı və profil şəklinizi dəyişdirin',
       icon: User,
-      href: getLocalizedPath(locale, '/settings/profile'),
+      href: getLocalizedPath(locale, '/dashboard/settings/profile'),
       color: 'text-indigo-600 dark:text-indigo-400',
       bgColor: 'bg-indigo-100 dark:bg-indigo-900/30'
     },
@@ -83,7 +82,7 @@ export default function SettingsPage() {
       title: 'Bildirişlər',
       description: 'Email, SMS və push bildirişlərini idarə edin',
       icon: Bell,
-      href: getLocalizedPath(locale, '/settings/notifications'),
+      href: getLocalizedPath(locale, '/dashboard/settings/notifications'),
       color: 'text-yellow-600 dark:text-yellow-400',
       bgColor: 'bg-yellow-100 dark:bg-yellow-900/30'
     },
@@ -92,7 +91,7 @@ export default function SettingsPage() {
       title: 'Təhlükəsizlik',
       description: 'Parol və hesab təhlükəsizliyi parametrləri',
       icon: Shield,
-      href: getLocalizedPath(locale, '/settings/security'),
+      href: getLocalizedPath(locale, '/dashboard/settings/security'),
       color: 'text-green-600 dark:text-green-400',
       bgColor: 'bg-green-100 dark:bg-green-900/30'
     },
@@ -101,7 +100,7 @@ export default function SettingsPage() {
       title: 'Mənim Tapşırıqlarım',
       description: 'Yaratdığınız və müraciət etdiyiniz tapşırıqlar',
       icon: Briefcase,
-      href: getLocalizedPath(locale, '/my-tasks'),
+      href: getLocalizedPath(locale, '/dashboard/tasks'),
       color: 'text-blue-600 dark:text-blue-400',
       bgColor: 'bg-blue-100 dark:bg-blue-900/30'
     },
@@ -110,18 +109,9 @@ export default function SettingsPage() {
       title: 'Mesajlar',
       description: 'Müştərilər və professionallərlə danışıqlar',
       icon: MessageSquare,
-      href: getLocalizedPath(locale, '/conversations'),
+      href: getLocalizedPath(locale, '/dashboard/messages'),
       color: 'text-purple-600 dark:text-purple-400',
       bgColor: 'bg-purple-100 dark:bg-purple-900/30'
-    },
-    {
-      id: 'payments',
-      title: 'Ödənişlər',
-      description: 'Ödəniş metodları və əməliyyat tarixçəsi',
-      icon: CreditCard,
-      href: getLocalizedPath(locale, '/settings/payments'),
-      color: 'text-red-600 dark:text-red-400',
-      bgColor: 'bg-red-100 dark:bg-red-900/30'
     }
   ];
 
@@ -134,7 +124,7 @@ export default function SettingsPage() {
           title: 'Peşəkar Profil',
           description: 'Peşəkar məlumatlarınızı və portfelinizi idarə edin',
           icon: Star,
-          href: getLocalizedPath(locale, '/settings/professional'),
+          href: getLocalizedPath(locale, '/dashboard/settings/professional'),
           color: 'text-amber-600 dark:text-amber-400',
           bgColor: 'bg-amber-100 dark:bg-amber-900/30'
         },
@@ -206,7 +196,7 @@ export default function SettingsPage() {
 
               {/* Edit Profile Button */}
               <Link
-                href={getLocalizedPath(locale, '/settings/profile')}
+                href={getLocalizedPath(locale, '/dashboard/settings/profile')}
                 className="w-full btn-primary py-2.5 px-4 text-center font-medium text-sm flex items-center justify-center gap-2"
               >
                 <Edit2 className="w-4 h-4" />
