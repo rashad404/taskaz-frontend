@@ -23,6 +23,7 @@ import TaskAttachments from '@/components/tasks/TaskAttachments';
 import TaskStatusBadge from '@/components/tasks/TaskStatusBadge';
 import { getImageUrl } from '@/lib/utils';
 import { getDaysLeft } from '@/lib/utils/task';
+import TaskApplicationsWrapper from '@/components/tasks/TaskApplicationsWrapper';
 
 interface TaskDetailPageProps {
   params: Promise<{ lang: string; slug: string }>;
@@ -283,6 +284,16 @@ function TaskDetailClient({ task, similarTasks, locale }: { task: Task; similarT
             {/* Attachments */}
             {task.attachments && task.attachments.length > 0 && (
               <TaskAttachments attachments={task.attachments} />
+            )}
+
+            {/* Applications Section - Only show to task owner */}
+            {task.applications && task.applications.length > 0 && (
+              <TaskApplicationsWrapper
+                applications={task.applications}
+                taskId={task.id}
+                taskClient={task.client}
+                locale={locale}
+              />
             )}
 
             {/* Client Info Card */}
