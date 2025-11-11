@@ -286,16 +286,6 @@ function TaskDetailClient({ task, similarTasks, locale }: { task: Task; similarT
               <TaskAttachments attachments={task.attachments} />
             )}
 
-            {/* Applications Section - Only show to task owner */}
-            {task.applications && task.applications.length > 0 && (
-              <TaskApplicationsWrapper
-                applications={task.applications}
-                taskId={task.id}
-                taskClient={task.client}
-                locale={locale}
-              />
-            )}
-
             {/* Client Info Card */}
             {task.client && (
               <div className="rounded-3xl p-6 sm:p-8 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-white/30 dark:border-gray-700/30">

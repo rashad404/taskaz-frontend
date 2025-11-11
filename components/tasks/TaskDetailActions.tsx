@@ -21,15 +21,11 @@ export default function TaskDetailActions({ task }: TaskDetailActionsProps) {
   const [isOwner, setIsOwner] = useState(false);
 
   useEffect(() => {
-    // Check ownership by calling API with auth token
-    const checkOwnership = async () => {      if (!token) {
-        setIsOwner(false);
-        return;
-      }
-
+    // Check ownership by comparing user ID with task client ID
+    const checkOwnership = async () => {
       try {
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/tasks/${task.slug}`,
+          `${process.env.NEXT_PUBLIC_API_URL}/user`,
           {
             credentials: 'include'
           }
@@ -37,7 +33,11 @@ export default function TaskDetailActions({ task }: TaskDetailActionsProps) {
 
         if (response.ok) {
           const data = await response.json();
-          setIsOwner(data.data?.is_owner || false);
+          if (data && data.status === 'success') {
+            setIsOwner(data.data.id === task.client?.id);
+          } else {
+            setIsOwner(false);
+          }
         } else {
           setIsOwner(false);
         }
@@ -48,7 +48,7 @@ export default function TaskDetailActions({ task }: TaskDetailActionsProps) {
     };
 
     checkOwnership();
-  }, [task.slug]);
+  }, [task.client?.id]);
 
   const handleApplySuccess = () => {
     setApplied(true);

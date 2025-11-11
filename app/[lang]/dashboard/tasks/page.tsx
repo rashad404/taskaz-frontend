@@ -196,10 +196,13 @@ export default function MyTasksPage() {
                   {task.budget_type === 'hourly' && <span className="text-xs">(saatlıq)</span>}
                 </div>
 
-                <div className="flex items-center gap-1.5">
+                <Link
+                  href={`/${locale}/dashboard/tasks/${task.id}/applications`}
+                  className="flex items-center gap-1.5 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+                >
                   <Users className="w-4 h-4" />
-                  <span>{task.applications_count || 0} müraciət</span>
-                </div>
+                  <span className="font-medium">{task.applications_count || 0} müraciət</span>
+                </Link>
 
                 <div className="flex items-center gap-1.5">
                   <Clock className="w-4 h-4" />
