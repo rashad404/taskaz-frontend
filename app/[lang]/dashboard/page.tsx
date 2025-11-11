@@ -15,7 +15,8 @@ import {
   Loader2,
   AlertCircle,
   Star,
-  ArrowRight
+  ArrowRight,
+  X
 } from 'lucide-react';
 import { getLocalizedPath } from '@/lib/utils/locale';
 import TaskStatusBadge from '@/components/tasks/TaskStatusBadge';
