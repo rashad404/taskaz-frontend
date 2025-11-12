@@ -58,6 +58,9 @@ export default function TaskDetailActions({ task }: TaskDetailActionsProps) {
     // You could show a success toast here
   };
 
+  // Check if deadline has passed
+  const isDeadlinePassed = task.deadline && new Date(task.deadline) < new Date();
+
   // If user is the owner (from backend API), show Edit button only
   if (isOwner) {
     return (
@@ -68,6 +71,17 @@ export default function TaskDetailActions({ task }: TaskDetailActionsProps) {
         <Edit className="w-5 h-5" />
         Tapşırığı Redaktə Et
       </Link>
+    );
+  }
+
+  // If deadline has passed, don't show any buttons
+  if (isDeadlinePassed) {
+    return (
+      <div className="w-full p-4 rounded-2xl bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-center">
+        <p className="text-gray-600 dark:text-gray-400 font-medium">
+          Bu tapşırığın müddəti bitib
+        </p>
+      </div>
     );
   }
 
