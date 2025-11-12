@@ -9,7 +9,7 @@ export default function TaskEditPage() {
   const router = useRouter();
   const params = useParams();
   const locale = (params?.lang as string) || 'az';
-  const slug = params?.slug as string;
+  const id = params?.id as string;
 
   const [task, setTask] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -17,8 +17,8 @@ export default function TaskEditPage() {
 
   useEffect(() => {
 
-    // Fetch task details
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/tasks/${slug}`, {
+    // Fetch task details by ID
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/tasks/${id}`, {
       credentials: 'include'
     })
       .then(res => {
@@ -47,11 +47,11 @@ export default function TaskEditPage() {
       .finally(() => {
         setLoading(false);
       });
-  }, [router, locale, slug]);
+  }, [router, locale, id]);
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="flex items-center justify-center min-h-[400px]">
         <Loader2 className="w-8 h-8 animate-spin text-indigo-600" />
       </div>
     );
@@ -59,13 +59,13 @@ export default function TaskEditPage() {
 
   if (error || !task) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="flex items-center justify-center min-h-[400px]">
         <div className="text-center">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
             {error || 'Tapşırıq tapılmadı'}
           </h2>
           <button
-            onClick={() => router.push(`/${locale}/my-tasks`)}
+            onClick={() => router.push(`/${locale}/dashboard/tasks`)}
             className="btn-primary"
           >
             Mənim Tapşırıqlarıma Qayıt

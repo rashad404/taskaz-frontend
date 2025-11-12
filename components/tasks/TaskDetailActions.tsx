@@ -62,7 +62,7 @@ export default function TaskDetailActions({ task }: TaskDetailActionsProps) {
   if (isOwner) {
     return (
       <Link
-        href={`/${locale}/tasks/${task.slug}/edit`}
+        href={`/${locale}/dashboard/tasks/${task.id}/edit`}
         className="w-full btn-primary py-3 px-6 text-center font-semibold flex items-center justify-center gap-2"
       >
         <Edit className="w-5 h-5" />

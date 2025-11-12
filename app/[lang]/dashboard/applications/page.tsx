@@ -178,7 +178,7 @@ export default function MyApplicationsPage() {
                       </h3>
                     </Link>
                     <p className="text-gray-600 dark:text-gray-400 mb-1">
-                      <span className="font-medium">Təklifiniz:</span> {application.cover_letter}
+                      <span className="font-medium">Təklifiniz:</span> {application.message}
                     </p>
                     {application.proposed_amount && (
                       <p className="text-gray-600 dark:text-gray-400">
@@ -202,7 +202,13 @@ export default function MyApplicationsPage() {
 
                   <div className="flex items-center gap-1.5">
                     <Clock className="w-4 h-4" />
-                    <span>Müraciət tarixi: {new Date(application.created_at).toLocaleDateString('az-AZ')}</span>
+                    <span>
+                      Müraciət tarixi: {(() => {
+                        const date = new Date(application.created_at);
+                        const months = ['yanvar', 'fevral', 'mart', 'aprel', 'may', 'iyun', 'iyul', 'avqust', 'sentyabr', 'oktyabr', 'noyabr', 'dekabr'];
+                        return `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
+                      })()}
+                    </span>
                   </div>
 
                   {application.task?.category && (

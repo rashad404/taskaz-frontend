@@ -5,7 +5,7 @@ import TaskApplications from './TaskApplications';
 
 interface Application {
   id: number;
-  cover_letter: string;
+  message: string;
   proposed_amount: string | null;
   status: 'pending' | 'accepted' | 'rejected';
   created_at: string;

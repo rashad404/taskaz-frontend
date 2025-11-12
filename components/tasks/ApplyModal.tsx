@@ -27,6 +27,7 @@ export default function ApplyModal({
   const t = useTranslations();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [formData, setFormData] = useState({
     proposed_amount: budgetAmount || '',
@@ -44,16 +45,7 @@ export default function ApplyModal({
     setError('');
     setLoading(true);
 
-    try {      if (!token) {
-        // Store current page for redirect after login
-        if (typeof window !== 'undefined') {
-          sessionStorage.setItem('return_url', window.location.pathname);
-        }
-        setError('Müraciət etmək üçün daxil olmalısınız');
-        setLoading(false);
-        return;
-      }
-
+    try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/applications`, {
         method: 'POST',
         headers: {
@@ -62,20 +54,36 @@ export default function ApplyModal({
         credentials: 'include',
         body: JSON.stringify({
           task_id: taskId,
-          ...formData
+          message: formData.message,
+          proposed_amount: formData.proposed_amount,
+          estimated_days: formData.estimated_days || null
         })
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        onSuccess?.();
-        onClose();
+        setSuccess(true);
+        setError('');
+        // Reset form
+        setFormData({
+          proposed_amount: budgetAmount || '',
+          estimated_days: '',
+          message: ''
+        });
+
+        // Close modal after 2 seconds and call onSuccess
+        setTimeout(() => {
+          setSuccess(false);
+          onSuccess?.();
+          onClose();
+        }, 2000);
       } else {
         setError(data.message || 'Müraciət göndərilərkən xəta baş verdi');
       }
     } catch (err) {
-      setError('Serverlə əlaqə xətası');
+      console.error('Application error:', err);
+      setError('Serverlə əlaqə xətası. Zəhmət olmasa yenidən cəhd edin.');
     } finally {
       setLoading(false);
     }
@@ -106,6 +114,15 @@ export default function ApplyModal({
             <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">Tapşırıq</p>
             <p className="font-semibold text-gray-900 dark:text-white">{taskTitle}</p>
           </div>
+
+          {/* Success Message */}
+          {success && (
+            <div className="p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-2xl">
+              <p className="text-sm text-green-700 dark:text-green-400 font-medium">
+                ✓ Müraciətiniz uğurla göndərildi! Tapşırıq sahibi tezliklə cavab verəcək.
+              </p>
+            </div>
+          )}
 
           {/* Error Message */}
           {error && (

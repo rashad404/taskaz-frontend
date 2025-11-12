@@ -594,7 +594,7 @@ export default function TaskEditForm({ locale, task }: TaskEditFormProps) {
           <div className="flex flex-col sm:flex-row gap-3">
             <button
               type="button"
-              onClick={() => router.push(`/${locale}/tasks/${task.slug}`)}
+              onClick={() => router.push(`/${locale}/dashboard/tasks`)}
               className="flex-1 flex items-center justify-center gap-2 px-6 py-3 rounded-2xl border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors font-medium"
             >
               Ləğv Et

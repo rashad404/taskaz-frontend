@@ -28,10 +28,11 @@ export default function MyTasksPage() {
     return html.replace(/<[^>]*>/g, '').trim();
   };
 
-  useEffect(() => {
-    // Fetch my tasks
+  const fetchTasks = () => {
+    setLoading(true);
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/my-tasks`, {
-      credentials: 'include'
+      credentials: 'include',
+      cache: 'no-store'
     })
       .then(res => {
         if (res.status === 401) {
@@ -51,7 +52,25 @@ export default function MyTasksPage() {
       .finally(() => {
         setLoading(false);
       });
+  };
+
+  useEffect(() => {
+    fetchTasks();
   }, [router, locale]);
+
+  // Refresh tasks when page becomes visible (user navigates back)
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (!document.hidden) {
+        fetchTasks();
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, []);
 
   const filteredTasks = filter === 'all'
     ? tasks
@@ -178,7 +197,7 @@ export default function MyTasksPage() {
                 <div className="ml-4 flex items-center gap-2">
                   <TaskStatusBadge task={task} />
                   <Link
-                    href={`/${locale}/tasks/${task.slug}/edit`}
+                    href={`/${locale}/dashboard/tasks/${task.id}/edit`}
                     className="p-2 rounded-xl bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 transition-colors"
                     title="Redaktə et"
                   >
@@ -189,24 +208,27 @@ export default function MyTasksPage() {
                 </div>
               </div>
 
-              <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 dark:text-gray-400">
+              <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 dark:text-gray-400 mb-4">
                 <div className="flex items-center gap-1.5">
                   <Wallet className="w-4 h-4" />
                   <span className="font-semibold">{task.budget_amount} AZN</span>
                   {task.budget_type === 'hourly' && <span className="text-xs">(saatlıq)</span>}
                 </div>
 
-                <Link
-                  href={`/${locale}/dashboard/tasks/${task.id}/applications`}
-                  className="flex items-center gap-1.5 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
-                >
+                <div className="flex items-center gap-1.5">
                   <Users className="w-4 h-4" />
                   <span className="font-medium">{task.applications_count || 0} müraciət</span>
-                </Link>
+                </div>
 
                 <div className="flex items-center gap-1.5">
                   <Clock className="w-4 h-4" />
-                  <span>{new Date(task.created_at).toLocaleDateString('az-AZ')}</span>
+                  <span>
+                    {(() => {
+                      const date = new Date(task.created_at);
+                      const months = ['yanvar', 'fevral', 'mart', 'aprel', 'may', 'iyun', 'iyul', 'avqust', 'sentyabr', 'oktyabr', 'noyabr', 'dekabr'];
+                      return `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
+                    })()}
+                  </span>
                 </div>
 
                 {task.category && (
@@ -215,6 +237,17 @@ export default function MyTasksPage() {
                   </span>
                 )}
               </div>
+
+              {/* Applications Button */}
+              {task.applications_count > 0 && (
+                <Link
+                  href={`/${locale}/dashboard/tasks/${task.id}/applications`}
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-medium transition-colors"
+                >
+                  <Users className="w-4 h-4" />
+                  Müraciətlərə bax ({task.applications_count})
+                </Link>
+              )}
             </div>
           ))}
         </div>

@@ -22,7 +22,7 @@ import { getLocalizedPath } from '@/lib/utils/locale';
 
 interface Application {
   id: number;
-  cover_letter: string;
+  message: string;
   proposed_amount: string | null;
   status: 'pending' | 'accepted' | 'rejected';
   created_at: string;
@@ -383,11 +383,11 @@ export default function TaskApplicationsPage() {
                     <div className="flex items-center gap-1">
                       <Calendar className="w-4 h-4" />
                       <span>
-                        {new Date(application.created_at).toLocaleDateString('az-AZ', {
-                          day: 'numeric',
-                          month: 'long',
-                          year: 'numeric'
-                        })}
+                        {(() => {
+                          const date = new Date(application.created_at);
+                          const months = ['yanvar', 'fevral', 'mart', 'aprel', 'may', 'iyun', 'iyul', 'avqust', 'sentyabr', 'oktyabr', 'noyabr', 'dekabr'];
+                          return `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
+                        })()}
                       </span>
                     </div>
                   </div>
@@ -400,13 +400,13 @@ export default function TaskApplicationsPage() {
                   )}
 
                   {/* Cover Letter */}
-                  {application.cover_letter && (
+                  {application.message && (
                     <div className="mb-3">
                       <p className="text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
                         Təklif məktubu:
                       </p>
                       <p className="text-sm text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-800/50 rounded-xl p-3">
-                        {application.cover_letter}
+                        {application.message}
                       </p>
                     </div>
                   )}
