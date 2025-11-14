@@ -183,6 +183,9 @@ export default function ProfessionalApplicationForm({ locale }: ProfessionalAppl
         setSuccessMessage(true);
         clearDraft();
 
+        // Scroll to top to show success message
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
         setTimeout(() => {
           router.push(`/${locale}/dashboard`);
         }, 3000);
