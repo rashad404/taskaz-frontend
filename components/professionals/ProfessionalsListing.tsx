@@ -56,21 +56,37 @@ export default function ProfessionalsListing({ locale, initialFilters }: Profess
     return filters;
   };
 
-  // Check if user is an approved professional
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  // Check if user is logged in and their professional status
   useEffect(() => {
-    const checkProfessionalStatus = () => {
+    const checkUserStatus = async () => {
       try {
-        const user = localStorage.getItem('user');
-        if (user) {
-          const userData = JSON.parse(user);
-          setIsProfessional(userData.professional_status === 'approved');
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user`, {
+          credentials: 'include'
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          if (data && data.status === 'success') {
+            setIsLoggedIn(true);
+            setIsProfessional(data.data.professional_status === 'approved');
+          } else {
+            setIsLoggedIn(false);
+            setIsProfessional(false);
+          }
+        } else {
+          setIsLoggedIn(false);
+          setIsProfessional(false);
         }
       } catch (error) {
-        console.error('Failed to parse user data:', error);
+        console.error('Failed to check user status:', error);
+        setIsLoggedIn(false);
+        setIsProfessional(false);
       }
     };
 
-    checkProfessionalStatus();
+    checkUserStatus();
   }, []);
 
   // Fetch professionals
@@ -162,19 +178,21 @@ export default function ProfessionalsListing({ locale, initialFilters }: Profess
               </p>
             </div>
 
-            {/* Become a Professional CTA or Manage Profile */}
-            <Link href={isProfessional ? `/${locale}/settings/professional` : `/${locale}/become-professional`}>
-              <div className="group relative cursor-pointer">
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 opacity-90 group-hover:opacity-100 transition-all duration-500" />
-                <div className="relative flex items-center gap-3 px-6 py-4 text-white">
-                  <Star className="w-5 h-5" />
-                  <span className="font-semibold whitespace-nowrap">
-                    {isProfessional ? 'Profili İdarə Et' : 'Peşəkar Olun'}
-                  </span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            {/* Become a Professional CTA - only show if not already a professional */}
+            {!isProfessional && (
+              <Link href={`/${locale}/become-professional`}>
+                <div className="group relative cursor-pointer">
+                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 opacity-90 group-hover:opacity-100 transition-all duration-500" />
+                  <div className="relative flex items-center gap-3 px-6 py-4 text-white">
+                    <Star className="w-5 h-5" />
+                    <span className="font-semibold whitespace-nowrap">
+                      Peşəkar Olun
+                    </span>
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </div>
                 </div>
-              </div>
-            </Link>
+              </Link>
+            )}
           </div>
         </div>
 
