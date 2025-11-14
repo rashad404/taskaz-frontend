@@ -57,37 +57,31 @@ export default function ProfessionalApplicationForm({ locale }: ProfessionalAppl
   const [metroStationId, setMetroStationId] = useState<number | null>(null);
   const [professionalStatus, setProfessionalStatus] = useState<string | null>(null);
   const [checkingStatus, setCheckingStatus] = useState(true);
+  const [isRemote, setIsRemote] = useState(false);
 
   // Check authentication and professional status
   useEffect(() => {
-    const checkStatus = async () => {      if (!token) {
-        setShowAuthModal(true);
-        setCheckingStatus(false);
-        return;
-      }
-
-      // Fetch current professional status from API
+    const checkStatus = async () => {
+      // First check if user is authenticated
       try {
-        const response = await apiClient.get('/professional/status');
-        if (response.data.status === 'success') {
-          setProfessionalStatus(response.data.data.professional_status);
+        const userResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user`, {
+          credentials: 'include'
+        });
 
-          // Also update localStorage user data
-          const user = JSON.parse(localStorage.getItem('user') || '{}');
-          user.professional_status = response.data.data.professional_status;
-          localStorage.setItem('user', JSON.stringify(user));
+        if (!userResponse.ok || userResponse.status === 401) {
+          setShowAuthModal(true);
+          setCheckingStatus(false);
+          return;
+        }
+
+        // User is authenticated, now check professional status
+        const userData = await userResponse.json();
+        if (userData && userData.status === 'success' && userData.data.professional_status) {
+          setProfessionalStatus(userData.data.professional_status);
         }
       } catch (error: any) {
-        console.error('Failed to fetch professional status:', error);
-        // Fallback to localStorage if API call fails
-        try {
-          const user = JSON.parse(localStorage.getItem('user') || '{}');
-          if (user.professional_status) {
-            setProfessionalStatus(user.professional_status);
-          }
-        } catch (e) {
-          console.error('Failed to parse user data:', e);
-        }
+        console.error('Failed to fetch user/professional status:', error);
+        setShowAuthModal(true);
       }
 
       setCheckingStatus(false);
@@ -117,10 +111,53 @@ export default function ProfessionalApplicationForm({ locale }: ProfessionalAppl
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log('Form submitted!');
+    console.log('Form data:', formData);
+    console.log('City ID:', cityId);
+    console.log('Is Remote:', isRemote);
 
-    if (!validate()) {
+    // Clear location error before validation since we handle it separately
+    const currentErrors = { ...errors };
+    delete currentErrors.location;
+
+    // Run validation but ignore location error since we handle it based on isRemote
+    validate();
+
+    // Check if there are any errors other than location
+    const hasOtherErrors = Object.keys(errors).some(key => key !== 'location' && errors[key as keyof typeof errors]);
+    if (hasOtherErrors) {
+      console.log('Validation failed', errors);
+      setApiError('Zəhmət olmasa bütün tələb olunan xanaları doldurun');
       return;
     }
+
+    // Additional validation for required fields
+    if (!isRemote && !cityId) {
+      console.log('Location validation failed');
+      setApiError('Yer (Şəhər) seçməlisiniz və ya "Uzaqdan" seçin');
+      return;
+    }
+
+    if (!formData.bio || formData.bio.trim().length < 50) {
+      console.log('Bio validation failed:', formData.bio?.length);
+      setApiError('Haqqınızda mətn minimum 50 simvol olmalıdır');
+      return;
+    }
+
+    if (!formData.skills || formData.skills.length < 3) {
+      console.log('Skills validation failed:', formData.skills?.length);
+      setApiError('Minimum 3 bacarıq əlavə etməlisiniz');
+      return;
+    }
+
+    const hourlyRateValue = formData.hourly_rate || (formData as any).hourlyRate;
+    if (!hourlyRateValue || parseFloat(String(hourlyRateValue)) < 1) {
+      console.log('Hourly rate validation failed:', hourlyRateValue);
+      setApiError('Saatlıq qiymət minimum 1 AZN olmalıdır');
+      return;
+    }
+
+    console.log('All validations passed, submitting...');
 
     setSubmitting(true);
     setApiError(null);
@@ -128,16 +165,18 @@ export default function ProfessionalApplicationForm({ locale }: ProfessionalAppl
     try {
       // Prepare data for API - remove location field and add city IDs
       const submitData = {
-        bio: formData.bio,
-        city_id: cityId,
-        district_id: districtId,
-        settlement_id: settlementId,
-        metro_station_id: metroStationId,
+        bio: formData.bio.trim(),
+        is_remote: isRemote,
+        city_id: isRemote ? null : cityId,
+        district_id: isRemote ? null : (districtId || null),
+        settlement_id: isRemote ? null : (settlementId || null),
+        metro_station_id: isRemote ? null : (metroStationId || null),
         skills: formData.skills,
-        hourly_rate: formData.hourly_rate ? parseFloat(formData.hourly_rate) : 0,
+        hourly_rate: parseFloat(String(hourlyRateValue)),
         portfolio_items: formData.portfolio_items || []
       };
 
+      console.log('Submitting professional application:', submitData);
       const response = await apiClient.post('/professional/apply', submitData);
 
       if (response.data.status === 'success') {
@@ -158,9 +197,40 @@ export default function ProfessionalApplicationForm({ locale }: ProfessionalAppl
         setShowAuthModal(true);
         setApiError(null);
       } else if (error.response?.data?.errors) {
-        // Show validation errors
+        // Show validation errors with field names translated
         const validationErrors = error.response.data.errors;
-        const errorMessages = Object.values(validationErrors).flat().join(', ');
+        const fieldTranslations: Record<string, string> = {
+          'bio': t('form.bio'),
+          'city_id': t('form.location'),
+          'skills': t('form.skills'),
+          'hourly_rate': t('form.hourlyRate'),
+          'portfolio_items': t('form.portfolio')
+        };
+
+        const errorMessages = Object.entries(validationErrors).map(([field, messages]: [string, any]) => {
+          const fieldName = fieldTranslations[field] || field;
+          const fieldMessages = Array.isArray(messages) ? messages : [messages];
+
+          // Translate common validation messages
+          const translatedMessages = fieldMessages.map(msg => {
+            if (typeof msg === 'string') {
+              if (msg.includes('required') || msg === 'validation.required') {
+                return `${fieldName} tələb olunur`;
+              } else if (msg.includes('min')) {
+                return `${fieldName} çox qısadır`;
+              } else if (msg.includes('max')) {
+                return `${fieldName} çox uzundur`;
+              } else if (msg.includes('numeric')) {
+                return `${fieldName} rəqəm olmalıdır`;
+              }
+              return msg;
+            }
+            return String(msg);
+          });
+
+          return translatedMessages.join(', ');
+        }).join('. ');
+
         setApiError(errorMessages);
       } else if (error.response?.data?.message) {
         setApiError(error.response.data.message);
@@ -322,8 +392,8 @@ export default function ProfessionalApplicationForm({ locale }: ProfessionalAppl
               {t('form.location')} <span className="text-red-500">*</span>
             </label>
             <LocationSelector
-              isRemote={false}
-              onRemoteChange={() => {}} // Professionals must have a location
+              isRemote={isRemote}
+              onRemoteChange={setIsRemote}
               cityId={cityId}
               onCityChange={(id) => {
                 setCityId(id);

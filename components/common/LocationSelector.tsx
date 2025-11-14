@@ -39,8 +39,8 @@ interface MetroStation {
 }
 
 interface LocationSelectorProps {
-  isRemote: boolean;
-  onRemoteChange: (isRemote: boolean) => void;
+  isRemote?: boolean;
+  onRemoteChange?: (isRemote: boolean) => void;
   cityId: number | null;
   onCityChange: (cityId: number | null) => void;
   districtId?: number | null;
@@ -50,6 +50,7 @@ interface LocationSelectorProps {
   metroStationId?: number | null;
   onMetroStationChange?: (metroStationId: number | null) => void;
   locale?: string;
+  showRemoteOption?: boolean; // New prop to control visibility
   // Legacy support for old API
   neighborhoodId?: number | null;
   onNeighborhoodChange?: (neighborhoodId: number | null) => void;
@@ -61,7 +62,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://100.89.150.50:8000/ap
 const BAKU_CITY_ID = 1;
 
 export default function LocationSelector({
-  isRemote,
+  isRemote = false,
   onRemoteChange,
   cityId,
   onCityChange,
@@ -72,6 +73,7 @@ export default function LocationSelector({
   metroStationId,
   onMetroStationChange,
   locale = 'az',
+  showRemoteOption = true,
   // Legacy props
   neighborhoodId,
   onNeighborhoodChange
@@ -218,7 +220,9 @@ export default function LocationSelector({
 
   const handleRemoteChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const checked = e.target.checked;
-    onRemoteChange(checked);
+    if (onRemoteChange) {
+      onRemoteChange(checked);
+    }
 
     // Clear location selections when remote is checked
     if (checked) {
@@ -321,22 +325,24 @@ export default function LocationSelector({
 
   return (
     <div className="space-y-4">
-      {/* Remote Checkbox */}
-      <div className="flex items-center">
-        <input
-          type="checkbox"
-          id="is_remote"
-          checked={isRemote}
-          onChange={handleRemoteChange}
-          className="w-4 h-4 text-indigo-600 bg-gray-100 border-gray-300 rounded focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-        />
-        <label
-          htmlFor="is_remote"
-          className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-        >
-          {t.remote}
-        </label>
-      </div>
+      {/* Remote Checkbox - only show if enabled */}
+      {showRemoteOption && (
+        <div className="flex items-center">
+          <input
+            type="checkbox"
+            id="is_remote"
+            checked={isRemote}
+            onChange={handleRemoteChange}
+            className="w-4 h-4 text-indigo-600 bg-gray-100 border-gray-300 rounded focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+          />
+          <label
+            htmlFor="is_remote"
+            className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300 cursor-pointer"
+          >
+            {t.remote}
+          </label>
+        </div>
+      )}
 
       {/* City Selector */}
       {!isRemote && (
