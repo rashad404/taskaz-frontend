@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Mail, Phone, Lock } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import authService from '@/lib/api/auth';
 
 interface ContactInfoProps {
   email?: string;
@@ -16,8 +17,13 @@ export default function ContactInfo({ email, phone, locale = 'az' }: ContactInfo
   const router = useRouter();
 
   useEffect(() => {
-    setMounted(true);
-    setIsAuthenticated(!!token);
+    const checkAuth = async () => {
+      const user = await authService.getCurrentUser();
+      setIsAuthenticated(!!user);
+      setMounted(true);
+    };
+
+    checkAuth();
   }, []);
 
   const maskEmail = (email: string) => {
