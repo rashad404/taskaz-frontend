@@ -5,6 +5,7 @@ import Link from 'next/link';
 import MessageModal from '@/components/common/MessageModal';
 import HireModal from '@/components/common/HireModal';
 import { MessageSquare, Briefcase, Edit } from 'lucide-react';
+import authService from '@/lib/api/auth';
 
 interface ProfessionalDetailActionsProps {
   professional: any;
@@ -18,7 +19,9 @@ export default function ProfessionalDetailActions({ professional, locale = 'az' 
 
   useEffect(() => {
     // Check ownership by calling API with auth token
-    const checkOwnership = async () => {      if (!token) {
+    const checkOwnership = async () => {
+      const user = await authService.getCurrentUser();
+      if (!user) {
         setIsOwner(false);
         return;
       }
