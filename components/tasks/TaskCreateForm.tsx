@@ -9,8 +9,8 @@ import { tasksApi, categoriesApi } from '@/lib/api/marketplace';
 import type { Category } from '@/lib/types/marketplace';
 import TaskPreview from './TaskPreview';
 import RichTextEditor from '@/components/ui/RichTextEditor';
-import AuthModal from '@/components/auth/AuthModal';
 import LocationSelector from '@/components/common/LocationSelector';
+import { useRequireAuth } from '@/lib/hooks/useRequireAuth';
 
 interface TaskCreateFormProps {
   locale: string;
@@ -20,6 +20,7 @@ export default function TaskCreateForm({ locale }: TaskCreateFormProps) {
   const t = useTranslations('taskCreate');
   const tCommon = useTranslations('common');
   const router = useRouter();
+  const { triggerLogin } = useRequireAuth();
 
   const {
     formData,
@@ -46,7 +47,6 @@ export default function TaskCreateForm({ locale }: TaskCreateFormProps) {
   const [showPreview, setShowPreview] = useState(false);
   const [skillInput, setSkillInput] = useState('');
   const [successMessage, setSuccessMessage] = useState(false);
-  const [showAuthModal, setShowAuthModal] = useState(false);
   const [apiError, setApiError] = useState<string | null>(null);
   const [cityId, setCityId] = useState<number | null>(null);
   const [districtId, setDistrictId] = useState<number | null>(null);
@@ -181,6 +181,14 @@ export default function TaskCreateForm({ locale }: TaskCreateFormProps) {
 
       if (!response.ok) {
         const errorData = await response.json();
+
+        // Check for authentication error - directly open Kimlik.az login
+        if (response.status === 401 || errorData.error_code === 'unauthenticated') {
+          setSubmitting(false);
+          await triggerLogin();
+          return;
+        }
+
         throw new Error(errorData.message || 'Failed to create task');
       }
 
@@ -219,13 +227,6 @@ export default function TaskCreateForm({ locale }: TaskCreateFormProps) {
     } finally {
       setSubmitting(false);
     }
-  };
-
-  const handleAuthSuccess = () => {
-    // Close modal
-    setShowAuthModal(false);
-    // User is now logged in, they can try to publish again
-    // Form data is already saved in draft
   };
 
   const handleSaveDraft = () => {
@@ -627,14 +628,6 @@ export default function TaskCreateForm({ locale }: TaskCreateFormProps) {
           onPublish={handleSubmit}
         />
       )}
-
-      {/* Auth Modal */}
-      <AuthModal
-        isOpen={showAuthModal}
-        onClose={() => setShowAuthModal(false)}
-        onSuccess={handleAuthSuccess}
-        message={t('authRequired.message')}
-      />
 
       {/* Draft Saved Toast */}
       {showDraftSaved && (

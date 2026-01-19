@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { X, Send, Loader2 } from 'lucide-react';
+import { useRequireAuth } from '@/lib/hooks/useRequireAuth';
 
 interface MessageModalProps {
   isOpen: boolean;
@@ -23,6 +24,7 @@ export default function MessageModal({
   taskTitle,
   onSuccess
 }: MessageModalProps) {
+  const { triggerLogin } = useRequireAuth();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [mounted, setMounted] = useState(false);
@@ -38,16 +40,7 @@ export default function MessageModal({
     setError('');
     setLoading(true);
 
-    try {      if (!token) {
-        // Store current page for redirect after login
-        if (typeof window !== 'undefined') {
-          sessionStorage.setItem('return_url', window.location.pathname);
-        }
-        setError('Mesaj göndərmək üçün daxil olmalısınız');
-        setLoading(false);
-        return;
-      }
-
+    try {
       if (!taskId) {
         setError('Mesaj göndərmək üçün əvvəlcə tapşırıq yaratmalı və ya professional-in tapşırığına müraciət etməlisiniz. Tapşırıqla bağlı mesajlaşmaq mümkündür.');
         setLoading(false);
@@ -74,6 +67,13 @@ export default function MessageModal({
         onSuccess?.();
         onClose();
       } else {
+        // Check for authentication error - trigger Kimlik.az login
+        if (response.status === 401 || data.error_code === 'unauthenticated') {
+          setLoading(false);
+          onClose();
+          await triggerLogin();
+          return;
+        }
         setError(data.message || 'Mesaj göndərilərkən xəta baş verdi');
       }
     } catch (err) {

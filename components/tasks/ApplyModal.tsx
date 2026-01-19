@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { X, Send, Loader2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { useRequireAuth } from '@/lib/hooks/useRequireAuth';
 
 interface ApplyModalProps {
   isOpen: boolean;
@@ -25,6 +26,7 @@ export default function ApplyModal({
   onSuccess
 }: ApplyModalProps) {
   const t = useTranslations();
+  const { triggerLogin } = useRequireAuth();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
@@ -79,6 +81,13 @@ export default function ApplyModal({
           onClose();
         }, 2000);
       } else {
+        // Check for authentication error - trigger Kimlik.az login
+        if (response.status === 401 || data.error_code === 'unauthenticated') {
+          setLoading(false);
+          onClose();
+          await triggerLogin();
+          return;
+        }
         setError(data.message || 'Müraciət göndərilərkən xəta baş verdi');
       }
     } catch (err) {

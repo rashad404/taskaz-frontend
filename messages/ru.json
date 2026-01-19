@@ -168,7 +168,8 @@
     "or": "или",
     "agreeToTerms": "Я согласен с условиями использования",
     "privacyPolicy": "Политика конфиденциальности",
-    "termsOfService": "Условия использования"
+    "termsOfService": "Условия использования",
+    "backToHome": "На главную"
   },
   "dashboard": {
     "welcome": "Добро пожаловать, {name}!",
@@ -356,6 +357,20 @@
   "login": {
     "welcomeBack": "Добро пожаловать",
     "signInToManage": "Войдите, чтобы управлять уведомлениями",
+    "signInWithKimlik": "Войти через Kimlik.az",
+    "kimlikDescription": "Безопасный вход с единой учетной записью Kimlik.az",
+    "noKimlikAccount": "Нет учетной записи Kimlik.az?",
+    "createKimlikAccount": "Создать учетную запись",
+    "connecting": "Подключение...",
+    "popupBlocked": "Всплывающее окно заблокировано. Пожалуйста, разрешите всплывающие окна.",
+    "walletAuthFailed": "Ошибка входа",
+    "walletAuthSuccess": "Успешный вход!",
+    "processingWallet": "Проверка вашей учетной записи...",
+    "pleaseWait": "Пожалуйста, подождите",
+    "redirecting": "Перенаправление...",
+    "noAuthCode": "Код авторизации не найден",
+    "invalidState": "Неверный параметр state",
+    "noTokenReceived": "Токен не получен",
     "emailAddress": "Электронная почта",
     "password": "Пароль",
     "forgotPassword": "Забыли пароль?",
@@ -368,7 +383,11 @@
     "signUp": "Регистрация",
     "invalidCredentials": "Неверный email или пароль",
     "emailPlaceholder": "you@example.com",
-    "passwordPlaceholder": "••••••••"
+    "passwordPlaceholder": "••••••••",
+    "authRequired": "Требуется вход",
+    "pleaseLoginToContinue": "Войдите в свой аккаунт, чтобы продолжить",
+    "loginWithKimlik": "Войти через Kimlik.az",
+    "secureLoginViaKimlik": "Безопасный вход через Kimlik.az"
   },
   "register": {
     "createAccount": "Создать учетную запись",

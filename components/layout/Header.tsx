@@ -10,58 +10,42 @@ import StartupBar from '@/components/common/StartupBar';
 import Image from 'next/image';
 import { getLocalizedPath } from '@/lib/utils/locale';
 import authService from '@/lib/api/auth';
+import { openWalletLogin, getLocaleFromPathname } from '@/lib/utils/walletAuth';
+import { useAuthState } from '@/lib/hooks/useAuthState';
 
 export default function Header() {
   const t = useTranslations();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [user, setUser] = useState<any>(null);
   const [isMounted, setIsMounted] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
   const params = useParams();
+  const { isAuthenticated, user } = useAuthState();
 
   const locale = (params?.lang as string) || 'az';
 
   // Check if we're on a dashboard page (all dashboard pages are under /dashboard)
   const isDashboardPage = pathname?.includes('/dashboard');
 
-  const checkAuth = async () => {
-    try {
-      const currentUser = await authService.getCurrentUser();
-      if (currentUser) {
-        setIsAuthenticated(true);
-        setUser(currentUser);
-      } else {
-        setIsAuthenticated(false);
-        setUser(null);
-      }
-    } catch (error) {
-      setIsAuthenticated(false);
-      setUser(null);
-    }
-  };
-
   useEffect(() => {
-    checkAuth();
     setIsMounted(true);
-
-    const handleAuthChange = () => {
-      checkAuth();
-    };
-
-    window.addEventListener('authStateChanged', handleAuthChange);
-
-    return () => {
-      window.removeEventListener('authStateChanged', handleAuthChange);
-    };
-  }, [pathname]);
+  }, []);
 
   const handleLogout = async () => {
     await authService.logout();
-    setIsAuthenticated(false);
-    setUser(null);
+    // Dispatch logout event for instant UI update
+    window.dispatchEvent(new CustomEvent('authStateChanged', { detail: { logout: true } }));
     router.push('/');
+  };
+
+  const handleLoginClick = async () => {
+    const currentLocale = getLocaleFromPathname(pathname || '');
+    await openWalletLogin({
+      locale: currentLocale,
+      onError: (error) => {
+        console.error('Wallet login error:', error);
+      },
+    });
   };
 
   return (
@@ -148,11 +132,13 @@ export default function Header() {
                 </>
               ) : (
                 <>
-                  <p className="shrink-0 font-semibold text-[14px] md:text-[15px] lg:text-[16px] leading-[20px] text-black dark:text-white" style={{ fontFamily: 'Inter, sans-serif' }}>
-                    <Link href={getLocalizedPath(locale, '/login')} className="hover:opacity-80 transition-opacity">
-                      Daxil ol
-                    </Link>
-                  </p>
+                  <button
+                    onClick={handleLoginClick}
+                    className="shrink-0 font-semibold text-[14px] md:text-[15px] lg:text-[16px] leading-[20px] text-black dark:text-white hover:opacity-80 transition-opacity cursor-pointer"
+                    style={{ fontFamily: 'Inter, sans-serif' }}
+                  >
+                    Daxil ol
+                  </button>
                   <div className="flex items-center gap-[8px]">
                     <Link
                       href={getLocalizedPath(locale, '/tasks/create')}
@@ -262,13 +248,15 @@ export default function Header() {
                 </>
               ) : (
                 <>
-                  <Link
-                    href={getLocalizedPath(locale, '/login')}
-                    className="block px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg"
-                    onClick={() => setIsMenuOpen(false)}
+                  <button
+                    onClick={() => {
+                      setIsMenuOpen(false);
+                      handleLoginClick();
+                    }}
+                    className="w-full text-left px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg"
                   >
                     Daxil ol
-                  </Link>
+                  </button>
                   <Link
                     href={getLocalizedPath(locale, '/tasks/create')}
                     className="block px-3 py-2 text-sm font-medium text-white bg-gray-900 hover:bg-gray-800 dark:bg-white dark:text-gray-900 rounded-lg"

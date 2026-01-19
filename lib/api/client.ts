@@ -12,13 +12,8 @@ const apiClient = axios.create({
 apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401) {
-      // Handle unauthorized access - user needs to re-login
-      if (typeof window !== 'undefined') {
-        // Trigger auth state change event
-        window.dispatchEvent(new Event('authStateChanged'));
-      }
-    }
+    // Don't dispatch events here - let components handle 401 errors themselves
+    // Dispatching authStateChanged on 401 causes infinite loops with useAuthState
     return Promise.reject(error);
   }
 );

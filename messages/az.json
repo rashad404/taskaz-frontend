@@ -158,7 +158,8 @@
     "or": "və ya",
     "agreeToTerms": "Mən istifadə şərtlərini qəbul edirəm",
     "privacyPolicy": "Məxfilik Siyasəti",
-    "termsOfService": "İstifadə Şərtləri"
+    "termsOfService": "İstifadə Şərtləri",
+    "backToHome": "Ana səhifəyə qayıt"
   },
   "dashboard": {
     "welcome": "Xoş gəldiniz, {name}!",
@@ -361,6 +362,20 @@
   "login": {
     "welcomeBack": "Xoş gəlmisiniz",
     "signInToManage": "Bildirişlərinizi idarə etmək üçün daxil olun",
+    "signInWithKimlik": "Kimlik.az ilə daxil olun",
+    "kimlikDescription": "Vahid Kimlik.az hesabınızla təhlükəsiz daxil olun",
+    "noKimlikAccount": "Kimlik.az hesabınız yoxdur?",
+    "createKimlikAccount": "Hesab yaradın",
+    "connecting": "Qoşulur...",
+    "popupBlocked": "Popup pəncərəsi bloklandı. Zəhmət olmasa popup-lara icazə verin.",
+    "walletAuthFailed": "Giriş uğursuz oldu",
+    "walletAuthSuccess": "Uğurla daxil oldunuz!",
+    "processingWallet": "Hesabınız yoxlanılır...",
+    "pleaseWait": "Zəhmət olmasa gözləyin",
+    "redirecting": "Yönləndirilir...",
+    "noAuthCode": "Avtorizasiya kodu tapılmadı",
+    "invalidState": "Yanlış state parametri",
+    "noTokenReceived": "Token alınmadı",
     "emailAddress": "E-poçt ünvanı",
     "password": "Şifrə",
     "forgotPassword": "Şifrəni unutdunuz?",
@@ -374,7 +389,11 @@
     "invalidCredentials": "Yanlış e-poçt və ya şifrə",
     "loginFailed": "Daxil olma uğursuz oldu. Zəhmət olmasa yenidən cəhd edin.",
     "emailPlaceholder": "siz@sayt.az",
-    "passwordPlaceholder": "••••••••"
+    "passwordPlaceholder": "••••••••",
+    "authRequired": "Giriş tələb olunur",
+    "pleaseLoginToContinue": "Davam etmək üçün hesabınıza daxil olun",
+    "loginWithKimlik": "Kimlik.az ilə daxil ol",
+    "secureLoginViaKimlik": "Kimlik.az vasitəsilə təhlükəsiz giriş"
   },
   "register": {
     "createAccount": "Hesab Yaradın",

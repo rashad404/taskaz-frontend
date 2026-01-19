@@ -1,9 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import { Mail, Phone, Lock } from 'lucide-react';
-import { useRouter } from 'next/navigation';
-import authService from '@/lib/api/auth';
+import { useAuthState } from '@/lib/hooks/useAuthState';
+import { useRequireAuth } from '@/lib/hooks/useRequireAuth';
 
 interface ContactInfoProps {
   email?: string;
@@ -11,20 +10,9 @@ interface ContactInfoProps {
   locale?: string;
 }
 
-export default function ContactInfo({ email, phone, locale = 'az' }: ContactInfoProps) {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [mounted, setMounted] = useState(false);
-  const router = useRouter();
-
-  useEffect(() => {
-    const checkAuth = async () => {
-      const user = await authService.getCurrentUser();
-      setIsAuthenticated(!!user);
-      setMounted(true);
-    };
-
-    checkAuth();
-  }, []);
+export default function ContactInfo({ email, phone }: ContactInfoProps) {
+  const { isAuthenticated, isLoading } = useAuthState();
+  const { triggerLogin } = useRequireAuth();
 
   const maskEmail = (email: string) => {
     const [username, domain] = email.split('@');
@@ -49,16 +37,12 @@ export default function ContactInfo({ email, phone, locale = 'az' }: ContactInfo
     return phone.substring(0, 3) + '***' + phone.slice(-2);
   };
 
-  const handleSignInClick = () => {
-    // Store current page for redirect after login
-    if (typeof window !== 'undefined') {
-      sessionStorage.setItem('return_url', window.location.pathname);
-    }
-    router.push(`/${locale}/login`);
+  const handleSignInClick = async () => {
+    await triggerLogin();
   };
 
-  if (!mounted) {
-    // Return skeleton or nothing during SSR
+  if (isLoading) {
+    // Return nothing during initial load to avoid flash
     return null;
   }
 

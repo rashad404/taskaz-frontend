@@ -154,7 +154,8 @@
     "or": "or",
     "agreeToTerms": "I agree to the terms and conditions",
     "privacyPolicy": "Privacy Policy",
-    "termsOfService": "Terms of Service"
+    "termsOfService": "Terms of Service",
+    "backToHome": "Back to home"
   },
   "dashboard": {
     "welcome": "Welcome back, {name}!",
@@ -356,6 +357,20 @@
   "login": {
     "welcomeBack": "Welcome Back",
     "signInToManage": "Sign in to manage your alerts",
+    "signInWithKimlik": "Sign in with Kimlik.az",
+    "kimlikDescription": "Securely sign in with your unified Kimlik.az account",
+    "noKimlikAccount": "Don't have a Kimlik.az account?",
+    "createKimlikAccount": "Create account",
+    "connecting": "Connecting...",
+    "popupBlocked": "Popup blocked. Please allow popups.",
+    "walletAuthFailed": "Login failed",
+    "walletAuthSuccess": "Successfully signed in!",
+    "processingWallet": "Verifying your account...",
+    "pleaseWait": "Please wait",
+    "redirecting": "Redirecting...",
+    "noAuthCode": "No authorization code found",
+    "invalidState": "Invalid state parameter",
+    "noTokenReceived": "No token received",
     "emailAddress": "Email Address",
     "password": "Password",
     "forgotPassword": "Forgot password?",
@@ -368,7 +383,11 @@
     "signUp": "Sign up",
     "invalidCredentials": "Invalid email or password",
     "emailPlaceholder": "you@example.com",
-    "passwordPlaceholder": "••••••••"
+    "passwordPlaceholder": "••••••••",
+    "authRequired": "Login Required",
+    "pleaseLoginToContinue": "Please sign in to your account to continue",
+    "loginWithKimlik": "Sign in with Kimlik.az",
+    "secureLoginViaKimlik": "Secure login via Kimlik.az"
   },
   "register": {
     "createAccount": "Create Account",
