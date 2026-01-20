@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useRouter, useParams } from 'next/navigation';
+import { useRouter, useParams, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import {
   User,
@@ -13,7 +13,9 @@ import {
   ChevronLeft,
   FileText,
   Camera,
-  Upload
+  Upload,
+  Wallet,
+  ExternalLink
 } from 'lucide-react';
 import LocationSelector from '@/components/common/LocationSelector';
 import { getStorageUrl } from '@/lib/utils/url';
@@ -21,11 +23,13 @@ import { getStorageUrl } from '@/lib/utils/url';
 export default function ProfileSettingsPage() {
   const router = useRouter();
   const params = useParams();
+  const searchParams = useSearchParams();
   const locale = (params?.lang as string) || 'az';
 
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [syncing, setSyncing] = useState(false);
   const [message, setMessage] = useState({ type: '', text: '' });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
@@ -78,6 +82,44 @@ export default function ProfileSettingsPage() {
       });
   }, [router, locale]);
 
+  // Sync from Kimlik.az when returning with wallet_updated=1
+  useEffect(() => {
+    const walletUpdated = searchParams.get('wallet_updated');
+    if (walletUpdated === '1' && user?.wallet_id) {
+      setSyncing(true);
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/sync-from-wallet`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data.status === 'success' && data.data) {
+            setUser(data.data);
+            setFormData({
+              name: data.data.name || '',
+              email: data.data.email || '',
+              phone: data.data.phone || '',
+              bio: data.data.bio || ''
+            });
+            setMessage({ type: 'success', text: 'Profil Kimlik.az-dan yeniləndi' });
+          }
+        })
+        .catch(err => {
+          console.error('Failed to sync from Kimlik.az:', err);
+        })
+        .finally(() => {
+          setSyncing(false);
+          // Remove the query parameter from URL
+          const url = new URL(window.location.href);
+          url.searchParams.delete('wallet_updated');
+          router.replace(url.pathname, { scroll: false });
+        });
+    }
+  }, [searchParams, user?.wallet_id]);
+
   const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -110,12 +152,22 @@ export default function ProfileSettingsPage() {
     setErrors({});
     setSaving(true);
 
-    try {      // Use FormData for file upload
+    try {
+      // Check if user is a Kimlik.az user
+      const isWalletUser = !!user.wallet_id;
+
+      // Use FormData for file upload
       const formDataToSend = new FormData();
       formDataToSend.append('_method', 'PUT'); // Laravel method spoofing for file uploads
-      formDataToSend.append('name', formData.name);
-      formDataToSend.append('email', formData.email);
-      formDataToSend.append('phone', formData.phone || '');
+
+      // Only send name, email, phone for non-wallet users
+      if (!isWalletUser) {
+        formDataToSend.append('name', formData.name);
+        formDataToSend.append('email', formData.email);
+        formDataToSend.append('phone', formData.phone || '');
+      }
+
+      // These fields are always editable on task.az
       formDataToSend.append('bio', formData.bio || '');
 
       if (cityId) {
@@ -131,7 +183,8 @@ export default function ProfileSettingsPage() {
         formDataToSend.append('metro_station_id', metroStationId.toString());
       }
 
-      if (avatarFile) {
+      // Only send avatar for non-wallet users
+      if (avatarFile && !isWalletUser) {
         formDataToSend.append('avatar', avatarFile);
       }
 
@@ -192,10 +245,13 @@ export default function ProfileSettingsPage() {
     }
   };
 
-  if (loading) {
+  if (loading || syncing) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-indigo-600" />
+        <div className="text-center">
+          <Loader2 className="w-8 h-8 animate-spin text-indigo-600 mx-auto mb-2" />
+          {syncing && <p className="text-sm text-gray-500">Kimlik.az-dan sinxronlaşdırılır...</p>}
+        </div>
       </div>
     );
   }
@@ -203,6 +259,12 @@ export default function ProfileSettingsPage() {
   if (!user) {
     return null;
   }
+
+  // Check if user logged in via Kimlik.az OAuth
+  const isWalletUser = !!user.wallet_id;
+  const currentUrl = typeof window !== 'undefined' ? window.location.origin + window.location.pathname : '';
+  const returnUrl = encodeURIComponent(currentUrl + '?wallet_updated=1');
+  const walletProfileUrl = `${process.env.NEXT_PUBLIC_WALLET_URL || 'https://kimlik.az'}/settings/profile?return_url=${returnUrl}`;
 
   return (
     <div className="min-h-screen py-8 px-4 sm:px-6">
@@ -222,9 +284,34 @@ export default function ProfileSettingsPage() {
             Profil Məlumatları
           </h1>
           <p className="text-gray-600 dark:text-gray-400">
-            Şəxsi məlumatlarınızı və profil təsvirinizi yeniləyin
+            {isWalletUser
+              ? 'Əsas məlumatlar Kimlik.az-da idarə olunur'
+              : 'Şəxsi məlumatlarınızı və profil təsvirinizi yeniləyin'}
           </p>
         </div>
+
+        {/* Kimlik.az Info Banner for OAuth users */}
+        {isWalletUser && (
+          <div className="mb-6 p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800">
+            <div className="flex items-start gap-3">
+              <Wallet className="w-5 h-5 text-emerald-600 dark:text-emerald-400 flex-shrink-0 mt-0.5" />
+              <div className="flex-1">
+                <p className="text-sm text-emerald-700 dark:text-emerald-300 mb-3">
+                  Ad, email, telefon və profil şəkliniz Kimlik.az hesabınızla idarə olunur. Bu məlumatları dəyişmək üçün Kimlik.az-a keçin.
+                </p>
+                <a
+                  href={walletProfileUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium rounded-xl transition-colors"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  Kimlik.az-da redaktə et
+                </a>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Success/Error Message */}
         {message.text && (
@@ -263,106 +350,147 @@ export default function ProfileSettingsPage() {
                 )}
               </div>
 
-              {/* Upload Button Overlay */}
-              <label
-                htmlFor="avatar-upload"
-                className="absolute bottom-0 right-0 w-10 h-10 bg-indigo-600 hover:bg-indigo-700 rounded-full flex items-center justify-center cursor-pointer shadow-lg transition-colors"
-              >
-                <Camera className="w-5 h-5 text-white" />
-                <input
-                  id="avatar-upload"
-                  type="file"
-                  accept="image/*"
-                  onChange={handleAvatarChange}
-                  className="hidden"
-                />
-              </label>
+              {/* Upload Button Overlay - only show for non-wallet users */}
+              {!isWalletUser && (
+                <label
+                  htmlFor="avatar-upload"
+                  className="absolute bottom-0 right-0 w-10 h-10 bg-indigo-600 hover:bg-indigo-700 rounded-full flex items-center justify-center cursor-pointer shadow-lg transition-colors"
+                >
+                  <Camera className="w-5 h-5 text-white" />
+                  <input
+                    id="avatar-upload"
+                    type="file"
+                    accept="image/*"
+                    onChange={handleAvatarChange}
+                    className="hidden"
+                  />
+                </label>
+              )}
             </div>
 
             <div className="mt-4 text-center">
               <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 Profil Şəkli
               </p>
-              <p className="text-xs text-gray-500 dark:text-gray-400">
-                JPG, PNG və ya GIF. Maksimum 5MB.
-              </p>
+              {isWalletUser ? (
+                <p className="text-xs text-gray-500 dark:text-gray-400">
+                  Kimlik.az-da idarə olunur
+                </p>
+              ) : (
+                <p className="text-xs text-gray-500 dark:text-gray-400">
+                  JPG, PNG və ya GIF. Maksimum 5MB.
+                </p>
+              )}
             </div>
           </div>
 
           <div className="space-y-6">
-            {/* Name */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                <div className="flex items-center gap-2">
-                  <User className="w-4 h-4" />
-                  Ad və Soyad *
+            {/* Read-only fields for Kimlik.az users */}
+            {isWalletUser ? (
+              <div className="space-y-4 mb-6 pb-6 border-b border-gray-200 dark:border-gray-700">
+                <div className="flex items-center gap-3 p-4 rounded-2xl bg-gray-50 dark:bg-gray-800/50">
+                  <User className="w-5 h-5 text-gray-500" />
+                  <div>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">Ad və Soyad</p>
+                    <p className="text-gray-900 dark:text-white font-medium">{user.name}</p>
+                  </div>
                 </div>
-              </label>
-              <input
-                type="text"
-                required
-                value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className={`w-full px-4 py-3 rounded-2xl border ${
-                  errors.name
-                    ? 'border-red-500 dark:border-red-500'
-                    : 'border-gray-300 dark:border-gray-700'
-                } bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all`}
-                placeholder="Adınızı daxil edin"
-              />
-              {errors.name && (
-                <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.name}</p>
-              )}
-            </div>
 
-            {/* Email */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                <div className="flex items-center gap-2">
-                  <Mail className="w-4 h-4" />
-                  Email *
+                <div className="flex items-center gap-3 p-4 rounded-2xl bg-gray-50 dark:bg-gray-800/50">
+                  <Mail className="w-5 h-5 text-gray-500" />
+                  <div>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">Email</p>
+                    <p className="text-gray-900 dark:text-white font-medium">{user.email}</p>
+                  </div>
                 </div>
-              </label>
-              <input
-                type="email"
-                required
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className={`w-full px-4 py-3 rounded-2xl border ${
-                  errors.email
-                    ? 'border-red-500 dark:border-red-500'
-                    : 'border-gray-300 dark:border-gray-700'
-                } bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all`}
-                placeholder="email@example.com"
-              />
-              {errors.email && (
-                <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.email}</p>
-              )}
-            </div>
 
-            {/* Phone */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                <div className="flex items-center gap-2">
-                  <Phone className="w-4 h-4" />
-                  Telefon
+                {user.phone && (
+                  <div className="flex items-center gap-3 p-4 rounded-2xl bg-gray-50 dark:bg-gray-800/50">
+                    <Phone className="w-5 h-5 text-gray-500" />
+                    <div>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">Telefon</p>
+                      <p className="text-gray-900 dark:text-white font-medium">{user.phone}</p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <>
+                {/* Name */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    <div className="flex items-center gap-2">
+                      <User className="w-4 h-4" />
+                      Ad və Soyad *
+                    </div>
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    className={`w-full px-4 py-3 rounded-2xl border ${
+                      errors.name
+                        ? 'border-red-500 dark:border-red-500'
+                        : 'border-gray-300 dark:border-gray-700'
+                    } bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all`}
+                    placeholder="Adınızı daxil edin"
+                  />
+                  {errors.name && (
+                    <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.name}</p>
+                  )}
                 </div>
-              </label>
-              <input
-                type="tel"
-                value={formData.phone}
-                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                className={`w-full px-4 py-3 rounded-2xl border ${
-                  errors.phone
-                    ? 'border-red-500 dark:border-red-500'
-                    : 'border-gray-300 dark:border-gray-700'
-                } bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all`}
-                placeholder="+994 XX XXX XX XX"
-              />
-              {errors.phone && (
-                <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.phone}</p>
-              )}
-            </div>
+
+                {/* Email */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    <div className="flex items-center gap-2">
+                      <Mail className="w-4 h-4" />
+                      Email *
+                    </div>
+                  </label>
+                  <input
+                    type="email"
+                    required
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    className={`w-full px-4 py-3 rounded-2xl border ${
+                      errors.email
+                        ? 'border-red-500 dark:border-red-500'
+                        : 'border-gray-300 dark:border-gray-700'
+                    } bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all`}
+                    placeholder="email@example.com"
+                  />
+                  {errors.email && (
+                    <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.email}</p>
+                  )}
+                </div>
+
+                {/* Phone */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    <div className="flex items-center gap-2">
+                      <Phone className="w-4 h-4" />
+                      Telefon
+                    </div>
+                  </label>
+                  <input
+                    type="tel"
+                    value={formData.phone}
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    className={`w-full px-4 py-3 rounded-2xl border ${
+                      errors.phone
+                        ? 'border-red-500 dark:border-red-500'
+                        : 'border-gray-300 dark:border-gray-700'
+                    } bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all`}
+                    placeholder="+994 XX XXX XX XX"
+                  />
+                  {errors.phone && (
+                    <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.phone}</p>
+                  )}
+                </div>
+              </>
+            )}
 
             {/* Location */}
             <div>
